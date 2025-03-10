@@ -63,6 +63,9 @@
   color: var(--color-texto);
 }
 
+.input input::placeholder{
+  color: black;
+}
 
 .submit-container{
   display: flex;
