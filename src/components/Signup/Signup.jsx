@@ -16,16 +16,20 @@ return (
         <div className="inputs">
             <div className="input">
                 <img src={user_icon} alt="" />
-                <input type="text" />
+                <input type="text" placeholder="Nombre" />
             </div>
             <div className="input">
                 <img src={email_icon} alt="" />
-                <input type="email" />
+                <input type="email" placeholder="Correo" />
             </div>
             <div className="input">
                 <img src={password_icon} alt="" />
-                <input type="password" />
+                <input type="password" placeholder="Contraseña" />
             </div>
+        </div>
+        <div className="submit-container">
+            <div className="submit">Registrarse</div>
+            <div className="submit">Inicio Sesion</div>
         </div>
     </div>
 
