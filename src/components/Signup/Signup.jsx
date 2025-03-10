@@ -29,7 +29,7 @@ return (
         </div>
         <div className="submit-container">
             <div className="submit">Registrarse</div>
-            <div className="submit">Inicio Sesion</div>
+            <div className="submit" onClick={() => window.location.href = "Login.html" }>Inicio Sesion</div>
         </div>
     </div>
 
