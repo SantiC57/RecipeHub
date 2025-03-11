@@ -31,7 +31,9 @@ const Signup = () => {
       </div>
       <div className="submit-container">
         <div className="submit">Registrarse</div>
-        <div className="submit" onClick={() => navigate("/login")}>Inicio Sesión</div>
+        <div className="submit" onClick={() => navigate("/login")}>
+          Inicio Sesión
+        </div>
       </div>
     </div>
   );
