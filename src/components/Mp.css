@@ -1,7 +1,7 @@
 /* General Page Styles */
 body {
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
+    font-family: Poppins, sans-serif;
+    background: #F5E8C7;
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,42 +9,31 @@ body {
     align-items: center;
   }
   
-  /* Navbar Styles */
-  .navbar {
+  .card {
     width: 100%;
-    max-width: 960px;
-    background: white;
-    padding: 1rem 2rem;
+    max-width: 48rem;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
+    margin: 4rem auto; /* Add more margin to push the card further down */
+    border-style: solid;
   }
-  
-  .nav-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #2563eb;
-    font-weight: bold;
-  }
-  
-  /* Main Content Styles */
-  .home-container {
+  .main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 160px);
     text-align: center;
+    
   }
   
-  .home-title {
+  .main-title {
     font-size: 2rem;
     font-weight: bold;
     color: #1e3a8a;

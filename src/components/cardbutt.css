@@ -17,12 +17,12 @@
   .card-content {
     text-align: center;
     font-size: 1.1rem;
-    color: #333;
+    color: #4f3a2d;
   }
   
 
   .button {
-    background: linear-gradient(135deg, #2563eb, #1e4bb8);
+    background: linear-gradient(135deg, #E8B44A, #E8B44A);
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -34,7 +34,7 @@
   }
   
   .button:hover {
-    background: linear-gradient(135deg, #1e4bb8, #163999);
+    background: linear-gradient(135deg, #E8B44A, #E8B44A);
     transform: scale(1.05);
   }
   

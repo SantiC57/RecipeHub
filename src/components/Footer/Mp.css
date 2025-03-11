@@ -9,31 +9,6 @@ body {
     align-items: center;
   }
   
-  /* Navbar Styles */
-  .navbar {
-    width: 100%;
-    max-width: 960px;
-    background: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #2563eb;
-    font-weight: bold;
-  }
-  
   /* Main Content Styles */
   .home-container {
     display: flex;
