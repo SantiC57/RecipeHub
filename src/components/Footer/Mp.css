@@ -39,5 +39,8 @@ body {
     padding: 1rem;
     text-align: center;
     color: #475569;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
