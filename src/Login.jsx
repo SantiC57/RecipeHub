@@ -19,9 +19,9 @@ const Login = () => {
         
         <button type="submit" className="login__button">Ingresar</button>
         
+        
         <p className="login__register">
-          ¿No tienes cuenta? <a href="/">Regístrate</a>
-        </p>
+        ¿No tienes cuenta? <a href="/">Regístrate</a></p>
       </form>
     </div>
   );
