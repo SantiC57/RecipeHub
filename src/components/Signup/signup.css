@@ -1,89 +1,163 @@
-.container{
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  margin-top: 200px;
-  width: 600px;
-  background:#fff;
-  padding-bottom: 30px;
-  border-radius: 30px;
+/* Estilos base */
+.container {
+  position: relative;
+  width: 90%;
+  max-width: 500px; /* Aumenta un poco el ancho máximo */
+  background: #fff;
+  border-radius: 20px;
+  /* Sombra un poco más marcada para que luzca más robusta */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  margin: 40px auto;
+  padding: 30px;  /* Más padding para un diseño espacioso */
 }
 
-.header{
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
-  width: 100%;
-  margin-top: 30px;
+  gap: 10px;
+  margin-bottom: 25px;
 }
 
-.text{
-  font-size: 48px;
+.text {
+  font-size: 32px; /* Un poco más grande */
   font-weight: 700;
   color: var(--color-texto);
 }
 
-.underline{
-  width: 61px;
-  height: 6px;
-  background-color: var(--color-primary);
+.underline {
+  width: 80px; /* Aumenta un poco el subrayado */
+  background-color: var(--color-fondo);
   border-radius: 9px;
+  border-style: solid;
 }
 
-.inputs{
-  margin-top: 55px;
+.inputs {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  color: var(--color-primary);
+  gap: 20px;  /* Más espacio entre inputs */
+  color: #eaeaea;
 }
 
-.input{
+.input {
   display: flex;
   align-items: center;
-  margin: auto;
-  width: 400px;
-  height: 80px;
+  width: 100%;
+  max-width: 450px;
+  height: 65px;      /* Altura un poco mayor */
   border-radius: 6px;
-  background-color: var(--color-primary);
+  background-color: #eaeaea;
+  margin: 0 auto;
 }
 
-.input img{
-  margin: 0px 30px;
+.input img {
+  margin: 0 20px;   /* Aumenta el espacio lateral del ícono */
 }
 
-.input input{
-  width: 400px;
-  height: 50px;
-  background:transparent;
+.input input {
+  width: 100%;
+  background: transparent;
   border: none;
   outline: none;
-  font-size: 19px;
-  color: var(--color-texto);
+  font-size: 18px;  /* Fuente más grande */
+  color: #333;      /* Un gris oscuro más visible */
 }
 
-.input input::placeholder{
-  color: black;
-}
-
-.submit-container{
-  display: flex;
-  gap: 30px;
-  margin: 60px auto;
-}
-
-.submit{
+.submit-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 220px;
-  height: 59px;
+  gap: 20px;
+  margin-top: 30px;  /* Más espacio antes de los botones */
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;       /* Botón un poco más ancho */
+  height: 50px;       /* Botón un poco más alto */
   background: var(--color-primary);
   border-radius: 50px;
-  font-size: 19px;
+  font-size: 18px;
   color: var(--color-texto);
   cursor: pointer;
   font-weight: 700;
 }
-  
+
+/* Texto de “¿Ya tienes cuenta?” */
+.register__login {
+  margin-top: 1.5rem;
+  font-size: 16px;
+  text-align: center;
+}
+
+.register__login a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Ajuste para pantallas hasta 1024px (portátiles) */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px;
+  }
+
+  .text {
+    font-size: 28px;
+  }
+
+  .input {
+    max-width: 400px;
+    height: 60px;
+  }
+
+  .input img {
+    margin: 0 15px;
+  }
+
+  .input input {
+    font-size: 16px;
+  }
+
+  .submit {
+    width: 150px;
+    height: 45px;
+    font-size: 16px;
+  }
+}
+
+/* Ajuste para pantallas muy pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+  .container {
+    max-width: 380px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .text {
+    font-size: 24px;
+  }
+
+  .input {
+    max-width: 320px;
+    height: 55px;
+  }
+
+  .input img {
+    margin: 0 12px;
+  }
+
+  .input input {
+    font-size: 15px;
+  }
+
+  .submit {
+    width: 140px;
+    height: 42px;
+    font-size: 15px;
+  }
+}

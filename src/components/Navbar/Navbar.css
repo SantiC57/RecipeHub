@@ -1,7 +1,7 @@
 
 .navbar {
-  width: 100%;
-  max-width: 960px;
+  width: 300px;
+  max-width: 400px;
   background: #a6b974;
   padding: 1rem 2rem;
   display: flex;
@@ -15,9 +15,9 @@
 
 .navbar-title {
   font-size: 1.5rem;
-  color: #4f3a2d;
+  color: var(--color-texto);
 }
-.nav-link {
+.navbar-link {
   color: #4f3a2d;
   text-decoration: none;
   padding: 0.5rem 1rem;

@@ -7,7 +7,7 @@ import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
 
 const Signup = () => {
-  const navigate = useNavigate(); // Para redirigir a otra página
+  const navigate = useNavigate();
 
   return (
     <div className="container">
@@ -30,11 +30,10 @@ const Signup = () => {
         </div>
       </div>
       <div className="submit-container">
-        <div className="submit">Registrarse</div>
-        <div className="submit" onClick={() => navigate("/login")}>
-          Inicio Sesión
-        </div>
+        <div className="submit" onClick={() => navigate("/signup")}>Registrarse</div>
       </div>
+      <p className="register__login">
+        ¿Ya tienes cuenta? <a href="/login">Inicia Sesion</a></p>
     </div>
   );
 };
