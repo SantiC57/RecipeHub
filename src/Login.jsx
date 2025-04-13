@@ -11,14 +11,15 @@ const Login = () => {
         <h2 className="login__title">Iniciar Sesión</h2>
         
         <div className="login__group">
-          <label htmlFor="email" className="login__label">Correo Electrónico</label>
-          <input type="email" id="email" className="login__input" name="email"/>
-        </div>
-        
-        <div className="login__group">
-          <label htmlFor="password" className="login__label">Contraseña</label>
-          <input type="password" id="password" className="login__input" name="password"/>
-        </div>
+  <label htmlFor="email" className="login__label">Correo Electrónico</label>
+  <input type="text" id="email" className="login__input" name="email" placeholder="Usuario" />
+</div>
+
+<div className="login__group">
+  <label htmlFor="password" className="login__label">Contraseña</label>
+  <input type="password" id="password" className="login__input" name="password" placeholder="Contraseña" />
+</div>
+
         
         <button type="submit" className="login__button" onClick={() => navigate("/")} >Ingresar</button>
         
