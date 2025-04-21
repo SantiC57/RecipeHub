@@ -3,6 +3,8 @@ import Signup from "./components/Signup/Signup.jsx";
 import Login from "./Login.jsx";
 import {useEffect} from "react";
 import MainPage from "./MainPage.jsx";
+import ContactUs from "./contact-us.jsx"
+import Publication from "./Publication.jsx";
 
 function DynamicTitle() {
   const location = useLocation();
@@ -29,6 +31,8 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/publication" element={<Publication />} />
       </Routes>
     </Router>
   );
