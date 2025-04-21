@@ -1,0 +1,42 @@
+.upload-container {
+  border: 2px dashed #d4a518;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  text-align: center;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.upload-container.dragging {
+  border-color: #38bdf8; /* azul claro */
+  background-color: #ecfaff;
+}
+
+.upload-container.uploaded {
+  border-color: #22c55e; /* verde */
+  background-color: #f0fff4;
+}
+
+.upload-icon {
+  width: 24px;
+  height: 24px;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.upload-text {
+  font-weight: 500;
+}
+
+.upload-formats {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.upload-preview {
+  margin-top: 1rem;
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+}

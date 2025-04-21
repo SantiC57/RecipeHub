@@ -4,10 +4,11 @@ import { Card, CardContent } from "./components/Card";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/footer/Footer";
 import "./components/Mp.css";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
+  const navigate = useNavigate();
   const [content, setContent] = useState("Bienvenido a nuestra página");
-
   return (
     <div className="main-container">
       <Navbar />
@@ -17,7 +18,7 @@ export default function MainPage() {
             <h1 className="title">Página Principal</h1>
             <p className="description">{content}</p>
             <div className="button-container">
-              <Button onClick={() => setContent("Contenido actualizado!")}>Registrarse</Button>
+              <Button  onClick={() => navigate("/signup")}>Registrarse</Button>
             </div>
           </CardContent>
         </Card>

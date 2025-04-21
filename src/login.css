@@ -1,100 +1,95 @@
-body {
-  font-family: "Merriweather", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-  background-color: #e3e3e3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
 
+/* Contenedor principal */
 .login {
-  background: white;
-  padding: 2rem;
-  border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 420px;
   text-align: center;
 }
 
+/* Título */
 .login__title {
-  font-size: 48px;
+  font-size: 32px;
   font-weight: 700;
-  color: var(--color-texto);
+  color: #000;
   margin-bottom: 1rem;
+  position: relative;
 }
 
-.underline {
-  width: 61px;
-  height: 6px;
-  background-color: var(--color-primary);
-  border-radius: 9px;
-  margin: auto;
+.login__title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #000;
+  margin: 0.5rem auto 0 auto;
+  border-radius: 2px;
 }
 
+/* Grupo de campos */
 .login__group {
   margin-top: 1.5rem;
   text-align: left;
-  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Label oculto (accesible, pero no visible) */
 .login__label {
-  display: block;
-  font-size: 19px;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
+  position: absolute;
+  left: -9999px;
 }
 
+/* Input con estilo */
 .login__input {
-  width: calc(100% - 2rem);
+  width: 100%;
+  max-width: 350px;
   height: 50px;
-  padding: 0.8rem;
-  background: transparent;
-  border: 1px solid var(--color-primary);
+  padding: 0 1rem;
+  background-color: #eaeaea;
+  border: none;
   border-radius: 6px;
-  font-size: 19px;
-  color: var(--color-texto);
+  font-size: 16px;
+  color: #333;
   outline: none;
-  margin-left: 1rem;
 }
 
 .login__input::placeholder {
-  color: black;
+  color: #888;
 }
 
+/* Botón de login */
 .login__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc(100% - 2rem);
-  height: 59px;
+  margin-top: 2rem;
+  width: 90%;
+  max-width: 350px;
+  height: 50px;
   background: var(--color-primary);
   border-radius: 50px;
-  font-size: 19px;
+  font-size: 18px;
   color: var(--color-texto);
-  cursor: pointer;
   font-weight: 700;
+  border: none;
+  cursor: pointer;
   transition: background 0.3s ease;
-  margin: 2rem auto 0 auto;
 }
 
 .login__button:hover {
-  background-color: #98825c;
+  background-color: #333;
 }
 
+/* Registro */
 .login__register {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   font-size: 16px;
 }
 
 .login__register a {
-  color: #D72638;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: bold;
 }

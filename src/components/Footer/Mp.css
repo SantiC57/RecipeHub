@@ -1,13 +1,5 @@
 /* General Page Styles */
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+
   
   /* Main Content Styles */
   .home-container {
