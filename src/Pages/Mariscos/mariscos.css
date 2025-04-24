@@ -1,0 +1,38 @@
+.categoria {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .categoria__titulo {
+    font-size: 32px;
+    margin-bottom: 2rem;
+    color: #2a6881;
+  }
+  
+  .categoria__lista {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .receta {
+    width: 240px;
+    background-color: #eefbff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .receta img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .receta h3 {
+    margin-top: 1rem;
+    font-size: 18px;
+    color: #333;
+  }
+  
