@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Signup.css";
+import "./Signup.css"; // Asegúrate de que la ruta sea correcta
 
 import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
