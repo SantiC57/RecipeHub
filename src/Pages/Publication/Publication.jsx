@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Footer } from "./components/footer/Footer";
+import { Footer } from "../../components/footer/Footer";
 import "./publication.css";
 import  Upload from "/src/components/Upload/Upload";
 import { useNavigate} from "react-router-dom";

@@ -1,8 +1,8 @@
-import { Footer } from "./components/footer/Footer";
-import React , {useState} from "react";
-import "./contact-us.css";
-import Upload from "./components/Upload/Upload";
+import React, { useState } from "react";
+import { Footer } from "../../components/footer/Footer";
+import Upload from "../../components/Upload/Upload";
 import { useNavigate } from "react-router-dom";
+import "./contact-us.css";
 
 const ContactUs = () => {
     const navigate = useNavigate();

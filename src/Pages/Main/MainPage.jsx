@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "./components/Button";
-import { Card, CardContent } from "./components/Card";
-import { Navbar } from "./components/Navbar/Navbar";
-import { Footer } from "./components/footer/Footer";
-import "./components/Mp.css";
+import { Button } from "../../components/Button";
+import { Card, CardContent } from "../../components/Card";
+import { Navbar } from "../../components/Navbar/Navbar";
+import { Footer } from "../../components/footer/Footer";
+import "../../components/Mp.css";
 import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
