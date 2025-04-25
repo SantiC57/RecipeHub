@@ -6,7 +6,8 @@ import MainPage from "../Main/MainPage.jsx";
 import Pastas from "../Pastas/Pastas.jsx";
 import Carnes from "../Carnes/Carnes.jsx";
 import Mariscos from "../Mariscos/Mariscos.jsx";
-
+import ContactUs from "../Contact/contact-us.jsx";  
+import Publication from "../Publication/Publication.jsx";
 
 function DynamicTitle() {
   const location = useLocation();
@@ -39,6 +40,9 @@ function App() {
         <Route path="/pastas" element={<Pastas />} /> 
         <Route path="/carnes" element={<Carnes />} /> 
         <Route path="/mariscos" element={<Mariscos />} /> 
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/publication" element={<Publication />} />
+
       </Routes>
     </Router>
   );
