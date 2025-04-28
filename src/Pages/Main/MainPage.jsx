@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"; // <-- Puedes eliminar esta línea si no usas useState en otro lugar
 import { Button } from "../../components/Button";
 import { Card, CardContent } from "../../components/Card";
 import { Navbar } from "../../components/Navbar/Navbar";
@@ -8,22 +8,25 @@ import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
   const navigate = useNavigate();
-  const [content, setContent] = useState("Bienvenido a nuestra página");
   return (
-    <div className="main-container">
+    <>
       <Navbar />
-      <main className="main-content">
-        <Card className="card">
-          <CardContent>
-            <h1 className="title">Página Principal</h1>
-            <p className="description">{content}</p>
-            <div className="button-container">
-              <Button  onClick={() => navigate("/signup")}>Registrarse</Button>
-            </div>
-          </CardContent>
-        </Card>
-      </main>
-      <Footer />
-    </div>
+      <div className="main-container">
+        <main className="main-content">
+          <Card>
+            <CardContent>
+              <h1 className="title">Bienvenid@ a RecipeHub</h1>
+              <p className="content">
+                <Card>
+                  <CardContent></CardContent>
+                </Card></p> 
+              <div className="button-container">
+                <Button onClick={() => navigate("/signup")}>Registrarse</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    </>
   );
 }

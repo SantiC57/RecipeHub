@@ -1,0 +1,22 @@
+.card {
+    width: 100%;
+    max-width: 1600px; /* Allow the card to expand up to 500px */
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto; /* Add more margin to push the card further down */
+    border-style: solid;
+  }
+
+
+.card-content {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #4f3a2d; /* Color de texto más neutro */
+    line-height: 1.6; /* Mejora la legibilidad */
+}
