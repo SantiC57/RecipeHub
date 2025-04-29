@@ -15,7 +15,6 @@ import ChupeCentolla from "../../Images/chupe-centolla.jpg";
 export default function MainPage() {
   const navigate = useNavigate();
 
-  // Datos para las recetas con imágenes asignadas
   const recipes = [
     { id: 1, title: "Spaghetti Bolognese", image: Spaghetti },
     { id: 2, title: "Lasagna Tradicional", image: Lasagna },
@@ -23,8 +22,8 @@ export default function MainPage() {
     { id: 4, title: "Paella Valenciana", image: Paella },
     { id: 5, title: "Coctel de Camarones", image: CoctelCamaron },
     { id: 6, title: "Chupe de Centolla", image: ChupeCentolla },
-    { id: 7, title: "Risotto de Champiñones", image: Spaghetti }, // Usando imagen de Spaghetti temporalmente
-    { id: 8, title: "Tacos de Pescado", image: Carbonara }, // Usando imagen de Carbonara temporalmente
+    { id: 7, title: "Risotto de Champiñones", image: Spaghetti },
+    { id: 8, title: "Tacos de Pescado", image: Carbonara },
   ];
 
   return (

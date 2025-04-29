@@ -11,14 +11,14 @@
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 1000; /* Asegura que la barra de navegación esté por encima del contenido */
+  z-index: 1000;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px; /* Establece un ancho máximo para mayor consistencia */
+  max-width: 1200px;
   width: 90%;
 }
 
@@ -27,15 +27,15 @@
   align-items: center;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #4f3a2d; /* Usa el color directamente en lugar de var() para asegurar consistencia */
+  color: #4f3a2d;
   text-decoration: none;
 }
 
 .navbar-logo-image {
   width: 40px;
-  height: 40px; /* Dimensiones fijas para evitar desplazamientos al cargar */
+  height: 40px;
   margin-right: 0.5rem;
-  object-fit: contain; /* Asegura que la imagen se ajuste correctamente */
+  object-fit: contain;
 }
 
 .navbar-menu {
@@ -44,7 +44,7 @@
   gap: 1rem;
   margin: 0;
   padding: 0;
-  align-items: center; /* Alinea verticalmente los elementos del menú */
+  align-items: center;
 }
 
 .navbar-menu li {
@@ -56,7 +56,7 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  font-weight: 500; /* Añade un poco más de peso a la fuente */
+  font-weight: 500;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -67,27 +67,26 @@
 
 .profile-button {
   background-color: #4f3a2d;
-  color: white !important; /* Asegura que el texto sea blanco */
+  color: white !important;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
 }
 .publish-button {
   background-color: #E8B44A;
-  color: white !important; /* Asegura que el texto sea blanco */
+  color: white ;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
 }
 .publish-button:hover {
-  background-color: #e9be67 !important; /* Un tono más claro al pasar el mouse */
+  background-color: #e9be67 !important;
 }
 
 .profile-button:hover {
-  background-color: #6e4a2d !important; /* Un tono más claro al pasar el mouse */
+  background-color: #6e4a2d !important;
 }
 
-/* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   .navbar-container {
     flex-direction: column;
