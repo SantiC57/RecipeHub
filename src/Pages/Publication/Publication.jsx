@@ -4,6 +4,7 @@ import "./publication.css";
 import  Upload from "/src/components/Upload/Upload";
 import { useNavigate} from "react-router-dom";
 import FoodService from "../../assets/Food Service.ico";
+import { Navbar } from "../../components/Navbar/Navbar";
 
 
 const Publication = () => {
@@ -35,6 +36,8 @@ const Publication = () => {
 
   return (
     <>
+	<div className="publication-navbar"></div>
+	  <Navbar />
       <section className="publication">
         <h2 className="publication-title">Publicar Nueva Receta</h2>
 

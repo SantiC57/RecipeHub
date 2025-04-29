@@ -1,26 +1,25 @@
-.navbar {
-  width: 100%;
-  background: #a6b974;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center; /* Cambiado para centrar los elementos */
-  align-items: center;
-  border-radius: 1 rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 3px solid #4f3a2d;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  border-style: solid;
-}
+  .navbar {
+    max-width: 100%;
+    width: 100%; /* Asegura que ocupe todo el ancho de la página */
+    background: #a6b974;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center; /* Centra los elementos */
+    align-items: center;
+    border-radius: 0; /* Elimina el borde redondeado para que se ajuste al ancho completo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 3px solid #4f3a2d;
+    top: 0;
+    left: 0;
+    position: fixed;
+  }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 90%; /* Ajusta el ancho para centrar mejor */
-  max-width: 1200px; /* Opcional: establece un ancho máximo */
+  align-items: center;; /* Asegura que ocupe todo el ancho disponible */
+  max-width: 100%; /* Opcional: establece un ancho máximo */
+  width: 90%;
 }
 
 .navbar-logo {

@@ -153,4 +153,9 @@
   }
   
   
-  
+.publication-navbar{
+    display: block;
+    padding: 2rem;
+    text-align: left;
+    padding-top: 6rem; /* 🟰 separa del navbar */
+}
