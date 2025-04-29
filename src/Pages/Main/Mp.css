@@ -26,27 +26,29 @@
 /* Recipes Grid */
 .recipes-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 5 columnas */
-  gap: 6rem; /* Espaciado entre las tarjetas */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 1.5rem; /* Espaciado original entre tarjetas */
 }
 
 .recipe-card {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  gap: 1.5rem; /* Espaciado entre las tarjetas */
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-width: 150px; /* Limita el ancho máximo de las cards */
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px); /* Efecto hover más sutil */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .recipe-image {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  max-width: 200px;
+  height: 150px; /* Altura reducida de la imagen */
+  object-fit: cover;
 }
-
 .recipe-title {
   font-size: 1.5rem;
   font-weight: bold;

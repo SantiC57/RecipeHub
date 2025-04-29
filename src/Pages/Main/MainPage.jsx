@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "../../components/Button";
 import { Card, CardContent } from "../../components/Card";
 import { Navbar } from "../../components/Navbar/Navbar";
@@ -7,25 +8,27 @@ import { useNavigate } from "react-router-dom";
 import Spaghetti from "../../Images/spaghetti.jpg";
 import Lasagna from "../../Images/lasaña.jpg";
 import Carbonara from "../../Images/pasta-carbonara.jpg";
-import Paella from "../../images/paella.jpg"; // Ruta corregida
-import CoctelCamaron from "../../images/coctel-camaron.jpg"; // Ruta corregida
-import ChupeCentolla from "../../images/chupe-centolla.jpg"; // Ruta corregida
-
+import Paella from "../../Images/paella.jpg";
+import CoctelCamaron from "../../Images/coctel-camaron.jpg";
+import ChupeCentolla from "../../Images/chupe-centolla.jpg";
 
 export default function MainPage() {
   const navigate = useNavigate();
 
-  // Datos de ejemplo para las recetas
+  // Datos para las recetas con imágenes asignadas
   const recipes = [
-    { id: 1, title: "Receta 1", image: "" },
-    { id: 2, title: "Receta 2", image: "" },
-    { id: 3, title: "Receta 3", image: "" },
-    { id: 4, title: "Receta 4", image: "" },
-    { id: 5, title: "Receta 5", image: "" },
+    { id: 1, title: "Spaghetti Bolognese", image: Spaghetti },
+    { id: 2, title: "Lasagna Tradicional", image: Lasagna },
+    { id: 3, title: "Pasta Carbonara", image: Carbonara },
+    { id: 4, title: "Paella Valenciana", image: Paella },
+    { id: 5, title: "Coctel de Camarones", image: CoctelCamaron },
+    { id: 6, title: "Chupe de Centolla", image: ChupeCentolla },
+    { id: 7, title: "Risotto de Champiñones", image: Spaghetti }, // Usando imagen de Spaghetti temporalmente
+    { id: 8, title: "Tacos de Pescado", image: Carbonara }, // Usando imagen de Carbonara temporalmente
   ];
 
   return (
-    <>
+    <div className="page-wrapper">
       <Navbar />
       <div className="main-container">
         <main className="main-content">
@@ -35,7 +38,7 @@ export default function MainPage() {
               <Card key={recipe.id} className="recipe-card">
                 <CardContent>
                   <img
-                    src={recipe.image || Carbonara || Paella}
+                    src={recipe.image}
                     alt={recipe.title}
                     className="recipe-image"
                   />
@@ -45,10 +48,16 @@ export default function MainPage() {
             ))}
           </div>
           <div className="button-container">
-            <Button onClick={() => navigate("/signup")}>Registrarse</Button>
+            <Button 
+              onClick={() => navigate("/publication")}
+              className="publish-button"
+            >
+              Publicar
+            </Button>
           </div>
         </main>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
