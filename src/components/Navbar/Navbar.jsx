@@ -1,16 +1,21 @@
-import { Link } from "react-router-dom";
 import React from "react";
 import "./Navbar.css";
+
 export function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <h1 className="navbar-title">Recipes</h1>
-        <div className="navbar-links">
-          <Link to="/" className="navbar-link">Inicio</Link>
-          <Link to="/about" className="navbar-link">Acerca</Link>
-          <Link to="/contact-us" className="navbar-link">Contacto</Link>
-        </div>
+        <a href="/" className="navbar-logo">
+          <img src="/src/assets/Cooking Pot.ico" alt="Logo" className="navbar-logo-image" />
+          RecipeHub
+        </a>
+        <ul className="navbar-menu">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/about">Acerca de</a></li>
+          <li><a href="/contact-us">Contacto</a></li>
+          <li><a href="/profile" className="profile-button">Perfil</a></li>
+          <li><a href="/publication" className="publish-button">Publicar</a></li>
+        </ul>
       </div>
     </nav>
   );

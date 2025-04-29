@@ -1,4 +1,4 @@
-import "./cardbutt.css";
+import "./button.css";
 
 export function Button({ onClick, children }) {
   return (

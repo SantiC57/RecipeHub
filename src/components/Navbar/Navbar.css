@@ -1,30 +1,106 @@
-
 .navbar {
-  width: 300px;
-  max-width: 400px;
+  max-width: 100%;
+  width: 100%;
   background: #a6b974;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  border-style: solid;
+  border-bottom: 3px solid #4f3a2d;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000; /* Asegura que la barra de navegación esté por encima del contenido */
 }
 
-.navbar-title {
-  font-size: 1.5rem;
-  color: var(--color-texto);
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; /* Establece un ancho máximo para mayor consistencia */
+  width: 90%;
 }
-.navbar-link {
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #4f3a2d; /* Usa el color directamente en lugar de var() para asegurar consistencia */
+  text-decoration: none;
+}
+
+.navbar-logo-image {
+  width: 40px;
+  height: 40px; /* Dimensiones fijas para evitar desplazamientos al cargar */
+  margin-right: 0.5rem;
+  object-fit: contain; /* Asegura que la imagen se ajuste correctamente */
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* Alinea verticalmente los elementos del menú */
+}
+
+.navbar-menu li {
+  list-style: none;
+}
+
+.navbar-menu a {
   color: #4f3a2d;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  font-weight: 500; /* Añade un poco más de peso a la fuente */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-link:hover {
-  background-color: #8fa374;
+.navbar-menu a:hover {
+  background-color: #6e8a4a;
+  color: #fff;
+}
+
+.profile-button {
+  background-color: #4f3a2d;
+  color: white !important; /* Asegura que el texto sea blanco */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.publish-button {
+  background-color: #4f3a2d;
+  color: white !important; /* Asegura que el texto sea blanco */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.publish-button:hover {
+  background-color: #6e4a2d !important; /* Un tono más claro al pasar el mouse */
+}
+
+.profile-button:hover {
+  background-color: #6e4a2d !important; /* Un tono más claro al pasar el mouse */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+  
+  .navbar-logo {
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar-menu {
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
 }

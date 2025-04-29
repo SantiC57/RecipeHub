@@ -1,0 +1,71 @@
+.main-container {
+  max-width: 100%;
+  width: 200px;
+  display: block;
+  padding: 2rem;
+  text-align: left;
+  padding-top: 6rem; /* 🟰 separa del navbar */
+  
+  
+}
+.main-content {
+  max-width: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center; 
+}
+
+/* Recipes Grid */
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 6rem; /* Espaciado original entre tarjetas */
+}
+
+.recipe-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-width: 150px; /* Limita el ancho máximo de las cards */
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px); /* Efecto hover más sutil */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-image {
+  width: 100%;
+  max-width: 200px;
+  height: 150px; /* Altura reducida de la imagen */
+  object-fit: cover;
+}
+.recipe-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+/* Footer Styles */
+.footer {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  color: #475569;
+}
+
+.button-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+  
