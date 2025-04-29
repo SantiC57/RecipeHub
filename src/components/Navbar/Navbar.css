@@ -73,14 +73,14 @@
   font-weight: bold;
 }
 .publish-button {
-  background-color: #4f3a2d;
+  background-color: #E8B44A;
   color: white !important; /* Asegura que el texto sea blanco */
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
 }
 .publish-button:hover {
-  background-color: #6e4a2d !important; /* Un tono más claro al pasar el mouse */
+  background-color: #e9be67 !important; /* Un tono más claro al pasar el mouse */
 }
 
 .profile-button:hover {
