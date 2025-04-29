@@ -27,7 +27,7 @@
 .recipes-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 1.5rem; /* Espaciado original entre tarjetas */
+  gap: 6rem; /* Espaciado original entre tarjetas */
 }
 
 .recipe-card {

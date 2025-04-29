@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { Card, CardContent } from "../../components/Card";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
-import "../../components/Mp.css";
+import "./Mp.css";
 import { useNavigate } from "react-router-dom";
 import Spaghetti from "../../Images/spaghetti.jpg";
 import Lasagna from "../../Images/lasaña.jpg";
@@ -47,17 +47,8 @@ export default function MainPage() {
               </Card>
             ))}
           </div>
-          <div className="button-container">
-            <Button 
-              onClick={() => navigate("/publication")}
-              className="publish-button"
-            >
-              Publicar
-            </Button>
-          </div>
         </main>
       </div>
-      <Footer />
     </div>
   );
 }

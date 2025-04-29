@@ -1,6 +1,6 @@
 .card {
     width: 100%;
-    max-width: 200px; /* Allow the card to expand up to 500px */
+    max-width: 300px; /* Allow the card to expand up to 500px */
     padding: 2rem;
     background-color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -8,7 +8,7 @@
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;  
     border-style: solid;
   }
 
