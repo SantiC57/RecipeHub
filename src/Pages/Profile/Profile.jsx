@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Profile.css'; // Asegúrate de tener este archivo CSS para los estilos
+import './Profile.css';
 import { Navbar } from '../../components/Navbar/Navbar';
 
 const ProfilePage = () => {

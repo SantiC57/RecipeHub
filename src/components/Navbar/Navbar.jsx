@@ -14,7 +14,7 @@ export function Navbar() {
           <li><a href="/about">Acerca de</a></li>
           <li><a href="/contact-us">Contacto</a></li>
           <li><a href="/profile" className="profile-button">Perfil</a></li>
-          <li><a href="/publication" className="publish-button">Publicar</a></li>
+          <li><a href="/publication" className="publish-button">+</a></li>
         </ul>
       </div>
     </nav>
