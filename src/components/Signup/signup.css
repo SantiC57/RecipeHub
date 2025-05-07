@@ -25,6 +25,13 @@
   color: var(--color-texto);
 }
 
+.error-message {
+  color: #f03232;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
+
 .underline {
   width: 80px; /* Aumenta un poco el subrayado */
   background-color: var(--color-fondo);
