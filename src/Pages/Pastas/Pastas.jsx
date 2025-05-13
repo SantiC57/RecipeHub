@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./pastas.css";
-import Spaghetti from "../../Images/spaghetti.jpg";
+import Spaghetti from "../../Images/Spaghetti-Boloñesa.jpg";
 import Lasagna from "../../Images/lasaña.jpg";
 import Carbonara from "../../Images/pasta-carbonara.jpg";
 import { Navbar } from "../../components/Navbar/Navbar";
