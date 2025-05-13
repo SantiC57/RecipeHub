@@ -4,26 +4,16 @@ import { Card, CardContent } from "../../components/Card";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
 import "./Mp.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spaghetti from "../../Images/spaghetti.jpg";
-import Lasagna from "../../Images/lasaña.jpg";
-import Carbonara from "../../Images/pasta-carbonara.jpg";
-import Paella from "../../Images/paella.jpg";
 import CoctelCamaron from "../../Images/coctel-camaron.jpg";
-import ChupeCentolla from "../../Images/chupe-centolla.jpg";
+import CarneAsada from "../../Images/carne-asada.jpg";
 
 export default function MainPage() {
-  const navigate = useNavigate();
-
   const recipes = [
-    { id: 1, title: "Spaghetti Bolognese", image: Spaghetti },
-    { id: 2, title: "Lasagna Tradicional", image: Lasagna },
-    { id: 3, title: "Pasta Carbonara", image: Carbonara },
-    { id: 4, title: "Paella Valenciana", image: Paella },
-    { id: 5, title: "Coctel de Camarones", image: CoctelCamaron },
-    { id: 6, title: "Chupe de Centolla", image: ChupeCentolla },
-    { id: 7, title: "Risotto de Champiñones", image: Spaghetti },
-    { id: 8, title: "Tacos de Pescado", image: Carbonara },
+    { id: 1, title: "Pastas", image: Spaghetti, path: "/pastas" },
+    { id: 2, title: "Mariscos", image: CoctelCamaron, path: "/mariscos" },
+    { id: 3, title: "Carnes", image: CarneAsada, path: "/carnes" },
   ];
 
   return (
@@ -31,18 +21,20 @@ export default function MainPage() {
       <Navbar />
       <div className="main-container">
         <main className="main-content">
-          <h1 className="title">Recetas Disponibles</h1>
+          <h1 className="title">Categorias Disponibles</h1>
           <div className="recipes-grid">
             {recipes.map((recipe) => (
               <Card key={recipe.id} className="recipe-card">
-                <CardContent>
-                  <img
-                    src={recipe.image}
-                    alt={recipe.title}
-                    className="recipe-image"
-                  />
-                  <h2 className="recipe-title">{recipe.title}</h2>
-                </CardContent>
+                <Link to={recipe.path} className="recipe-link">
+                  <CardContent>
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="recipe-image"
+                    />
+                    <h2 className="recipe-title">{recipe.title}</h2>
+                  </CardContent>
+                </Link>
               </Card>
             ))}
           </div>

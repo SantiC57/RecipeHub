@@ -9,6 +9,7 @@ import Mariscos from "../Mariscos/Mariscos.jsx";
 import ContactUs from "../Contact/contact-us.jsx";  
 import Publication from "../Publication/Publication.jsx";
 import Profile from "../Profile/Profile.jsx";
+import RecipeDetail from "../RecipeDetail/RecipeDetail.jsx";
 
 function DynamicTitle() {
   const location = useLocation();
@@ -44,6 +45,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/publication" element={<Publication />} />
         <Route path="/profile" element={<Profile />} /> 
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
         {/* Agrega más rutas según sea necesario */}
 
       </Routes>
