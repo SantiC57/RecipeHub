@@ -1,0 +1,237 @@
+/* Estilos para la página de receta individual */
+.recipe-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fcf8e8; /* Fondo beige claro como en la imagen */
+  padding-top: 6rem;
+}
+
+.recipe-container {
+  flex: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Encabezado de la receta */
+.recipe-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.recipe-title {
+  color: #553c0e; /* Color marrón para el título */
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background-color: #a4be7b; /* Color verde oliva como en la navbar */
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  color: #553c0e;
+  font-weight: 500;
+}
+
+.meta-icon {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Contenido principal */
+.recipe-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.recipe-image-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.recipe-author {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(164, 190, 123, 0.9); /* Verde oliva semi-transparente */
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.recipe-description {
+  margin-bottom: 2rem;
+}
+
+.recipe-description h2 {
+  color: #553c0e;
+  border-bottom: 2px solid #a4be7b;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-description p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Formato de dos columnas para ingredientes e instrucciones */
+.recipe-main-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .recipe-main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ingredients-section h2,
+.instructions-section h2 {
+  color: #553c0e;
+  border-bottom: 2px solid #a4be7b;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ingredients-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ingredients-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.ingredients-list li::before {
+  content: "•";
+  color: #a4be7b;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.instructions-list {
+  padding-left: 1.5rem;
+}
+
+.instructions-list li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Consejos */
+.recipe-tips {
+  background-color: #f0f7e6; /* Verde muy claro */
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.recipe-tips h2 {
+  color: #553c0e;
+  border-bottom: 2px solid #a4be7b;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tips-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tips-list li {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.tips-list li::before {
+  content: "💡";
+  margin-right: 0.5rem;
+}
+
+/* Información nutricional */
+.nutritional-info {
+  margin-top: 2rem;
+}
+
+.nutritional-info h2 {
+  color: #553c0e;
+  border-bottom: 2px solid #a4be7b;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.nutrition-item {
+  background-color: #a4be7b;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.nutrition-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.nutrition-label {
+  font-size: 0.9rem;
+}
+
+/* Botones y acciones */
+.recipe-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.action-button {
+  background-color: #553c0e;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #6e4d11;
+}
