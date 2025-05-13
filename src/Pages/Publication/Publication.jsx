@@ -15,23 +15,18 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 	const [recipe, setRecipe] = useState({ 
 		titulo: "", 
 		ingredientes: "", 
-		imagen: "",
+		imagen: null,
 		preparacion: "", 
 		tiempo: "", 
 		usuarioId: JSON.parse(localStorage.getItem("currentUser"))?.id || null
 	});
-	const [isUploading, setIsUploading] = useState(false);
+
 
 	useEffect(() => {
 		if (selectedRecipe){
 			setRecipe(selectedRecipe);
 		}
 	}, [selectedRecipe]);	
-
-	const handleUploadFinish = (url) => {
-  	setRecipe(r => ({ ...r, imagen: url }));
-  	setIsUploading(false);
-};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -147,7 +142,7 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="upload" className="publication-label">Subir Foto</label>
-						<Upload  onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />
+						<Upload onUploadFinish={(url) => setRecipe({ ...recipe, imagen: url })} />
 					</fieldset>
 
 					<fieldset className="publication-recipe">
@@ -181,11 +176,10 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 							Cancelar
 						</button>
 						<button 
-  							type="submit"
-  							className="publication-button publication-button--save"
-  							disabled={isUploading}
-						>	
-  						{isUploading ? "Subiendo imagen..." : "Publicar"}
+							type="submit" 
+							className="publication-button publication-button--save"
+						>
+							Publicar
 						</button>
 					</div>
 				</form>
