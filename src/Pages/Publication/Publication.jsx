@@ -14,18 +14,23 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 	const [recipe, setRecipe] = useState({ 
 		titulo: "", 
 		ingredientes: "", 
-		imagen: null,
+		imagen: "",
 		preparacion: "", 
 		tiempo: "", // Cambiado de tiempoPreparacion a tiempo para coincidir con el backend
 		usuarioId: JSON.parse(localStorage.getItem("currentUser"))?.id || null
 	});
-
+	const [isUploading, setIsUploading] = useState(false);
 
 	useEffect(() => {
 		if (selectedRecipe){
 			setRecipe(selectedRecipe);
 		}
 	}, [selectedRecipe]);	
+
+	const handleUploadFinish = (url) => {
+  	setRecipe(r => ({ ...r, imagen: url }));
+  	setIsUploading(false);
+};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -35,6 +40,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 			setErrors({ ...errors, [name]: null });
 		}
 	};
+
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -139,7 +146,7 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="upload" className="publication-label">Subir Foto</label>
-						<Upload onUploadFinish={(url) => setRecipe({ ...recipe, imagen: url })} />
+						<Upload  onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />
 					</fieldset>
 
 					<fieldset className="publication-recipe">
@@ -173,10 +180,11 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 							Cancelar
 						</button>
 						<button 
-							type="submit" 
-							className="publication-button publication-button--save"
-						>
-							Publicar
+  							type="submit"
+  							className="publication-button publication-button--save"
+  							disabled={isUploading}
+						>	
+  						{isUploading ? "Subiendo imagen..." : "Publicar"}
 						</button>
 					</div>
 				</form>
