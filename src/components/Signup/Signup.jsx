@@ -6,7 +6,7 @@ import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
 import api from "../../api/axiosConfig";
 
-const Signup = ({ onSubmit, selectedUser }) => {
+const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
@@ -14,7 +14,11 @@ const Signup = ({ onSubmit, selectedUser }) => {
 
   useEffect(() => {
     if (selectedUser) {
-      setUser(selectedUser);
+      setUser({
+     name:     selectedUser.name     || "",
+      email:    selectedUser.email    || "",
+      password: selectedUser.password || ""
+    });
     }
   }, [selectedUser]);
 
@@ -59,38 +63,33 @@ const Signup = ({ onSubmit, selectedUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Primero validamos el formulario
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
-      // Verificamos si el usuario ya existe
       const userExists = await checkUserExists();
-
       if (userExists) {
         setErrors({ ...errors, email: "Este correo ya está registrado" });
         return;
       }
 
-      // Si llegamos aquí, procedemos con el registro
-      await onSubmit(user);
-      console.log("Usuario registrado correctamente:", user);
+      // → Creamos usuario en el back y obtenemos el objeto completo
+      const newUser = await onSubmit(user);
+      console.log("Usuario registrado correctamente:", newUser);
 
-      // Limpiamos el formulario y redirigimos
+      // → Actualizamos el estado global y localStorage
+      onLogin(newUser);
+
+      // → Limpiamos y redirigimos
       setUser({ name: "", email: "", password: "" });
       navigate("/");
     } catch (error) {
       console.error("Error al registrar usuario:", error);
-      // Mostramos un error general
       setErrors({
         ...errors,
-        general: "Error al registrar. Por favor, inténtalo de nuevo."
+        general: "Error al registrar. Por favor, inténtalo de nuevo.",
       });
     }
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="container">

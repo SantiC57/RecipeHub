@@ -79,16 +79,12 @@ function App() {
   // Función para manejar el envío de usuarios
   const handleUserSubmit = async (user) => {
     try {
-      let response;
-      if (user.id) {
-        // Actualizar usuario existente
-        response = await api.put(`/usuarios/${user.id}`, user);
-        setUsers(users.map(u => u.id === user.id ? response.data : u));
-      } else {
+
         // Crear nuevo usuario
-        response = await api.post('/usuarios', user);
-        setUsers([...users, response.data]);
-      }
+        const response = await api.post('/usuarios', user);
+        setUsers((prevUsers) => [...prevUsers, response.data]);
+
+
       return response.data;
     } catch (error) {
       console.error("Error al guardar el usuario:", error.response?.data || error.message);
@@ -114,7 +110,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage recipes={recipes} />} />
         <Route path="/login" element={<Login onLogin={setCurrentUser} />} />
-        <Route path="/signup" element={<Signup onSubmit={handleUserSubmit} selectedUser={currentUser} />} />
+        <Route path="/signup" element={<Signup onSubmit={handleUserSubmit} onLogin={setCurrentUser}  selectedUser={currentUser} />} />
         <Route path="/pastas" element={<Pastas />} />
         <Route path="/carnes" element={<Carnes />} />
         <Route path="/mariscos" element={<Mariscos/>} />
