@@ -38,6 +38,13 @@
   align-items: center;
 }
 
+.login__error{
+  color: #f03232;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
+
 /* Label oculto (accesible, pero no visible) */
 .login__label {
   position: absolute;
