@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { UploadCloud } from "react-feather";
 import "./Upload.css";
 
-const Upload = () => {
+const Upload = ({onUploadFinish}) => {
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
