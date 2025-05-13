@@ -4,6 +4,7 @@ import Upload from "../../components/Upload/Upload";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./contact-us.css";
+import { Navbar } from "../../components/Navbar/Navbar";
 
 const ContactUs = () => {
     const navigate = useNavigate();
@@ -71,7 +72,7 @@ const ContactUs = () => {
     return (
         <>
         
-        
+        <Navbar />
         
         <div className="contact-container">
             <h2 className="contact-title">Contáctanos</h2>

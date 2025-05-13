@@ -3,9 +3,12 @@ import "./pastas.css";
 import Spaghetti from "../../Images/spaghetti.jpg";
 import Lasagna from "../../Images/lasaña.jpg";
 import Carbonara from "../../Images/pasta-carbonara.jpg";
+import { Navbar } from "../../components/Navbar/Navbar";
 
 const Pastas = () => {
   return (
+    <>
+    <Navbar />
     <div className="categoria">
       <h2 className="categoria__titulo">Recetas de Pastas</h2>
       <div className="categoria__lista">
@@ -23,6 +26,7 @@ const Pastas = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import Mariscos from "../Mariscos/Mariscos.jsx";
 import ContactUs from "../Contact/contact-us.jsx";
 import Publication from "../Publication/Publication.jsx";
 import Profile from "../Profile/Profile.jsx";
+import RecipeDetail from "../RecipeDetail/RecipeDetail.jsx";
 import { useState } from "react";
 import api from "../../api/axiosConfig.js";
 
@@ -88,6 +89,8 @@ function App() {
         <Route path="/mariscos" element={<Mariscos />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/publication" element={<Publication />} />
+        <Route path="/profile" element={<Profile />} /> 
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
         <Route path="/profile" element={<Profile />} />
         {/* Agrega más rutas según sea necesario */}
 
