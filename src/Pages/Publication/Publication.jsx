@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { Footer } from "../../components/footer/Footer";
 import "./publication.css";
 import  Upload from "/src/components/Upload/Upload";
@@ -7,28 +7,48 @@ import FoodService from "../../assets/Food Service.ico";
 import { Navbar } from "../../components/Navbar/Navbar";
 
 
-const Publication = () => {
+const Publication = ({onSubmit, selectedRecipe}) => {
 	const navigate = useNavigate();
 	const [showSuccess, setShowSuccess] = useState(false);
+	const [errors, setErrors] = useState({});
+	const [recipe, setRecipe] = useState({ titulo: "", ingredientes: "", imagen: null ,preparacion: "", tiempoPreparacion: "" });
 
-	const handleSubmit = (e) => {
+
+	useEffect(() =>{
+		if (selectedRecipe){
+			setRecipe(selectedRecipe);
+		}
+	},[selectedRecipe]);	
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setRecipe({ ...recipe, [name]: value });
+
+		if(errors[name]){
+			setErrors({ ...errors, [name]: null });
+		}
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 	
 		// Aquí puedes validar que los campos estén completos
 		const titulo = document.getElementById("titulo").value;
 		const ingredientes = document.getElementById("ingredientes").value;
 		const preparacion = document.getElementById("preparacion").value;
-		const upload = document.getElementById("upload").value;
 		const tiempoPreparacion = document.getElementById("tiempo-prepa").value;
 	
-		if (!titulo || !ingredientes || !preparacion || !upload || !tiempoPreparacion) {
+		if (!titulo || !ingredientes || !preparacion || !tiempoPreparacion) {
 			alert("Por favor, completa todos los campos obligatorios.");
 			return;
 		}
-	
-		// Si pasa la validación, muestra mensaje de éxito
+
+		await onSubmit(recipe);
+		console.log(recipe);
+		setRecipe({ titulo: "", ingredientes: "", imagen: null ,preparacion: "", tiempoPreparacion: "" });
 		setShowSuccess(true);
-		setTimeout(() => setShowSuccess(false), 4000);
+		setTimeout(() => setShowSuccess(false), 2000);
+	
 	
 	};
 	
@@ -45,26 +65,26 @@ const Publication = () => {
 
           <fieldset className="publication-recipe">
             <label htmlFor="titulo" className="publication-label">Titulo de la receta</label>
-            <input type="text" id="titulo" className="publication-input" placeholder="Ej. Pastas Bolognesa" required />
+            <input type="text" id="titulo" className="publication-input" placeholder="Ej. Pastas Bolognesa" required value={recipe.titulo}/>
           </fieldset>
 
           <fieldset className="publication-recipe">
             <label htmlFor="ingredientes" className="publication-label">Ingredientes</label>
-            <textarea id="ingredientes" className="publication-textarea" placeholder="Lista de ingredientes..." required></textarea>
+            <textarea id="ingredientes" className="publication-textarea" placeholder="Lista de ingredientes..." required value={recipe.ingredientes}></textarea>
           </fieldset>
 
           <fieldset className="publication-recipe">
             <label htmlFor="preparacion" className="publication-label">Preparación</label>
-            <textarea id="preparacion" className="publication-textarea" placeholder="Pasos para preparar" required></textarea>
+            <textarea id="preparacion" className="publication-textarea" placeholder="Pasos para preparar" required value={recipe.preparacion}></textarea>
           </fieldset>
 
           <fieldset className="publication-recipe">
-            <label htmlFor="upload" className="publication-label">Subir Foto</label>
+            <label htmlFor="upload" className="publication-label"value={recipe.imagen}>Subir Foto</label>
             <Upload />
           </fieldset>
 
           <fieldset className="publication-recipe">
-            <label htmlFor="tiempo-prepa" className="publication-label">Tiempo Preparación </label>
+            <label htmlFor="tiempo-prepa" className="publication-label"value={recipe.tiempoPreparacion}>Tiempo Preparación</label>
             <select id="tiempo-prepa" className="publication-input" required>
 							<option>10 minutos</option>
   						<option>15 minutos</option>
