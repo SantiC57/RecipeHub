@@ -37,7 +37,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(()=> {
     JSON.parse(localStorage.getItem("currentUser"));
   });
-  const [selectedUser, setSelectedUser] = useState(null);
+  
   const [users, setUsers] = useState([]);
 
   useEffect(()=>{
@@ -93,6 +93,9 @@ function App() {
 
       </Routes>
     </Router>
+
+
+
   );
 }
 
