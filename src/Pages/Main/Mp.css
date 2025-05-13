@@ -25,15 +25,6 @@
   padding: 0 1rem;          /* opcional, margen en móvil */
 }
 
-  align-items: center;      /* ya lo tenías */
-  
-  /* Nuevo: limitar ancho total y centrarlo */
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;           /* centro horizontal */
-  padding: 0 1rem;          /* opcional, margen en móvil */
-}
-
 .title {
   /* Ocupa todo el ancho padre, o hasta 1200px si quieres limitarlo */
   width: 100%;
@@ -61,31 +52,15 @@
   font-weight: bold;
 }
 
-
-
 .recipes-grid {
   display: grid;
   /* 4 columnas iguales */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   /* 2 filas, la altura se adapta al contenido */
   grid-template-rows: repeat(2, auto);
   gap: 6rem;               /* espacio entre todas las celdas */
   justify-items: center;     /* centra el contenido en cada celda */
   align-items: center;        /* alinea el contenido arriba de la celda */
-  max-width: 1200px;         /* opcional, limita el ancho total */
-  margin: 0 auto;            /* centra el grid en la página */
-}
-
-
-
-
-  /* 4 columnas iguales */
-  grid-template-columns: repeat(3, 1fr);
-  /* 2 filas, la altura se adapta al contenido */
-  grid-template-rows: repeat(2, auto);
-  gap: 6rem;               /* espacio entre todas las celdas */
-  justify-items: center;     /* centra el contenido en cada celda */
-  align-items: start;        /* alinea el contenido arriba de la celda */
   max-width: 1200px;         /* opcional, limita el ancho total */
   margin: 0 auto;            /* centra el grid en la página */
 }
