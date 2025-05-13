@@ -14,9 +14,8 @@ import api from "../../api/axiosConfig.js";
 
 function DynamicTitle() {
   const location = useLocation();
-
+  
   useEffect(() => {
-
     const titles = {
       "/": "Recipehub",
       "/login": "Iniciar sesión",
@@ -24,30 +23,35 @@ function DynamicTitle() {
       "/pastas": "Recetas de Pastas",
       "/carnes": "Recetas de Carnes",
       "/mariscos": "Recetas de Mariscos",
+      "/publication": "Publicar receta",
+      "/profile": "Mi perfil",
+      "/contact-us": "Contáctanos"
     };
-
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
-
+  
   return null;
 }
 
 function App() {
-  
-  const [currentUser, setCurrentUser] = useState(()=> {
-    JSON.parse(localStorage.getItem("currentUser"));
-  });
-  
+  // Corrección: devolvemos el valor del localStorage
+  const [currentUser, setCurrentUser] = useState(() => 
+    JSON.parse(localStorage.getItem("currentUser"))
+  );
+ 
   const [users, setUsers] = useState([]);
-
-  useEffect(()=>{
+  const [recipes, setRecipes] = useState([]);
+  
+  // Corrección: añadimos los corchetes en la dependencia
+  useEffect(() => {
     if(currentUser){
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    }else{
+    } else {
       localStorage.removeItem("currentUser");
     }
-  },currentUser);
-
+  }, [currentUser]);
+  
+  // Cargar usuarios y recetas al inicio
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -57,45 +61,74 @@ function App() {
         console.error("Error al obtener los usuarios:", error);
       }
     };
-
+    
+    const fetchRecipes = async () => {
+      try {
+        const response = await api.get('/recetas');
+        setRecipes(response.data);
+      } catch (error) {
+        console.error("Error al obtener las recetas:", error);
+      }
+    };
+    
     fetchUsers();
+    fetchRecipes();
   }, []);
-
+  
+  // Función para manejar el envío de usuarios
   const handleUserSubmit = async (user) => {
     try {
+      let response;
       if (user.id) {
-        const response = await api.put(`/usuarios/${user.id}`, user)
+        // Actualizar usuario existente
+        response = await api.put(`/usuarios/${user.id}`, user);
         setUsers(users.map(u => u.id === user.id ? response.data : u));
-      }
-      else {
-        const response = await api.post('/usuarios', user)
+      } else {
+        // Crear nuevo usuario
+        response = await api.post('/usuarios', user);
         setUsers([...users, response.data]);
       }
+      return response.data;
     } catch (error) {
-      console.error("Error al guardar el usuario:", error);
+      console.error("Error al guardar el usuario:", error.response?.data || error.message);
+      throw error;
     }
-  }
-
+  };
+  
+  // Esta función ya no se usará directamente, los componentes hacen llamadas API directas
+  const handleRecipeSubmit = async (recipe) => {
+    try {
+      // Esta función se mantiene para compatibilidad, pero la Publication.jsx ahora hace su propia llamada a la API
+      console.log("Esta función está obsoleta, se recomienda hacer llamadas directas a la API");
+      return null;
+    } catch (error) {
+      console.error("Error al guardar la receta:", error);
+      throw error;
+    }
+  };
+  
   return (
     <Router>
       <DynamicTitle />
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login onLogin={setCurrentUser}/>} />
+        <Route path="/" element={<MainPage recipes={recipes} />} />
+        <Route path="/login" element={<Login onLogin={setCurrentUser} />} />
         <Route path="/signup" element={<Signup onSubmit={handleUserSubmit} selectedUser={currentUser} />} />
         <Route path="/pastas" element={<Pastas />} />
         <Route path="/carnes" element={<Carnes />} />
-        <Route path="/mariscos" element={<Mariscos />} />
+        <Route path="/mariscos" element={<Mariscos/>} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/publication" element={<Publication />} />
-        <Route path="/profile" element={<Profile />} />
-        {/* Agrega más rutas según sea necesario */}
-
+        <Route 
+          path="/publication" 
+          element={
+            <Publication 
+              onSubmit={handleRecipeSubmit} 
+              currentUser={currentUser}
+            />
+          } 
+        />
       </Routes>
     </Router>
-
-
-
   );
 }
 
