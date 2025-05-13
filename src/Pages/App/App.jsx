@@ -9,7 +9,7 @@ import Mariscos from "../Mariscos/Mariscos.jsx";
 import ContactUs from "../Contact/contact-us.jsx";
 import Publication from "../Publication/Publication.jsx";
 import Profile from "../Profile/Profile.jsx";
-import RecipeDetail from "../RecipeDetail/RecipeDetail.jsx";
+import RecipeDetail from "../../assets/RecipeDetail.jsx";
 import { useState } from "react";
 import api from "../../api/axiosConfig.js";
 
