@@ -125,6 +125,15 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* Agrega más rutas según sea necesario */}
 
+        <Route 
+          path="/publication" 
+          element={
+            <Publication 
+              onSubmit={handleRecipeSubmit} 
+              currentUser={currentUser}
+            />
+          } 
+        />
       </Routes>
     </Router>
   );

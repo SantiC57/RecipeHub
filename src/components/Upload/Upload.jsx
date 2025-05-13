@@ -5,7 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../api/firebaseConfig"; // ajusta la ruta según tu estructura
 import "./Upload.css";
 
-const Upload = ({ onUploadStart, onUploadFinish }) => {
+const Upload = ({onUploadFinish}) => {
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState(null);
