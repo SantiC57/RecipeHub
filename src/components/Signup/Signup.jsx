@@ -1,40 +1,165 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Signup.css"; // Asegúrate de que la ruta sea correcta
-
+import "./Signup.css";
 import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
+import api from "../../api/axiosConfig";
 
-const Signup = () => {
+const Signup = ({ onSubmit, selectedUser }) => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [errors, setErrors] = useState({});
+  const [isChecking, setIsChecking] = useState(false);
+
+  useEffect(() => {
+    if (selectedUser) {
+      setUser(selectedUser);
+    }
+  }, [selectedUser]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+
+    // Limpiar el error de este campo cuando el usuario lo modifica
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validaciones básicas
+    if (!user.name.trim()) newErrors.name = "El nombre es obligatorio";
+    if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
+    else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
+    if (!user.password) newErrors.password = "La contraseña es obligatoria";
+    else if (user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const checkUserExists = async () => {
+    try {
+      setIsChecking(true);
+      // Consulta al endpoint para verificar si existe el email
+      const response = await api.get(`/usuarios/check-email?email=${encodeURIComponent(user.email)}`);
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error al verificar el email:", error);
+      // Si hay un error en la verificación, asumimos que es seguro continuar
+      return false;
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Primero validamos el formulario
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      // Verificamos si el usuario ya existe
+      const userExists = await checkUserExists();
+
+      if (userExists) {
+        setErrors({ ...errors, email: "Este correo ya está registrado" });
+        return;
+      }
+
+      // Si llegamos aquí, procedemos con el registro
+      await onSubmit(user);
+      console.log("Usuario registrado correctamente:", user);
+
+      // Limpiamos el formulario y redirigimos
+      setUser({ name: "", email: "", password: "" });
+      navigate("/");
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+      // Mostramos un error general
+      setErrors({
+        ...errors,
+        general: "Error al registrar. Por favor, inténtalo de nuevo."
+      });
+    }
+  };
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Registro</div>
-        <div className="underline"></div>
-      </div>
-      <div className="inputs">
-        <div className="input">
-          <img src={user_icon} alt="Usuario" />
-          <input type="text" placeholder="Nombre" />
+    <form onSubmit={handleSubmit}>
+      <div className="container">
+        <div className="header">
+          <div className="text">Registro</div>
+          <div className="underline"></div>
         </div>
-        <div className="input">
-          <img src={email_icon} alt="Correo" />
-          <input type="email" placeholder="Correo" />
+
+        {errors.general && (
+          <div className="error-message general">{errors.general}</div>
+        )}
+
+        <div className="inputs">
+          <div className="input">
+            <img src={user_icon} alt="Usuario" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre"
+              value={user.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          {errors.name && <div className="error-message">{errors.name}</div>}
+
+          <div className="input">
+            <img src={email_icon} alt="Correo" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Correo"
+              value={user.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          {errors.email && <div className="error-message">{errors.email}</div>}
+
+          <div className="input">
+            <img src={password_icon} alt="Contraseña" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              value={user.password}
+              onChange={handleChange}
+              required
+              minLength="6"
+            />
+          </div>
+          {errors.password && <div className="error-message">{errors.password}</div>}
         </div>
-        <div className="input">
-          <img src={password_icon} alt="Contraseña" />
-          <input type="password" placeholder="Contraseña" />
+
+        <div className="submit-container">
+          <button
+            type="submit"
+            className="submit"
+            disabled={isChecking}
+          >
+            {isChecking ? "Verificando..." : "Registrarse"}
+          </button>
         </div>
+
+        <p className="register__login">
+          ¿Ya tienes cuenta? <a href="/login">Inicia Sesión</a>
+        </p>
       </div>
-      <div className="submit-container">
-        <div className="submit" onClick={() => navigate("/signup")}>Registrarse</div>
-      </div>
-      <p className="register__login">
-        ¿Ya tienes cuenta? <a href="/login">Inicia Sesion</a></p>
-    </div>
+    </form>
   );
 };
 

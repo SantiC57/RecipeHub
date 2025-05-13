@@ -4,12 +4,27 @@
   margin: 0 auto;     /* lo centra */
   padding: 2rem 1rem; /* respiración interna */
   padding-top: 6rem;  /* espacio para el navbar */
+  width: 100%;        /* ocupa todo el ancho disponible */
+  max-width: 1200px;  /* límite igual al del grid/título */
+  margin: 0 auto;     /* lo centra */
+  padding: 2rem 1rem; /* respiración interna */
+  padding-top: 6rem;  /* espacio para el navbar */
   text-align: left;
 }
+
 
 .main-content {
   display: flex;
   flex-direction: column;
+  align-items: center;      /* ya lo tenías */
+  
+  /* Nuevo: limitar ancho total y centrarlo */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;           /* centro horizontal */
+  padding: 0 1rem;          /* opcional, margen en móvil */
+}
+
   align-items: center;      /* ya lo tenías */
   
   /* Nuevo: limitar ancho total y centrarlo */
@@ -31,13 +46,39 @@
   text-align: center;
 
   /* Resto de estilos que ya tenías */
+  /* Ocupa todo el ancho padre, o hasta 1200px si quieres limitarlo */
+  width: 100%;
+  max-width: 1200px;
+
+  /* Centra horizontalmente este contenedor dentro de su padre */
+  margin: 0 auto 2rem;
+
+  /* Centra el texto dentro del <h1> */
+  text-align: center;
+
+  /* Resto de estilos que ya tenías */
   font-size: 2rem;
   font-weight: bold;
 }
 
 
+
 .recipes-grid {
   display: grid;
+  /* 4 columnas iguales */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  /* 2 filas, la altura se adapta al contenido */
+  grid-template-rows: repeat(2, auto);
+  gap: 6rem;               /* espacio entre todas las celdas */
+  justify-items: center;     /* centra el contenido en cada celda */
+  align-items: center;        /* alinea el contenido arriba de la celda */
+  max-width: 1200px;         /* opcional, limita el ancho total */
+  margin: 0 auto;            /* centra el grid en la página */
+}
+
+
+
+
   /* 4 columnas iguales */
   grid-template-columns: repeat(3, 1fr);
   /* 2 filas, la altura se adapta al contenido */
@@ -51,6 +92,12 @@
 
 .recipe-card {
   border-radius: 8px;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  padding: 1rem;
+  min-height: 300px;
+  box-sizing: border-box;
   display: flex;
   flex-direction:column;
   align-items: center;
@@ -76,12 +123,17 @@
 .recipe-image {
   width: 100%;
   height: 160px;
+  height: 160px;
   object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
 
+
 .recipe-title {
+  font-size: 1.1rem;
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;

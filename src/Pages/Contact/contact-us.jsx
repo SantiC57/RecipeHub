@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Footer } from "../../components/footer/Footer";
 import Upload from "../../components/Upload/Upload";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "./contact-us.css";
 import { Navbar } from "../../components/Navbar/Navbar";
 
@@ -37,7 +38,19 @@ const ContactUs = () => {
 
 
         e.preventDefault();
+
+        if (!formData.email.includes('@') || !formData.email.includes('.')) {
+            Swal.fire("Por favor, ingresa un correo electrónico válido");
+            return;
+        }
+        
+        if (formData.telefono && !/^\d{7,15}$/.test(formData.telefono.replace(/\D/g, ''))) {
+            Swal.fire("Por favor, ingresa un número de teléfono válido");
+            return;
+        }
         console.log("Datos del formulario:", formData);
+
+
 
         setFormData({
             nombre: "",
@@ -48,11 +61,11 @@ const ContactUs = () => {
             archivo: null,
             aceptarPolitica: false,
         });
-        alert("Formulario enviado con éxito!");
+        Swal.fire({title:"Formulario enviado con éxito!", icon: "success", draggable: true});
 
         setTimeout(() => {
             navigate("/");
-          }, 2000); 
+          }, 1000); 
 
     };
 
