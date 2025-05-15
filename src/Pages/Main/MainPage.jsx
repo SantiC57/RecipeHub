@@ -5,9 +5,9 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
 import "./Mp.css";
 import { Link } from "react-router-dom";
-import Spaghetti from "../../Images/spaghetti.jpg";
-import CoctelCamaron from "../../Images/coctel-camaron.jpg";
-import CarneAsada from "../../Images/carne-asada.jpg";
+import Spaghetti from "../../assets/spaghetti.jpg";
+import CoctelCamaron from "../../assets/coctel-camaron.jpg";
+import CarneAsada from "../../assets/carne-asada.jpg";
 
 export default function MainPage() {
   const categories = [

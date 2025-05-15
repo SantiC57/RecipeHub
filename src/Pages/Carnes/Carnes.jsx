@@ -1,8 +1,8 @@
 import React from "react";
 import "./carnes.css";
-import CarneAsada from "../../images/carne-asada.jpg"; // Ruta corregida
-import Picadillo from "../../images/picadillo.jpg"; // Ruta corregida
-import Estofado from "../../images/estofado.jpg"; // Ruta corregida
+import CarneAsada from "../../assets/carne-asada.jpg"; // Ruta corregida
+import Picadillo from "../../assets/picadillo.jpg"; // Ruta corregida
+import Estofado from "../../assets/estofado.jpg"; // Ruta corregida
 import { Navbar } from "../../components/Navbar/Navbar"; // Asegúrate de que la ruta sea correcta
 
 

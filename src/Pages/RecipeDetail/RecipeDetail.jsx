@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
 import "./RecipeDetail.css";
-import Spaghetti from "../../Images/Spaghetti-Boloñesa.jpg";
+import Spaghetti from "../../assets/Spaghetti-Boloñesa.jpg"; // 
 
 export default function RecipeDetail() {
   const recipe = {

@@ -1,8 +1,8 @@
 import React from "react";
 import "./mariscos.css";
-import Paella from "../../images/paella.jpg"; // Ruta corregida
-import CoctelCamaron from "../../images/coctel-camaron.jpg"; // Ruta corregida
-import ChupeCentolla from "../../images/chupe-centolla.jpg"; // Ruta corregida
+import Paella from "../../assets/paella.jpg"; // Ruta corregida
+import CoctelCamaron from "../../assets/coctel-camaron.jpg"; // Ruta corregida
+import ChupeCentolla from "../../assets/chupe-centolla.jpg"; // Ruta corregida
 import { Navbar } from "../../components/Navbar/Navbar";
 
 
