@@ -79,11 +79,22 @@
   border-radius: 5px;
   font-weight: bold;
 }
+
+.register-button {
+  background-color: #4f3a2d;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
 .publish-button:hover {
   background-color: #e9be67 !important;
 }
 
 .profile-button:hover {
+  background-color: #6e4a2d !important;
+}
+.register-button:hover {
   background-color: #6e4a2d !important;
 }
 
