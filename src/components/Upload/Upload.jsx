@@ -1,51 +1,49 @@
+// src/components/Upload/Upload.jsx
 import React, { useRef, useState } from "react";
 import { UploadCloud } from "react-feather";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../api/firebaseConfig"; // ajusta la ruta según tu estructura
 import "./Upload.css";
 
 const Upload = ({onUploadFinish}) => {
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [isUploaded, setIsUploaded] = useState(false);
   const [preview, setPreview] = useState(null);
 
-  const handleUploadClick = () => {
-    fileInputRef.current.click();
+  const uploadToFirebase = async (file) => {
+    const storageRef = ref(storage, `recetas/${Date.now()}-${file.name}`);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+    onUploadFinish(url); // enviamos la URL al padre
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFile = async (file) => {
     if (file) {
-      setIsUploaded(true);
-      setPreview(URL.createObjectURL(file));
+      setPreview( URL.createObjectURL(file) );
+      onUploadStart?.();
+      await uploadToFirebase(file);
     }
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
+  const handleFileChange = (e) => {
+    handleFile(e.target.files[0]);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      fileInputRef.current.files = e.dataTransfer.files;
-      setIsUploaded(true);
-      setPreview(URL.createObjectURL(file));
-    }
+    handleFile(e.dataTransfer.files[0]);
   };
 
   return (
     <div
-      className={`upload-container ${isDragging ? "dragging" : ""} ${isUploaded ? "uploaded" : ""}`}
-      onClick={handleUploadClick}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
+      className={`upload-container ${isDragging ? "dragging" : ""}`}
+      onClick={() => fileInputRef.current.click()}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDragging(true);
+      }}
+      onDragLeave={() => setIsDragging(false)}
       onDrop={handleDrop}
       style={{ cursor: "pointer" }}
     >
@@ -55,13 +53,10 @@ const Upload = ({onUploadFinish}) => {
         style={{ display: "none" }}
         accept="image/*"
         onChange={handleFileChange}
-        id = "upload"
-        required
       />
       <UploadCloud className="upload-icon" />
       <p className="upload-text">Cargar un archivo o arrastrar y soltar</p>
       <p className="upload-formats">PNG, JPG, GIF hasta 10 MB</p>
-
       {preview && <img src={preview} alt="Vista previa" className="upload-preview" />}
     </div>
   );

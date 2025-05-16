@@ -6,6 +6,7 @@ import { useNavigate} from "react-router-dom";
 import FoodService from "../../assets/Food Service.ico";
 import { Navbar } from "../../components/Navbar/Navbar";
 import api from "../../api/axiosConfig";
+import Swal from "sweetalert2";
 
 const Publication = ({onSubmit, selectedRecipe}) => {
 	const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 		ingredientes: "", 
 		imagen: null,
 		preparacion: "", 
-		tiempo: "", // Cambiado de tiempoPreparacion a tiempo para coincidir con el backend
+		tiempo: "", 
 		usuarioId: JSON.parse(localStorage.getItem("currentUser"))?.id || null
 	});
 
@@ -36,20 +37,22 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 		}
 	};
 
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		
 		try {
 			const { titulo, ingredientes, preparacion, tiempo, imagen, usuarioId } = recipe;
 		
-			if (!titulo || !ingredientes || !preparacion || !tiempo) {
-				alert("Por favor, completa todos los campos obligatorios.");
+			if (!titulo || !ingredientes || !preparacion || !imagen|| !tiempo) {
+				Swal.fire("Por favor, completa todos los campos obligatorios.");
 				return;
 			}
 			
 			// Verificamos que tenemos un usuarioId
 			if (!usuarioId) {
-				alert("Debes iniciar sesión para publicar una receta.");
+				Swal.fire("Debes iniciar sesión para publicar una receta.");
 				navigate("/login");
 				return;
 			}
@@ -85,7 +88,7 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 			}, 2000);
 		} catch (error) {
 			console.error("Error al guardar receta:", error.response?.data || error.message);
-			alert(`Error al guardar la receta: ${error.response?.data?.message || "Verifica los campos e intenta nuevamente"}`);
+			Swal.fire({title:`Error al guardar la receta: ${error.response?.data?.message || "Verifica los campos e intenta nuevamente"}`, icon: "error", draggable: true});
 		}
 	};
 	
