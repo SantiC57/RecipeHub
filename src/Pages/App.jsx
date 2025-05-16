@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import Signup from "../../components/Signup/Signup.jsx";
-import Login from "../Login/Login.jsx";
+import Signup from "../components/Signup/Signup.jsx";
+import Login from "./Login/Login.jsx";
 import { useEffect } from "react";
-import MainPage from "../Main/MainPage.jsx";
-import Pastas from "../Pastas/Pastas.jsx";
-import Carnes from "../Carnes/Carnes.jsx";
-import Mariscos from "../Mariscos/Mariscos.jsx";
-import ContactUs from "../Contact/contact-us.jsx";
-import Publication from "../Publication/Publication.jsx";
-import Profile from "../Profile/Profile.jsx";
-import RecipeDetail from "../../assets/RecipeDetail.jsx";
+import MainPage from "./Main/MainPage.jsx";
+import Pastas from "./Pastas/Pastas.jsx";
+import Carnes from "./Carnes/Carnes.jsx";
+import Mariscos from "./Mariscos/Mariscos.jsx";
+import ContactUs from "./Contact/contact-us.jsx";
+import Publication from "./Publication/Publication.jsx";
+import Profile from "./Profile/Profile.jsx";
+import RecipeDetail from "./RecipeDetail/RecipeDetail.jsx";
 import { useState } from "react";
-import api from "../../api/axiosConfig.js";
+import api from "../api/axiosConfig.js";
 
 function DynamicTitle() {
   const location = useLocation();
