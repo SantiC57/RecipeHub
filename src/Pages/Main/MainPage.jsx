@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";;
 import { Card, CardContent } from "../../components/Card/Card.jsx";
+
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
 import "./Mp.css";
