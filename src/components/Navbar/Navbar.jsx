@@ -12,7 +12,6 @@ export function Navbar() {
         <ul className="navbar-menu">
           <li><a href="/">Inicio</a></li>
           <li><a href="/contact-us">Contacto</a></li>
-          <li><a href="/signup" className="register-button">Registrarse</a></li>
           <li><a href="/profile" className="profile-button">Perfil</a></li>
           <li><a href="/publication" className="publish-button">+</a></li>
         </ul>
