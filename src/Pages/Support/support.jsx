@@ -3,7 +3,7 @@ import { Footer } from "../../components/footer/Footer";
 import Upload from "../../components/Upload/Upload";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./contact-us.css";
+import "./support.css";
 import { Navbar } from "../../components/Navbar/Navbar";
 
 const ContactUs = () => {
@@ -74,25 +74,12 @@ const ContactUs = () => {
         
         <Navbar />
         
-        <div className="contact-container">
-            <h2 className="contact-title">Contáctanos</h2>
-            <p className="contact-subtitle">
+        <div className="support-container">
+            <h2 className="support-title">Soporte</h2>
+            <p className="support-subtitle">
             Si tienes alguna duda o sugerencia, ¡queremos saber de ti!
             </p>
-            <form className="contact-form" onSubmit={handleSubmit}>
-            
-            <div className="form-group">
-                <label htmlFor="nombre">Nombre y Apellido</label>
-                <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
-                placeholder="Ingresa tu nombre completo"
-                required
-                />
-            </div>
+            <form className="support-form" onSubmit={handleSubmit}>
             
     
             <div className="form-group">
@@ -106,24 +93,6 @@ const ContactUs = () => {
                 placeholder="Ingresa tu correo"
                 required
                 />
-            </div>
-    
-            <div className="form-group">
-                <label htmlFor="pais">País</label>
-                <select
-                id="pais"
-                name="pais"
-                value={formData.pais}
-                onChange={handleChange}
-                required
-                >
-                <option value="">Selecciona el país</option>
-                <option value="México">México</option>
-                <option value="Colombia">Colombia</option>
-                <option value="Argentina">Argentina</option>
-                <option value="España">España</option>
-                {/* Agrega más países o genera dinámicamente */}
-                </select>
             </div>
     
             <div className="form-group">
@@ -157,23 +126,8 @@ const ContactUs = () => {
                 <Upload/>
             </div>
     
-            <div className="form-group checkbox-group">
-                <label className="checkbox-label">
-                <input
-                    type="checkbox"
-                    name="aceptarPolitica"
-                    checked={formData.aceptarPolitica}
-                    onChange={handleChange}
-                    required
-                />
-                Acepto la Política de Privacidad
-                </label>
-                <a href="#politica" className="privacy-link">
-                Política de Privacidad
-                </a>
-            </div>
     
-            <button type="submit" className="contact-button">
+            <button type="submit" className="support-button">
                 Enviar
             </button>
             </form>
