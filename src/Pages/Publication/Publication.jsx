@@ -15,12 +15,13 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 	const [recipe, setRecipe] = useState({ 
 		titulo: "", 
 		ingredientes: "", 
-		imagen: null,
+		imagen: "",
 		preparacion: "", 
 		tiempo: "", 
 		usuarioId: JSON.parse(localStorage.getItem("currentUser"))?.id || null
 	});
 
+	const [isUploading, setIsUploading] = useState(false);
 
 	useEffect(() => {
 		if (selectedRecipe){
@@ -36,6 +37,11 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 			setErrors({ ...errors, [name]: null });
 		}
 	};
+
+	const handleUploadFinish = (url) => {
+		setRecipe({ ...recipe, imagen: url });
+		setIsUploading(false);
+	}
 
 
 
@@ -142,8 +148,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="upload" className="publication-label">Subir Foto</label>
-						<Upload onUploadFinish={(url) => setRecipe({ ...recipe, imagen: url })} />
-					</fieldset>
+						<Upload  onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />					
+						</fieldset>
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="tiempo" className="publication-label">Tiempo Preparación</label>
@@ -176,10 +182,11 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 							Cancelar
 						</button>
 						<button 
-							type="submit" 
-							className="publication-button publication-button--save"
-						>
-							Publicar
+							type="submit"
+  							className="publication-button publication-button--save"
+  							disabled={isUploading}
+						>	
+  						{isUploading ? "Subiendo imagen..." : "Publicar"}
 						</button>
 					</div>
 				</form>
