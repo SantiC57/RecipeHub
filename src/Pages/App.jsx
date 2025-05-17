@@ -6,7 +6,7 @@ import MainPage from "./Main/MainPage.jsx";
 import Pastas from "./Pastas/Pastas.jsx";
 import Carnes from "./Carnes/Carnes.jsx";
 import Mariscos from "./Mariscos/Mariscos.jsx";
-import ContactUs from "./Contact/contact-us.jsx";
+import Support from "./Support/support.jsx";
 import Publication from "./Publication/Publication.jsx";
 import Profile from "./Profile/Profile.jsx";
 import RecipeDetail from "./RecipeDetail/RecipeDetail.jsx";
@@ -26,7 +26,7 @@ function DynamicTitle() {
       "/mariscos": "Recetas de Mariscos",
       "/publication": "Publicar receta",
       "/profile": "Mi perfil",
-      "/contact-us": "Contáctanos"
+      "/Support": "Soporte"
     };
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
@@ -114,7 +114,7 @@ function App() {
         <Route path="/pastas" element={<Pastas />} />
         <Route path="/carnes" element={<Carnes />} />
         <Route path="/mariscos" element={<Mariscos/>} />
-        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/support" element={<Support />} />
         <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} onLogin={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/recipe/:id" element={<RecipeDetail />} />
