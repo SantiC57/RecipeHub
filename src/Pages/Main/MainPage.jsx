@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";;
 import { Card, CardContent } from "../../components/Card/Card.jsx";
-
+import  FoodCategoryBar  from "../../components/FoodCategoryBar/FoodCategoryBar";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
 import "./Mp.css";
@@ -10,11 +10,6 @@ import CoctelCamaron from "../../assets/coctel-camaron.jpg";
 import CarneAsada from "../../assets/carne-asada.jpg";
 
 export default function MainPage() {
-  const categories = [
-    { id: 1, title: "Pastas", image: Spaghetti, path: "/pastas" },
-    { id: 2, title: "Mariscos", image: CoctelCamaron, path: "/mariscos" },
-    { id: 3, title: "Carnes", image: CarneAsada, path: "/carnes" },
-  ];
 
   const [recetasPublicadas, setRecetasPublicadas] = useState([]);
 
@@ -28,25 +23,25 @@ export default function MainPage() {
   return (
     <div className="page-wrapper">
       <Navbar />
+      <div className="FCB">
+      </div>
       <div className="main-container">
         <main className="main-content">
           <h1 className="title">Categorías Disponibles</h1>
-          <div className="recipes-grid">
-            {categories.map((recipe) => (
-              <Card key={recipe.id} className="recipe-card">
-                <Link to={recipe.path} className="recipe-link">
-                  <CardContent>
-                    <img
-                      src={recipe.image}
-                      alt={recipe.title}
-                      className="recipe-image"
-                    />
-                    <h2 className="recipe-title">{recipe.title}</h2>
-                  </CardContent>
-                </Link>
-              </Card>
-            ))}
-          </div>
+        <FoodCategoryBar />
+        
+      <div class="parent">
+    <img class="div1" src= {Spaghetti} ></img>
+    <div class="div2">Filtro</div>
+    <img class="div3" src= {Spaghetti} ></img>
+    <img class="div4" src= {Spaghetti} ></img>
+    <img class="div5" src= {Spaghetti} ></img>
+    <img class="div6" src= {Spaghetti} ></img>
+    <img class="div7" src= {Spaghetti} ></img>
+    <img class="div8" src= {Spaghetti} ></img>
+
+</div>
+    
 
           <h1 className="title">Recetas Publicadas</h1>
           <div className="recipes-grid">
@@ -55,11 +50,11 @@ export default function MainPage() {
                 <Link to={`/receta/${receta.id}`} className="recipe-link">
                   <CardContent>
                     <img
-                      src={receta.image}
-                      alt={receta.title}
+                      src={receta.imagen}
+                      alt={receta.titulo}
                       className="recipe-image"
                     />
-                    <h2 className="recipe-title">{receta.title}</h2>
+                    <h2 className="recipe-title">{receta.titulo}</h2>
                   </CardContent>
                 </Link>
               </Card>
