@@ -5,9 +5,11 @@ import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
 import api from "../../api/axiosConfig";
+import { useAuth } from "../../Contexto/AuthContext.jsx"; // <--- Importa useAuth desde la carpeta Contexto
 
-const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
+const Signup = ({ onSubmit, selectedUser }) => { // onLogin ya no es necesario aquí
   const navigate = useNavigate();
+  const { login } = useAuth(); // <--- Obtenemos la función 'login' del contexto
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isChecking, setIsChecking] = useState(false);
@@ -15,10 +17,10 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   useEffect(() => {
     if (selectedUser) {
       setUser({
-     name:     selectedUser.name     || "",
-      email:    selectedUser.email    || "",
-      password: selectedUser.password || ""
-    });
+        name: selectedUser.name || "",
+        email: selectedUser.email || "",
+        password: selectedUser.password || ""
+      });
     }
   }, [selectedUser]);
 
@@ -26,7 +28,6 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
 
-    // Limpiar el error de este campo cuando el usuario lo modifica
     if (errors[name]) {
       setErrors({ ...errors, [name]: null });
     }
@@ -35,7 +36,6 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Validaciones básicas
     if (!user.name.trim()) newErrors.name = "El nombre es obligatorio";
     if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
     else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
@@ -49,12 +49,10 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   const checkUserExists = async () => {
     try {
       setIsChecking(true);
-      // Consulta al endpoint para verificar si existe el email
       const response = await api.get(`/usuarios/check-email?email=${encodeURIComponent(user.email)}`);
       return response.data.exists;
     } catch (error) {
       console.error("Error al verificar el email:", error);
-      // Si hay un error en la verificación, asumimos que es seguro continuar
       return false;
     } finally {
       setIsChecking(false);
@@ -72,16 +70,17 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
         return;
       }
 
-      // → Creamos usuario en el back y obtenemos el objeto completo
-      const newUser = await onSubmit(user);
+      const newUser = await onSubmit(user); // onSubmit para crear el usuario en el backend
       console.log("Usuario registrado correctamente:", newUser);
 
-      // → Actualizamos el estado global y localStorage
-      onLogin(newUser);
+      // Llama a la función 'login' del contexto para establecer el usuario globalmente
+      // y recargar la página.
+      login(newUser); // <--- Llama a la función 'login' del contexto con el nuevo usuario
 
-      // → Limpiamos y redirigimos
-      setUser({ name: "", email: "", password: "" });
-      navigate("/");
+      // Ya no necesitamos limpiar el estado aquí ni navegar directamente,
+      // porque el reload de `login` se encarga de la recarga.
+      // setUser({ name: "", email: "", password: "" });
+      // navigate("/");
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       setErrors({
@@ -90,6 +89,7 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
       });
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="container">

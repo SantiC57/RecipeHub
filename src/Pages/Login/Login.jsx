@@ -1,33 +1,32 @@
-﻿import React,{useState,useEffect} from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import api from "../../api/axiosConfig.js";
+import { useAuth } from "../../Contexto/AuthContext.jsx"; // <--- Importa useAuth desde la carpeta Contexto
 
-const Login = ({onLogin}) => {
-
+const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // <--- Obtenemos la función 'login' del contexto
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-  
-    
-    if(errors[name]){
+
+    if (errors[name]) {
       setErrors({ ...errors, [name]: null });
     }
-  }
+  };
 
-  const validateForm = () =>{
+  const validateForm = () => {
     const newErrors = {};
 
-    if(!user.email.trim()) newErrors.email = "El correo es obligatorio";
-    else if(!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
-    if(!user.password) newErrors.password = "La contraseña es obligatoria";
-    else if(user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+    if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
+    else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
+    if (!user.password) newErrors.password = "La contraseña es obligatoria";
+    else if (user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -37,32 +36,35 @@ const Login = ({onLogin}) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsLoading(true);
-  
+
     try {
       const { data } = await api.post("/usuarios/login", {
         email: user.email,
         password: user.password,
       });
-  
-      localStorage.setItem("currentUser", JSON.stringify(data.user));
-      if (onLogin) onLogin(data.user);
-  
-      navigate("/");
-  
+
+      // Ya no necesitamos localStorage.setItem("currentUser", ...) directamente aquí
+      // porque la función `login` del AuthContext se encarga de eso.
+      login(data.user); // <--- Llama a la función 'login' del contexto con los datos del usuario
+
+      // navigate("/"); // La función 'login' del contexto ya maneja el window.location.reload()
+                     // lo que simula la navegación y actualización completa de la página.
+                     // Si en el futuro cambias a una navegación sin recarga, puedes usar navigate('/') aquí.
+
     } catch (error) {
       console.error("Error al iniciar sesión", error);
-  
-      let errorMsg = "Error al iniciar sesión. Por favor intenta de nuevo.";
-  
+
+      let errorMsg = "Error al iniciar sesión. Por favor, intenta de nuevo.";
+
       if (error.response) {
         const status = error.response.status;
         const message = error.response.data?.message;
-  
+
         if (status === 401) {
           errorMsg = "Correo o contraseña incorrectos.";
         } else if (status === 404 || message?.toLowerCase().includes("no encontrado")) {
           errorMsg = "Usuario no encontrado. Serás redirigido para registrarte.";
-          
+
           setErrors({ ...errors, general: errorMsg });
           setTimeout(() => {
             navigate("/signup");
@@ -70,12 +72,11 @@ const Login = ({onLogin}) => {
           return;
         }
       }
-  
+
       setErrors({ ...errors, general: errorMsg });
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="login">
