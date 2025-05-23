@@ -7,7 +7,7 @@ import Pastas from "./Pastas/Pastas.jsx";
 import Carnes from "./Carnes/Carnes.jsx";
 import Mariscos from "./Mariscos/Mariscos.jsx";
 import Support from "./Support/support.jsx";
-import Publication from "./Publication/Publication.jsx";
+import Publication from "../Pages/Publication/Publication.jsx";
 import Profile from "./Profile/Profile.jsx";
 import RecipeDetail from "./RecipeDetail/RecipeDetail.jsx";
 import { useState } from "react";
@@ -79,13 +79,11 @@ function App() {
   // Función para manejar el envío de usuarios
   const handleUserSubmit = async (user) => {
     try {
-
         // Crear nuevo usuario
         const response = await api.post('/usuarios', user);
         setUsers((prevUsers) => [...prevUsers, response.data]);
-
-
-      return response.data;
+        
+        return response.data;
     } catch (error) {
       console.error("Error al guardar el usuario:", error.response?.data || error.message);
       throw error;
@@ -95,12 +93,10 @@ function App() {
   // Esta función ya no se usará directamente, los componentes hacen llamadas API directas
   const handleRecipeSubmit = async (recipe) => {
     try {
-      // Esta función se mantiene para compatibilidad, pero la Publication.jsx ahora hace su propia llamada a la API
-      console.log("Esta función está obsoleta, se recomienda hacer llamadas directas a la API");
-      return null;
+      const response = await api.post('/recetas', recipe);
+      setRecipes(response.data);
     } catch (error) {
-      console.error("Error al guardar la receta:", error);
-      throw error;
+      console.error("Error al refrescar las recetas:", error);
     }
   };
   
@@ -115,21 +111,9 @@ function App() {
         <Route path="/carnes" element={<Carnes />} />
         <Route path="/mariscos" element={<Mariscos/>} />
         <Route path="/support" element={<Support />} />
-        <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} onLogin={setCurrentUser} currentUser={currentUser} />} />
+        <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/recipe/:id" element={<RecipeDetail />} />
-        <Route path="/profile" element={<Profile />} />
-        {/* Agrega más rutas según sea necesario */}
-
-        <Route 
-          path="/publication" 
-          element={
-            <Publication 
-              onSubmit={handleRecipeSubmit} 
-              currentUser={currentUser}
-            />
-          } 
-        />
       </Routes>
     </Router>
   );
