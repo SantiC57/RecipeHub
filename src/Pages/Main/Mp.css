@@ -141,43 +141,111 @@
 
 
 .parent {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, minmax(120px, auto));
+  gap: 16px;
+  width: 90vw;
+  padding-right: 4rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
-    
+
+/* Filtro */
 .div1 {
-    grid-column: span 2 / span 2;
-    grid-row: span 3 / span 3;
+  grid-column: 1 / 2;
+  background-color: white;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
 }
 
+.div1 input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.div1 button {
+  padding: 8px;
+  border: none;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+/* Receta destacada */
 .div2 {
-    grid-row: span 3 / span 3;
-    grid-column-start: 3;
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center; /* ✅ centra título y elementos inline */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ centra horizontalmente elementos como la imagen */
+  justify-content: center;
+  background-color: white;
 }
 
+.destacada-titulo {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.destacada-imagen {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.destacada-info {
+  height: 16px;
+  width: 80%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* Recetas */
+.receta {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  padding: 12px;
+}
+
+.imagen-circular {
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 auto 8px auto;
+}
+
+/* Posiciones en la cuadrícula */
 .div3 {
-    grid-row-start: 4;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .div4 {
-    grid-row-start: 4;
+  grid-column: 2;
+  grid-row: 2;
 }
 
 .div5 {
-    grid-row-start: 4;
+  grid-column: 3;
+  grid-row: 2;
 }
 
 .div6 {
-    grid-row-start: 5;
-}
-
-.div7 {
-    grid-row-start: 5;
-}
-
-.div8 {
-    grid-row-start: 5;
+  grid-column: 1;
+  grid-row: 3;
 }
         

@@ -31,20 +31,46 @@ export default function MainPage() {
           <h1 className="title">Categorías Disponibles</h1>
         <FoodCategoryBar />
         
-      <div class="parent">
-    <div class="div1">Filtro</div>
-    <img class="div2" src= {Spaghetti} ></img>
-    <img class="div3" src= {Spaghetti} ></img>
-    <img class="div4" src= {Spaghetti} ></img>
-    <img class="div5" src= {Spaghetti} ></img>
-    <img class="div6" src= {Spaghetti} ></img>
-    <img class="div7" src= {Spaghetti} ></img>
-    <img class="div8" src= {Spaghetti} ></img>
+ <div class="parent">
+  <div class="div1">
+    <input type="text" placeholder="🔍 Buscar..." />
+    <h3>Categorías</h3>
+    <button>Categoría 1</button>
+    <button>Categoría 2</button>
+  </div>
+<div className="div2">
+  <h3 className="destacada-titulo">Receta destacada</h3>
+  <img className="destacada-imagen" src={Spaghetti} alt="Receta destacada" />
+  <div className="destacada-info">Lasagna</div>
+</div>
 
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
+<div className="receta">
+  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
+  <p>Lasaña tradicional</p>
+</div>
 </div>
     
-
-          <h1 className="title">Recetas Publicadas</h1>
+ <h1 className="title">Recetas Publicadas</h1>
           <div className="recipes-grid">
             {recetasPublicadas.map((receta) => (
               <Card key={receta.id} className="recipe-card">
