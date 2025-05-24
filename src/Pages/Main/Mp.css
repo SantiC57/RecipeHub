@@ -139,6 +139,7 @@
   text-align: center;
 }
 
+
 .parent {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -147,16 +148,13 @@
 }
     
 .div1 {
+    grid-column: span 2 / span 2;
     grid-row: span 3 / span 3;
-    grid-column-start: 3;
-    grid-row-start: 1;
 }
 
 .div2 {
-    grid-column: span 2 / span 2;
     grid-row: span 3 / span 3;
-    grid-column-start: 1;
-    grid-row-start: 1;
+    grid-column-start: 3;
 }
 
 .div3 {
@@ -172,17 +170,14 @@
 }
 
 .div6 {
-    grid-column-start: 3;
     grid-row-start: 5;
 }
 
 .div7 {
-    grid-column-start: 2;
     grid-row-start: 5;
 }
 
 .div8 {
-    grid-column-start: 1;
     grid-row-start: 5;
 }
         

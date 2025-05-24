@@ -32,8 +32,8 @@ export default function MainPage() {
         <FoodCategoryBar />
         
       <div class="parent">
-    <img class="div1" src= {Spaghetti} ></img>
-    <div class="div2">Filtro</div>
+    <div class="div1">Filtro</div>
+    <img class="div2" src= {Spaghetti} ></img>
     <img class="div3" src= {Spaghetti} ></img>
     <img class="div4" src= {Spaghetti} ></img>
     <img class="div5" src= {Spaghetti} ></img>
