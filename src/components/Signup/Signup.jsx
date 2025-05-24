@@ -98,12 +98,8 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
           <div className="underline"></div>
         </div>
 
-        {errors.general && (
-          <div className="error-message general">{errors.general}</div>
-        )}
-
         <div className="inputs">
-          <div className="input">
+          <div className={`input ${errors.email ? "input-wrapper-error" : ""}`}>
             <img src={user_icon} alt="Usuario" />
             <input
               type="text"
@@ -112,11 +108,11 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
               value={user.name}
               onChange={handleChange}
               required
+              className={errors.name ? "input-error" : ""}
             />
           </div>
-          {errors.name && <div className="error-message">{errors.name}</div>}
 
-          <div className="input">
+          <div className={`input ${errors.email ? "input-wrapper-error" : ""}`}>
             <img src={email_icon} alt="Correo" />
             <input
               type="email"
@@ -125,11 +121,11 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
               value={user.email}
               onChange={handleChange}
               required
+              
             />
           </div>
-          {errors.email && <div className="error-message">{errors.email}</div>}
 
-          <div className="input">
+          <div className={`input ${errors.password ? "input-wrapper-error" : ""}`}>
             <img src={password_icon} alt="Contraseña" />
             <input
               type="password"
@@ -139,9 +135,13 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
               onChange={handleChange}
               required
               minLength="6"
-            />
+              className={errors.password ? "input-error" : ""}
+              />
           </div>
+          {errors.email  && <div className="error-message">{errors.email}</div>}
+          {errors.general && (<div className="error-message general">{errors.general}</div>)}
           {errors.password && <div className="error-message">{errors.password}</div>}
+          {errors.name && <div className="error-message">{errors.name}</div>}
         </div>
 
         <div className="submit-container">

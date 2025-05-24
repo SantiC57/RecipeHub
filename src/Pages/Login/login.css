@@ -41,10 +41,13 @@
 
 .login__error{
   color: #f03232;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: center;
 }
+.login__input--error {
+ color: #f03232 !important;
+  border: 1px solid #f03232 !important;
+  background-color: #ffecec !important;
+}
+
 
 /* Label oculto (accesible, pero no visible) */
 .login__label {
