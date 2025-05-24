@@ -17,7 +17,9 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 		ingredientes: "", 
 		imagen: "",
 		preparacion: "", 
-		tiempo: "", 
+		tiempo: "",
+		categoria: "",
+		coccion: "",
 		usuarioId: JSON.parse(localStorage.getItem("currentUser"))?.id || null
 	});
 
@@ -43,15 +45,13 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 		setIsUploading(false);
 	}
 
-
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		
 		try {
-			const { titulo, ingredientes, preparacion, tiempo, imagen, usuarioId } = recipe;
+			const { titulo, ingredientes, preparacion, tiempo, imagen, categoria, coccion, usuarioId } = recipe;
 		
-			if (!titulo || !ingredientes || !preparacion || !imagen|| !tiempo) {
+			if (!titulo || !ingredientes || !preparacion || !imagen || !tiempo || !categoria) {
 				Swal.fire("Por favor, completa todos los campos obligatorios.");
 				return;
 			}
@@ -70,6 +70,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 				preparacion,
 				imagen,
 				tiempo,
+				categoria,
+				coccion,
 				usuarioId
 			};
 			
@@ -84,6 +86,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 				imagen: null,
 				preparacion: "", 
 				tiempo: "",
+				categoria: "",
+				coccion: "",
 				usuarioId: usuarioId // Mantenemos el ID del usuario
 			});
 			
@@ -121,6 +125,27 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 					</fieldset>
 
 					<fieldset className="publication-recipe">
+						<label htmlFor="categoria" className="publication-label">Categoría</label>
+						<select 
+							id="categoria" 
+							className="publication-input" 
+							name="categoria" 
+							required 
+							value={recipe.categoria} 
+							onChange={handleChange}
+						>
+							<option value="">Selecciona una categoría</option>
+							<option>Pastas</option>
+							<option>Carnes</option>
+							<option>Mariscos</option>
+							<option>Sopas</option>
+							<option>Ensaladas</option>
+							<option>Postres</option>
+							<option>Salsas</option>
+						</select>
+					</fieldset>
+
+					<fieldset className="publication-recipe">
 						<label htmlFor="ingredientes" className="publication-label">Ingredientes</label>
 						<textarea 
 							id="ingredientes" 
@@ -148,8 +173,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="upload" className="publication-label">Subir Foto</label>
-						<Upload  onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />					
-						</fieldset>
+						<Upload onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />					
+					</fieldset>
 
 					<fieldset className="publication-recipe">
 						<label htmlFor="tiempo" className="publication-label">Tiempo Preparación</label>
@@ -172,6 +197,25 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 						</select>
 					</fieldset>
 
+					<fieldset className="publication-recipe">
+						<label htmlFor="coccion" className="publication-label">Tiempo de Cocción</label>
+						<select 
+							id="coccion" 
+							className="publication-input" 
+							name="coccion" 
+							required 
+							value={recipe.coccion} 
+							onChange={handleChange}
+						>
+							<option value="">Selecciona el tiempo de cocción</option>
+							<option>10 minutos</option>
+							<option>15 minutos</option>
+							<option>30 minutos</option>
+							<option>45 minutos</option>
+							<option>1 hora</option>
+						</select>
+					</fieldset>
+
 					<div className="publication-actions">
 						{/* Botón type="button" para evitar envío del formulario */}
 						<button 
@@ -186,7 +230,7 @@ const Publication = ({onSubmit, selectedRecipe}) => {
   							className="publication-button publication-button--save"
   							disabled={isUploading}
 						>	
-  						{isUploading ? "Subiendo imagen..." : "Publicar"}
+  							{isUploading ? "Subiendo imagen..." : "Publicar"}
 						</button>
 					</div>
 				</form>

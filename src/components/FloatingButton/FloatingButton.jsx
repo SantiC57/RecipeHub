@@ -38,15 +38,18 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
       >
         <span>
           Canales de Soporte
-          <div className="button-icon">👨‍💻</div>
+          <img className="button-icon" src='/src/assets/bot.ico'/>
         </span>
       </div>
       <div 
         className={`support-menu ${isMenuOpen ? 'active' : ''}`}
         ref={menuRef}
       >
-        <a href={supportPageUrl} className="support-button">
+        <a href={supportPageUrl} className="support-button-floating">
+          <span className='support-link-content'>  
           Ir a Página de Soporte
+          <img src="/src/assets/Technical Support.ico" className="button-icon"/>
+          </span>
         </a>
       </div>
     </div>

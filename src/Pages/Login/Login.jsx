@@ -1,33 +1,31 @@
-﻿import React,{useState,useEffect} from "react";
+﻿import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import api from "../../api/axiosConfig.js";
 
-const Login = ({onLogin}) => {
-
+const Login = ({ onLogin }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-  
-    
-    if(errors[name]){
+
+    if (errors[name]) {
       setErrors({ ...errors, [name]: null });
     }
-  }
+  };
 
-  const validateForm = () =>{
+  const validateForm = () => {
     const newErrors = {};
 
-    if(!user.email.trim()) newErrors.email = "El correo es obligatorio";
-    else if(!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
-    if(!user.password) newErrors.password = "La contraseña es obligatoria";
-    else if(user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+    if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
+    else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
+
+    if (!user.password) newErrors.password = "La contraseña es obligatoria";
+    else if (user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -37,65 +35,85 @@ const Login = ({onLogin}) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsLoading(true);
-  
+
     try {
       const { data } = await api.post("/usuarios/login", {
         email: user.email,
         password: user.password,
       });
-  
+
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       if (onLogin) onLogin(data.user);
-  
+
       navigate("/");
-  
     } catch (error) {
       console.error("Error al iniciar sesión", error);
-  
+
       let errorMsg = "Error al iniciar sesión. Por favor intenta de nuevo.";
-  
+      const newErrors = {};
+
       if (error.response) {
         const status = error.response.status;
         const message = error.response.data?.message;
-  
+
         if (status === 401) {
           errorMsg = "Correo o contraseña incorrectos.";
+          newErrors.email = true;
+          newErrors.password = true;
         } else if (status === 404 || message?.toLowerCase().includes("no encontrado")) {
-          errorMsg = "Usuario no encontrado. Serás redirigido para registrarte.";
-          
-          setErrors({ ...errors, general: errorMsg });
-          setTimeout(() => {
-            navigate("/signup");
-          }, 2500);
-          return;
+          errorMsg = "Usuario no encontrado. Por favor verifica tu correo.";
+          newErrors.email = true;
         }
       }
-  
-      setErrors({ ...errors, general: errorMsg });
+
+      newErrors.general = errorMsg;
+      setErrors(newErrors);
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="login">
       <form className="login__form" onSubmit={handleSubmit}>
         <h2 className="login__title">Iniciar Sesión</h2>
-        {errors.general && <p className="login__error">{errors.general}</p>}
+
         <div className="login__group">
           <label htmlFor="email" className="login__label">Correo Electrónico</label>
-          <input type="text" id="email" className="login__input" name="email" value={user.email} placeholder="Usuario" onChange={handleChange} />
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={user.email}
+            placeholder="Usuario"
+            className={`login__input ${errors.email ? "login__input--error" : ""}`}
+            onChange={handleChange}
+          />
         </div>
-        {errors.email && <p className="login__error">{errors.email}</p>}
+
         <div className="login__group">
           <label htmlFor="password" className="login__label">Contraseña</label>
-          <input type="password" id="password" className="login__input" name="password" value={user.password} placeholder="Contraseña" onChange={handleChange} />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={user.password}
+            placeholder="Contraseña"
+            className={`login__input ${errors.password ? "login__input--error" : ""}`}
+            onChange={handleChange}
+          />
         </div>
-        {errors.password && <p className="login__error">{errors.password}</p>}
-        <button type="submit" className="login__button">{isLoading ? "Verificando..." : "Ingresar"}</button>
+
+        {errors.email && typeof errors.email === "string" && <p className="login__error">{errors.email}</p>}
+        {errors.password && typeof errors.password === "string" && <p className="login__error">{errors.password}</p>}
+        {errors.general && <p className="login__error">{errors.general}</p>}
+
+        <button type="submit" className="login__button">
+          {isLoading ? "Verificando..." : "Ingresar"}
+        </button>
 
         <p className="login__register">
-          ¿No tienes cuenta? <a href="/signup">Regístrate</a></p>
+          ¿No tienes cuenta? <a href="/signup">Regístrate</a>
+        </p>
       </form>
     </div>
   );
