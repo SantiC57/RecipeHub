@@ -1,5 +1,4 @@
 .navbar {
-  max-width: 100%;
   width: 100%;
   background: #a6b974;
   padding: 1rem 2rem;
@@ -8,9 +7,9 @@
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-bottom: 3px solid #4f3a2d;
+  position: fixed;
   top: 0;
   left: 0;
-  position: fixed;
   z-index: 1000;
 }
 
@@ -19,7 +18,8 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  width: 90%;
+  width: 100%;
+  position: relative;
 }
 
 .navbar-logo {
@@ -29,6 +29,11 @@
   font-weight: bold;
   color: #4f3a2d;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #6e4a2d;
 }
 
 .navbar-logo-image {
@@ -36,6 +41,37 @@
   height: 40px;
   margin-right: 0.5rem;
   object-fit: contain;
+}
+
+.mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: #4f3a2d;
+  margin: 3px 0;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .navbar-menu {
@@ -53,64 +89,158 @@
 
 .navbar-menu a {
   color: #4f3a2d;
-  text-decoration:none;
+  text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
+  display: block;
 }
 
 .navbar-menu a:hover {
   background-color: #6e8a4a;
   color: #fff;
+  transform: translateY(-1px);
 }
 
 .profile-button {
-  background-color: #4f3a2d;
+  background-color: #4f3a2d !important;
   color: white !important;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: bold;
 }
+
 .publish-button {
-  background-color: #E8B44A;
-  color: white ;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: bold;
+  background-color: #E8B44A !important;
+  color: white !important;
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 .register-button {
-  background-color: #4f3a2d;
+  background-color: #4f3a2d !important;
   color: white !important;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: bold;
 }
+
 .publish-button:hover {
   background-color: #e9be67 !important;
+  transform: translateY(-1px) scale(1.05) !important;
 }
 
 .profile-button:hover {
   background-color: #6e4a2d !important;
-}
-.register-button:hover {
-  background-color: #6e4a2d !important;
+  transform: translateY(-1px) !important;
 }
 
-@media (max-width: 768px) {
-  .navbar-container {
-    flex-direction: column;
-    padding: 0.5rem 0;
-  }
-  
-  .navbar-logo {
-    margin-bottom: 0.5rem;
+.register-button:hover {
+  background-color: #6e4a2d !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 1.5rem;
   }
   
   .navbar-menu {
-    justify-content: center;
-    width: 100%;
-    flex-wrap: wrap;
+    gap: 0.5rem;
   }
+  
+  .navbar-menu a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #a6b974;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #4f3a2d;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    gap: 0.5rem;
+  }
+
+  .navbar-menu.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-menu a {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+  }
+
+  .navbar-logo-image {
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.3rem;
+  }
+
+  .navbar-logo-image {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+  }
+
+  .navbar-menu a {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-menu a,
+  .hamburger-line,
+  .navbar-menu {
+    transition: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.navbar-menu a:focus,
+.mobile-menu-button:focus {
+  outline: 2px solid #4f3a2d;
+  outline-offset: 2px;
 }

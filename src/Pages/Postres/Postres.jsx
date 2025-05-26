@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Spaghetti from "../../assets/Spaghetti-Boloñesa.jpg";
-import Lasagna from "../../assets/lasaña.jpg";
-import Carbonara from "../../assets/pasta-carbonara.jpg";
+import PostreLimon from "../../assets/postre_limon.jpg";
+import Flan from "../../assets/flan.jpg";
+import PostreMaracuya from "../../assets/postre_maracuya.jpg";
 import { Navbar } from "../../components/Navbar/Navbar";
+import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 
 const Postres = () => {
   const navigate = useNavigate();
@@ -11,24 +12,27 @@ const Postres = () => {
   return (
     <>
       <Navbar />
+
+      <h1 class="titulo" >Categorias Disponibles</h1>
+      <FoodCategoryBar />
       <div className="categoria">
-        <h2 className="categoria__titulo">Recetas de Pastas</h2>
+        <h2 className="categoria__titulo">Recetas de Postres</h2>
         <div className="categoria__lista">
           <div
             className="receta"
             onClick={() => navigate("/recipe/:id")}
             style={{ cursor: "pointer" }}
           >
-            <img src={Spaghetti} alt="Spaghetti" />
-            <h3>Spaghetti</h3>
+            <img src={Flan} alt="Spaghetti" />
+            <h3>Flan</h3>
           </div>
           <div className="receta">
-            <img src={Lasagna} alt="Lasaña" />
-            <h3>Lasaña</h3>
+            <img src={PostreLimon} alt="Lasaña" />
+            <h3>Postre de Limon</h3>
           </div>
           <div className="receta">
-            <img src={Carbonara} alt="Pasta Carbonara" />
-            <h3>Pasta Carbonara</h3>
+            <img src={PostreMaracuya} alt="Pasta Carbonara" />
+            <h3>Postre de Maracuya</h3>
           </div>
         </div>
       </div>

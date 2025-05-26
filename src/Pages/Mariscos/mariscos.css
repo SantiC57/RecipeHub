@@ -28,6 +28,8 @@
   .receta img {
     width: 100%;
     border-radius: 10px;
+    max-height: 140px;
+    height: 100%;
   }
   
   .receta h3 {
