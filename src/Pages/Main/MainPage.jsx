@@ -45,16 +45,16 @@ export default function MainPage() {
 </div>
 
 <div className="receta">
-  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
-  <p>Lasaña tradicional</p>
+  <img className="imagen-circular" src={Spaghetti} alt="Spaghetti" />
+  <p>Spaghetti</p>
 </div>
 <div className="receta">
-  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
-  <p>Lasaña tradicional</p>
+  <img className="imagen-circular" src={CoctelCamaron} alt="Coctel Camaron" />
+  <p>Coctel Camaron</p>
 </div>
 <div className="receta">
-  <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
-  <p>Lasaña tradicional</p>
+  <img className="imagen-circular" src={CarneAsada} alt="Carne" />
+  <p>Carne Asada</p>
 </div>
 <div className="receta">
   <img className="imagen-circular" src={Spaghetti} alt="Lasaña" />
@@ -90,7 +90,6 @@ export default function MainPage() {
         </main>
         <FloatingButton supportPageUrl="/support" />
       </div>
-      <Footer />
     </div>
   );
 }

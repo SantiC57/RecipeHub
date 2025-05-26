@@ -53,10 +53,10 @@
 
 .navbar-menu a {
   color: #4f3a2d;
-  text-decoration: none;
+  text-decoration:none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

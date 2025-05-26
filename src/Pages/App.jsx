@@ -12,7 +12,8 @@ import Profile from "./Profile/Profile.jsx";
 import RecipeDetail from "./RecipeDetail/RecipeDetail.jsx";
 import { useState } from "react";
 import api from "../api/axiosConfig.js";
-
+import Postres from "./Postres/Postres.jsx";
+import Sopas from "./Sopas/Sopas.jsx";
 function DynamicTitle() {
   const location = useLocation();
   
@@ -114,6 +115,8 @@ function App() {
         <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/postres" element={<Postres />} />
+        <Route path="/sopas" element={<Sopas />} />
       </Routes>
     </Router>
   );

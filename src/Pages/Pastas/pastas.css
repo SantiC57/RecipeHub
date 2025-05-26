@@ -7,7 +7,7 @@
     align-items: center;
     padding-top: 6rem;
   }
-  
+
   .pastas h2 {
     font-size: 2rem;
     color: #333;
@@ -49,4 +49,9 @@
     color: #222;
     font-weight: 600;
   }
-  
+  .titulo {
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    padding-top: 6rem;
+  }

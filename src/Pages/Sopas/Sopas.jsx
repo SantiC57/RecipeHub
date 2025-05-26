@@ -1,21 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./pastas.css";
 import Spaghetti from "../../assets/Spaghetti-Boloñesa.jpg";
 import Lasagna from "../../assets/lasaña.jpg";
 import Carbonara from "../../assets/pasta-carbonara.jpg";
 import { Navbar } from "../../components/Navbar/Navbar";
-import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 
-const Pastas = () => {
+const Sopas = () => {
   const navigate = useNavigate();
 
   return (
     <>
-
       <Navbar />
-      <h1 class="titulo" >Categorias Disponibles</h1>
-      <FoodCategoryBar />
       <div className="categoria">
         <h2 className="categoria__titulo">Recetas de Pastas</h2>
         <div className="categoria__lista">
@@ -41,4 +36,4 @@ const Pastas = () => {
   );
 };
 
-export default Pastas;
+export default Sopas;

@@ -52,76 +52,6 @@
   font-weight: bold;
 }
 
-.recipes-grid {
-  display: grid;
-  /* 4 columnas iguales */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  /* 2 filas, la altura se adapta al contenido */
-  grid-template-rows: repeat(2, auto);
-  gap: 6rem;               /* espacio entre todas las celdas */
-  justify-items: center;     /* centra el contenido en cada celda */
-  align-items: center;        /* alinea el contenido arriba de la celda */
-  max-width: 1200px;         /* opcional, limita el ancho total */
-  margin: 0 auto;            /* centra el grid en la página */
-}
-
-.recipe-card {
-  border-radius: 8px;
-  display: flex;
-  flex-direction:column;
-  align-items: center;
-  padding: 1rem;
-  min-height: 300px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction:column;
-  align-items: center;
-  padding: 1rem;
-  min-height: 300px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  max-width: 300px;
-}
-.recipe-link {
-  text-decoration: none; /* Quita el delineado */
-  color: inherit;        /* Hereda el color del texto */
-  display: block;        /* Asegura que ocupe todo el ancho del contenedor */
-  width: 100%;           /* Opcional: asegura que se ajuste al contenedor */
-}
-
-.recipe-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.recipe-image {
-  width: 100%;
-  height: 160px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-
-.recipe-title {
-  font-size: 1.1rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-align: center;
-  margin: 0;
-  color: #1e293b;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-
 .footer {
   margin-top: auto;
   padding: 1rem;
@@ -218,11 +148,12 @@
   border-radius: 8px;
   text-align: center;
   padding: 12px;
+  max-height: 200px;
 }
 
 .imagen-circular {
   width: 80px;
-  height: 80px;
+  height: 100px;
   background-color: #ccc;
   border-radius: 50%;
   margin: 0 auto 8px auto;
@@ -248,4 +179,8 @@
   grid-column: 1;
   grid-row: 3;
 }
-        
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la pantalla */
+}

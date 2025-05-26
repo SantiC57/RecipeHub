@@ -1,9 +1,8 @@
 .categoria {
     padding: 2rem;
     text-align: center;
-    padding-top: 6rem;
+    padding-top: 1rem;
   }
-  
   .categoria__titulo {
     font-size: 32px;
     margin-bottom: 2rem;
@@ -35,5 +34,11 @@
     margin-top: 1rem;
     font-size: 18px;
     color: #333;
+  }
+    .titulo {
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    padding-top: 6rem;
   }
   
