@@ -27,15 +27,8 @@
   font-weight: bold;
 }
 
-.recipe-meta {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  background-color: #a4be7b;
-  padding: 1rem;
-  border-radius: 8px;
-}
+
+
 
 .meta-item {
   display: flex;

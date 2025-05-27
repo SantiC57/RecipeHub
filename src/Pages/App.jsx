@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation,useParams  } from "react-router-dom";
 import Signup from "../components/Signup/Signup.jsx";
 import Login from "./Login/Login.jsx";
 import { useEffect } from "react";
@@ -11,6 +11,7 @@ import Publication from "../Pages/Publication/Publication.jsx";
 import Profile from "./Profile/Profile.jsx";
 import RecipeDetail from "./RecipeDetail/RecipeDetail.jsx";
 import { useState } from "react";
+import InteractiveRecipeGuide from "../components/Instructivo/InteractiveRecipeGuide.jsx";
 import api from "../api/axiosConfig.js";
 import Postres from "./Postres/Postres.jsx";
 import Sopas from "./Sopas/Sopas.jsx";
@@ -33,6 +34,12 @@ function DynamicTitle() {
   }, [location]);
   
   return null;
+}
+
+// Componente wrapper para InteractiveRecipeGuide
+function InteractiveRecipeWrapper() {
+  const { id } = useParams();
+  return <InteractiveRecipeGuide recipeId={parseInt(id)} />;
 }
 
 function App() {
@@ -114,7 +121,8 @@ function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
-        <Route path="/receta/:id" element={<RecipeDetail />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/recipes/:id" element={<InteractiveRecipeWrapper />} />
         <Route path="/postres" element={<Postres />} />
         <Route path="/sopas" element={<Sopas />} />
       </Routes>
