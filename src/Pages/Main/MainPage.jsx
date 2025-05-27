@@ -24,7 +24,7 @@ export default function MainPage() {
   const categories = Object.keys(categoryMap);
 
   useEffect(() => {
-    fetch("https://rf4377l3-5000.use2.devtunnels.ms/api/recetas")
+    fetch("https://crud-production-b855.up.railway.app/api/recetas")
       .then((res) => res.json())
       .then((data) => setRecetasPublicadas(data))
       .catch((err) => console.error("Error al cargar recetas:", err));
