@@ -176,45 +176,50 @@ const Publication = ({ onSubmit, selectedRecipe }) => {
             <Upload onUploadStart={() => setIsUploading(true)} onUploadFinish={handleUploadFinish} />
           </fieldset>
 
-          <fieldset className="publication-recipe">
-            <label htmlFor="tiempo" className="publication-label">Tiempo Preparación</label>
-            <select
-              id="tiempo"
-              className="publication-input"
-              name="tiempo"
-              required
-              value={recipe.tiempo}
-              onChange={handleChange}
-            >
-              <option value="">Selecciona el tiempo de preparación</option>
-              <option>10 minutos</option>
-              <option>15 minutos</option>
-              <option>30 minutos</option>
-              <option>45 minutos</option>
-              <option>1 hora</option>
-              <option>2 horas</option>
-              <option>3 horas</option>
-            </select>
-          </fieldset>
+					<fieldset className="publication-recipe">
+						<label htmlFor="tiempo" className="publication-label">Tiempo Preparación</label>
+						<select 
+							id="tiempo" 
+							className="publication-input" 
+							name="tiempo" 
+							required 
+							value={recipe.tiempo} 
+							onChange={handleChange}
+						>
+							<option value="">Selecciona el tiempo de preparación</option>
+							<option>10 minutos</option>
+							<option>15 minutos</option>
+							<option>20 minutos</option>
+							<option>25 minutos</option>
+							<option>30 minutos</option>
+							<option>45 minutos</option>
+							<option>1 hora</option>
+							<option>2 horas</option>
+							<option>3 horas</option>
+						</select>
+					</fieldset>
 
-          <fieldset className="publication-recipe">
-            <label htmlFor="coccion" className="publication-label">Tiempo de Cocción</label>
-            <select
-              id="coccion"
-              className="publication-input"
-              name="coccion"
-              required
-              value={recipe.coccion}
-              onChange={handleChange}
-            >
-              <option value="">Selecciona el tiempo de cocción</option>
-              <option>10 minutos</option>
-              <option>15 minutos</option>
-              <option>30 minutos</option>
-              <option>45 minutos</option>
-              <option>1 hora</option>
-            </select>
-          </fieldset>
+					<fieldset className="publication-recipe">
+						<label htmlFor="coccion" className="publication-label">Tiempo de Cocción</label>
+						<select 
+							id="coccion" 
+							className="publication-input" 
+							name="coccion" 
+							value={recipe.coccion} 
+							onChange={handleChange}
+						>
+							<option value="">Selecciona el tiempo de cocción</option>
+							<option>10 minutos</option>
+							<option>15 minutos</option>
+							<option>20 minutos</option>
+							<option>25 minutos</option>
+							<option>30 minutos</option>
+							<option>35 minutos</option>
+							<option>40 minutos</option>
+							<option>45 minutos</option>
+							<option>1 hora</option>
+						</select>
+					</fieldset>
 
           <div className="publication-actions">
             <button
