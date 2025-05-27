@@ -194,6 +194,8 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 							<option value="">Selecciona el tiempo de preparación</option>
 							<option>10 minutos</option>
 							<option>15 minutos</option>
+							<option>20 minutos</option>
+							<option>25 minutos</option>
 							<option>30 minutos</option>
 							<option>45 minutos</option>
 							<option>1 hora</option>
@@ -208,14 +210,17 @@ const Publication = ({onSubmit, selectedRecipe}) => {
 							id="coccion" 
 							className="publication-input" 
 							name="coccion" 
-							required 
 							value={recipe.coccion} 
 							onChange={handleChange}
 						>
 							<option value="">Selecciona el tiempo de cocción</option>
 							<option>10 minutos</option>
 							<option>15 minutos</option>
+							<option>20 minutos</option>
+							<option>25 minutos</option>
 							<option>30 minutos</option>
+							<option>35 minutos</option>
+							<option>40 minutos</option>
 							<option>45 minutos</option>
 							<option>1 hora</option>
 						</select>
