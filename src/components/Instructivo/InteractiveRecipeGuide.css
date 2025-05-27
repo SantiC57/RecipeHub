@@ -707,7 +707,7 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  background: linear-gradient(135deg, #722F37, #461c21);
   color: white;
   border: none;
   border-radius: 50px;
@@ -725,7 +725,7 @@
 }
 
 .close-recipe-button:hover {
-  background: linear-gradient(135deg, #ff5252, #e53935);
+  background: linear-gradient(135deg, #722F37, #461c21);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
@@ -770,9 +770,9 @@
 }
 
 .close-recipe-x-button:hover {
-  background: #ff6b6b;
+  background: var(--color-destacado);
   color: white;
-  border-color: #ff6b6b;
+  border-color: var(--color-destacado);
   transform: scale(1.1);
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
