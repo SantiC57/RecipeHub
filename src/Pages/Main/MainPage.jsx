@@ -8,42 +8,47 @@ import "./Mp.css";
 
 export default function MainPage() {
   const [recetasPublicadas, setRecetasPublicadas] = useState([]);
+  const [allCategories, setAllCategories] = useState([]); // Categorías dinámicas
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
+  const slugify = (str) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '');
+
   const featuredRecipe = recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
-
-  const categoryMap = {
-    pastas: "/pastas",
-    carnes: "/carnes",
-    mariscos: "/mariscos",
-    postres: "/postres",
-    sopas: "/sopas"
-  };
-
-  const categories = Object.keys(categoryMap);
-;
 
   useEffect(() => {
     fetch("https://crud-production-b855.up.railway.app/api/recetas")
       .then((res) => res.json())
-      .then((data) => setRecetasPublicadas(data))
+      .then((data) => {
+        setRecetasPublicadas(data);
+        // Extraer categorías únicas y "slugificadas"
+        const categoriesSet = new Set(
+          data.map(receta => slugify(receta.categoria))
+        );
+        setAllCategories(Array.from(categoriesSet));
+      })
       .catch((err) => console.error("Error al cargar recetas:", err));
   }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      const term = searchTerm.toLowerCase().trim();
-      if (categoryMap[term]) {
-        navigate(categoryMap[term]);
+      const term = slugify(searchTerm);
+      if (allCategories.includes(term)) {
+        navigate(`/${term}`);
       } else {
         alert("Categoría no encontrada");
       }
     }
   };
 
-  const filteredCategories = categories.filter((cat) =>
-    cat.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filtrar categorías para mostrar sugerencias según búsqueda
+  const filteredCategories = allCategories.filter(
+    (cat) => cat.includes(slugify(searchTerm)) && searchTerm !== ""
   );
 
   return (
@@ -56,7 +61,6 @@ export default function MainPage() {
           <FoodCategoryBar />
 
           <div className="parent">
-            {/* Buscador y botones filtrados */}
             <div className="div1">
               <input
                 type="text"
@@ -64,17 +68,20 @@ export default function MainPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
+                autoComplete="off"
               />
+
+              {/* Mostrar sugerencias solo si hay texto y coincidencias */}
               {filteredCategories.length > 0 && (
                 <>
-                  <h3>Categorías</h3>
-                  {filteredCategories.map((category, index) => (
+                  <h3>Sugerencias</h3>
+                  {filteredCategories.map((cat, index) => (
                     <button
                       key={index}
                       className="category-button"
-                      onClick={() => navigate(categoryMap[category])}
+                      onClick={() => navigate(`/${cat}`)}
                     >
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
                     </button>
                   ))}
                 </>
@@ -88,7 +95,7 @@ export default function MainPage() {
                   <h3 className="destacada-titulo">Receta destacada</h3>
                   <img
                     className="destacada-imagen"
-                    src={featuredRecipe.imagen || Spaghetti}
+                    src={featuredRecipe.imagen}
                     alt={featuredRecipe.titulo}
                   />
                   <div className="destacada-info">{featuredRecipe.titulo}</div>
@@ -96,10 +103,7 @@ export default function MainPage() {
               ) : (
                 <>
                   <h3 className="destacada-titulo">Receta destacada</h3>
-                  <img
-                    className="destacada-imagen"
-                    alt="Receta destacada"
-                  />
+                  <img className="destacada-imagen" alt="Receta destacada" />
                   <div className="destacada-info">Sin receta destacada</div>
                 </>
               )}
@@ -114,9 +118,8 @@ export default function MainPage() {
               >
                 <img
                   className="imagen-circular"
-                  src={receta.imagen || Spaghetti}
+                  src={receta.imagen}
                   alt={receta.titulo}
-                  onClick={() => openRecipeGuide(receta.id)}
                 />
                 <p>{receta.titulo}</p>
               </Link>

@@ -15,6 +15,7 @@ import InteractiveRecipeGuide from "../components/Instructivo/InteractiveRecipeG
 import api from "../api/axiosConfig.js";
 import Postres from "./Postres/Postres.jsx";
 import Sopas from "./Sopas/Sopas.jsx";
+import Ensaladas from "./Ensaladas/Ensaladas.jsx";
 function DynamicTitle() {
   const location = useLocation();
   
@@ -121,10 +122,11 @@ function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/receta/:id" element={<RecipeDetail />} />
         <Route path="/recipes/:id" element={<InteractiveRecipeWrapper />} />
         <Route path="/postres" element={<Postres />} />
         <Route path="/sopas" element={<Sopas />} />
+        <Route path="/ensaladas" element={<Ensaladas />} />
       </Routes>
     </Router>
   );

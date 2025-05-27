@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./pastas.css";
 import { Navbar } from "../../components/Navbar/Navbar";
 import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 
-const Pastas = () => {
-  const [recetasPastas, setRecetasPastas] = useState([]);
+const Ensaladas = () => {
+  const [recetasEnsaladas, setRecetasEnsaladas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,12 +12,12 @@ const Pastas = () => {
       try {
         const res = await fetch("https://crud-production-b855.up.railway.app/api/recetas");
         const data = await res.json();
-        const pastas = data.filter((receta) => 
-          receta.categoria.toLowerCase() === "pastas"
+        const ensaladas = data.filter((receta) => 
+          receta.categoria.toLowerCase() === "ensaladas"
         );
-        setRecetasPastas(pastas);
+        setRecetasEnsaladas(ensaladas);
       } catch (error) {
-        console.error("Error al cargar las recetas de pastas:", error);
+        console.error("Error al cargar las recetas de ensaladas:", error);
       }
     };
 
@@ -32,12 +31,12 @@ const Pastas = () => {
       <FoodCategoryBar />
 
       <div className="categoria">
-        <h2 className="categoria__titulo">Recetas de Pastas</h2>
+        <h2 className="categoria__titulo">Recetas de Ensaladas</h2>
         <div className="categoria__lista">
-          {recetasPastas.length === 0 ? (
-            <p>No hay recetas de pastas disponibles.</p>
+          {recetasEnsaladas.length === 0 ? (
+            <p>No hay recetas de ensaladas disponibles.</p>
           ) : (
-            recetasPastas.map((receta) => (
+            recetasEnsaladas.map((receta) => (
               <div
                 className="receta"
                 key={receta.id}
@@ -55,4 +54,4 @@ const Pastas = () => {
   );
 };
 
-export default Pastas;
+export default Ensaladas;
