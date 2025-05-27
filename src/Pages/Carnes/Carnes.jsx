@@ -11,7 +11,7 @@ const Carnes = () => {
   useEffect(() => {
     const fetchRecetas = async () => {
       try {
-        const res = await fetch("https://rf4377l3-5000.use2.devtunnels.ms/api/recetas");
+        const res = await fetch("https://crud-production-b855.up.railway.app/api/recetas");
         const data = await res.json();
         const carnes = data.filter((receta) =>
           receta.categoria.toLowerCase() === "carnes"
