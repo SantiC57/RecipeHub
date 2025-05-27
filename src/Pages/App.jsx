@@ -29,6 +29,10 @@ function DynamicTitle() {
       "/pastas": "Recetas de Pastas",
       "/carnes": "Recetas de Carnes",
       "/mariscos": "Recetas de Mariscos",
+      "/sopas": "Recetas de Sopas",
+      "/salsas": "Recetas de Salsas",
+      "/ensaladas": "Recetas de Ensaladas",
+      "/postres": "Recetas de postres",
       "/publication": "Publicar receta",
       "/profile": "Mi perfil",
       "/Support": "Soporte"
