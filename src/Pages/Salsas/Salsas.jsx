@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
-const Sopas = () => {
-  const [recetasSopas, setRecetasSopas] = useState([]);
+
+const Salsas = () => {
+  const [recetasSalsas, setRecetasSalsas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,12 +12,12 @@ const Sopas = () => {
       try {
         const res = await fetch("https://crud-production-b855.up.railway.app/api/recetas");
         const data = await res.json();
-        const sopas = data.filter((receta) =>
-          receta.categoria.toLowerCase() === "sopas"
+        const salsas = data.filter((receta) =>
+          receta.categoria.toLowerCase() === "salsas"
         );
-        setRecetasSopas(sopas);
+        setRecetasSalsas(salsas);
       } catch (error) {
-        console.error("Error al cargar las recetas de sopas:", error);
+        console.error("Error al cargar las recetas de salsas:", error);
       }
     };
 
@@ -28,13 +29,14 @@ const Sopas = () => {
       <Navbar />
       <h1 className="titulo">Categorías Disponibles</h1>
       <FoodCategoryBar />
+
       <div className="categoria">
-        <h2 className="categoria__titulo">Recetas de Sopas</h2>
+        <h2 className="categoria__titulo">Recetas de Salsas</h2>
         <div className="categoria__lista">
-          {recetasSopas.length === 0 ? (
-            <p>No hay recetas de sopas disponibles.</p>
+          {recetasSalsas.length === 0 ? (
+            <p>No hay recetas de salsas disponibles.</p>
           ) : (
-            recetasSopas.map((receta) => (
+            recetasSalsas.map((receta) => (
               <div
                 className="receta"
                 key={receta.id}
@@ -52,4 +54,4 @@ const Sopas = () => {
   );
 };
 
-export default Sopas;
+export default Salsas;

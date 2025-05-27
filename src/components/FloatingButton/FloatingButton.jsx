@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './FloatingButton.css'; // Asumiendo que el CSS estará en un archivo separado
+import './FloatingButton.css'; 
 
 const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +10,6 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Cierra el menú al hacer clic fuera del botón o del menú
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

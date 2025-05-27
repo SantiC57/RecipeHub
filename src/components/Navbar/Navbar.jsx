@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../../Pages/context/UserContext"; // Ajusta la ruta según tu estructura
+import { UserContext } from "../../Pages/context/UserContext"; 
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
@@ -35,7 +35,7 @@ export function Navbar() {
           {user && (
             <>
               <li><a href="/profile" className="profile-button">Perfil</a></li>
-              <li><a href="/publication" className="publish-button">+</a></li>
+              <li><a href="/publication" className="publish-button">Publicar</a></li>
             </>
           )}
         </ul>

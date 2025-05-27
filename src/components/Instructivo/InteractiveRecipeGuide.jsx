@@ -15,26 +15,19 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
   
   const navigate = useNavigate();
 
-  // Función para cerrar la receta y volver al inicio
   const handleCloseRecipe = () => {
-    // Si hay una función onClose pasada como prop, úsala
     if (onClose) {
       onClose();
     } else {
-      // Sino, navega a la página principal
       navigate('/');
     }
   };
 
-  // Función para convertir la receta del backend al formato del componente
   const transformRecipeData = (backendRecipe) => {
-    // Separar ingredientes por líneas
     const ingredientsList = backendRecipe.ingredientes.split('\n').filter(item => item.trim());
     
-    // Separar pasos de preparación por líneas o puntos
     const preparationSteps = backendRecipe.preparacion.split('\n').filter(step => step.trim());
     
-    // Mapear cada paso con datos enriquecidos
     const steps = preparationSteps.map((step, index) => ({
       id: index + 1,
       title: `Paso ${index + 1}: ${generateStepTitle(step, index)}`,
@@ -42,7 +35,7 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
       tip: generateTip(step, index),
       visual: getStepEmoji(step, index, backendRecipe.categoria),
       color: getStepColor(index),
-      ...(index === 0 && { ingredients: ingredientsList }) // Solo el primer paso muestra ingredientes
+      ...(index === 0 && { ingredients: ingredientsList })
     }));
 
     return {
@@ -57,7 +50,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
     };
   };
 
-  // Funciones auxiliares para enriquecer el contenido
   const generateStepTitle = (step, index) => {
     const keywords = {
       'corta': '¡A cortar como un chef!',
@@ -146,7 +138,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
     return 'Chef Level';
   };
 
-  // Cargar receta desde el backend
   useEffect(() => {
     const fetchRecipe = async () => {
       if (!recipeId) {
@@ -178,7 +169,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
     fetchRecipe();
   }, [recipeId]);
 
-  // Receta de ejemplo para cuando no hay recipeId
   const getExampleRecipe = () => ({
     title: "🥗 Ensalada Caprese Mágica",
     description: "¡Prepárate para crear la ensalada caprese más fresca y deliciosa!",
@@ -245,7 +235,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
     ]
   });
 
-  // Loading state
   if (loading) {
     return (
       <div className="loading-container">
@@ -258,7 +247,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="error-container">
@@ -312,7 +300,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
 
   return (
     <div className="recipe-container">
-      {/* Botón de cerrar receta */}
       <button 
         onClick={handleCloseRecipe}
         className="close-recipe-button"
@@ -322,7 +309,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
         <span className="close-text">Volver al Inicio</span>
       </button>
 
-      {/* Botón de cerrar alternativo (X) */}
       <button 
         onClick={handleCloseRecipe}
         className="close-recipe-x-button"
@@ -331,7 +317,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
         <X className="x-icon" />
       </button>
 
-      {/* Celebration Animation */}
       {showCelebration && (
         <div className="celebration-overlay">
           <div className="celebration-modal">
@@ -349,14 +334,12 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
       )}
 
       <div className="recipe-content">
-        {/* Header */}
         <div className="recipe-header">
           <div className="chef-badge">
             <ChefHat className="chef-icon" />
             <span className="chef-text">Modo Chef Activado</span>
           </div>
           
-          {/* Recipe Image */}
           {recipe.image && (
             <div className="recipe-image-container">
               <img 
@@ -375,7 +358,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
           </h1>
           <p className="recipe-description">{recipe.description}</p>
           
-          {/* Updated Recipe Meta Items - now using standardized component */}
           <div className="recipe-meta">
             <RecipeMetaItem type="time" value={recipe.cookTime} />
             {recipe.servings && <RecipeMetaItem type="servings" value={recipe.servings} />}
@@ -384,7 +366,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
           </div>
         </div>
 
-        {/* Progress Bar */}
         <div className="progress-section">
           <div className="progress-info">
             <span className="progress-text">
@@ -401,7 +382,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
             ></div>
           </div>
           
-          {/* Mini step indicators */}
           <div className="step-indicators">
             {recipe.steps.map((_, index) => (
               <div 
@@ -420,9 +400,7 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
           </div>
         </div>
 
-        {/* Current Step Card */}
         <div className="step-card">
-          {/* Step Header */}
           <div className={`step-header ${currentStepData.color}`}>
             <div className="step-header-content">
               <div className="step-visual">
@@ -436,7 +414,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
             <div className="decoration decoration-2"></div>
           </div>
 
-          {/* Step Content */}
           <div className="step-content">
             <p className="step-text">
               {currentStepData.content}
@@ -462,7 +439,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
               <p className="tip-text">{currentStepData.tip}</p>
             </div>
 
-            {/* Complete Step Button */}
             <div className="button-container">
               <button
                 onClick={completeStep}
@@ -487,7 +463,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
           </div>
         </div>
 
-        {/* Navigation - now using the extracted component */}
         <Navigation
           currentStep={currentStep}
           stepsLength={recipe.steps.length}
@@ -496,7 +471,6 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
           onNextStep={nextStep}
         />
 
-        {/* Fun Footer */}
         <div className="footer">
           <p className="footer-text">
             Hecho con 💖 para cocineros aventureros como tú
