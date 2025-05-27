@@ -41,7 +41,7 @@ const Pastas = () => {
               <div
                 className="receta"
                 key={receta.id}
-                onClick={() => navigate(`/receta/${receta.id}`)}
+                onClick={() => navigate(`/recipes/${receta.id}`)}
                 style={{ cursor: "pointer" }}
               >
                 <img src={receta.imagen} alt={receta.titulo} />

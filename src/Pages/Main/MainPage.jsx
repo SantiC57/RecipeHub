@@ -91,7 +91,7 @@ export default function MainPage() {
             {/* Receta destacada */}
             <div className="div2">
               {featuredRecipe ? (
-                <Link to={`/receta/${featuredRecipe.id}`} className="featured-link">
+                <Link to={`/recipes/${featuredRecipe.id}`} className="featured-link">
                   <h3 className="destacada-titulo">Receta destacada</h3>
                   <img
                     className="destacada-imagen"
