@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
-import "./sopas.css";
-
 const Sopas = () => {
   const [recetasSopas, setRecetasSopas] = useState([]);
   const navigate = useNavigate();

@@ -1,6 +1,3 @@
-
-
-/* Base styles and container */
 .recipe-container {
   min-height: 100vh;
   background: var(--color-fondo);
@@ -13,7 +10,6 @@
   margin: 0 auto;
 }
 
-/* Loading styles */
 .loading-container {
   min-height: 100vh;
   background: var(--color-fondo);
@@ -51,7 +47,6 @@
   opacity: 0.8;
 }
 
-/* Error styles */
 .error-container {
   min-height: 100vh;
   background: var(--color-fondo);
@@ -109,7 +104,6 @@
   transform: translateY(-1px);
 }
 
-/* Celebration modal */
 .celebration-overlay {
   position: fixed;
   inset: 0;
@@ -162,7 +156,6 @@
   }
 }
 
-/* Recipe header */
 .recipe-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -236,7 +229,6 @@
   line-height: 1.5;
 }
 
-/* Updated Recipe Meta Styles */
 .recipe-meta {
   display: flex;
   justify-content: center;
@@ -273,7 +265,6 @@
 .star-icon { color: var(--color-destacado); }
 .category-icon { color: var(--color-primary); }
 
-/* Progress section */
 .progress-section {
   margin-bottom: 2rem;
 }
@@ -357,7 +348,6 @@
   50% { opacity: 0.7; }
 }
 
-/* Step card */
 .step-card {
   background: white;
   border-radius: 20px;
@@ -373,7 +363,6 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Step Header */
 .step-header {
   padding: 2rem;
   color: white;
@@ -382,7 +371,6 @@
   text-align: center;
 }
 
-/* Updated Step color variations with new color scheme */
 .step-color-1 { background: linear-gradient(135deg, var(--color-primary), var(--color-destacado)); }
 .step-color-2 { background: linear-gradient(135deg, var(--color-secundario), var(--color-primary)); }
 .step-color-3 { background: linear-gradient(135deg, var(--color-destacado), var(--color-secundario)); }
@@ -408,7 +396,6 @@
   line-height: 1.3;
 }
 
-/* Decorative elements */
 .decoration {
   position: absolute;
   background: rgba(255, 255, 255, 0.1);
@@ -429,7 +416,6 @@
   left: -40px;
 }
 
-/* Step Content */
 .step-content {
   padding: 2rem;
 }
@@ -441,7 +427,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Ingredients section */
 .ingredients-section {
   background: var(--color-fondo);
   border-radius: 16px;
@@ -495,7 +480,6 @@
   font-weight: 500;
 }
 
-/* Tip section */
 .tip-section {
   background: var(--color-fondo);
   border-radius: 12px;
@@ -511,7 +495,6 @@
   font-size: 0.9rem;
 }
 
-/* Complete button */
 .button-container {
   text-align: center;
 }
@@ -555,7 +538,6 @@
   height: 1.25rem;
 }
 
-/* Updated Navigation styles to position buttons in corners */
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -619,7 +601,6 @@
   z-index: 1;
 }
 
-/* Completion indicator */
 .completion-indicator {
   text-align: center;
 }
@@ -636,7 +617,6 @@
   margin: 0;
 }
 
-/* Footer */
 .footer {
   text-align: center;
   margin-top: 3rem;
@@ -649,7 +629,6 @@
   margin: 0;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .recipe-container {
     padding: 1rem;
@@ -702,7 +681,6 @@
   }
 }
 
-/* Botón principal de cerrar receta (con texto) */
 .close-recipe-button {
   position: fixed;
   top: 20px;
@@ -749,7 +727,6 @@
   font-weight: 600;
 }
 
-/* Botón X alternativo (esquina superior derecha) */
 .close-recipe-x-button {
   position: fixed;
   top: 20px;
@@ -787,7 +764,6 @@
   transform: rotate(90deg);
 }
 
-/* Botón en la celebración */
 .celebration-close-btn {
   background: linear-gradient(135deg, #4CAF50, #45a049);
   color: white;
@@ -808,7 +784,6 @@
   box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .close-recipe-button {
     top: 15px;
@@ -818,7 +793,7 @@
   }
   
   .close-text {
-    display: none; /* Solo mostrar ícono en móvil */
+    display: none;
   }
   
   .close-recipe-x-button {
@@ -849,7 +824,6 @@
   }
 }
 
-/* Animaciones adicionales */
 @keyframes slideInLeft {
   from {
     transform: translateX(-100%);

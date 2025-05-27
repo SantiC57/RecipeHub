@@ -21,14 +21,14 @@ const FoodCategoryBar = () => {
   ];
 
   const handleCategoryClick = (category) => {
-    navigate(category.route); // redirige a la ruta
+    navigate(category.route); 
   };
 
   return (
     <div className="categories-bar">
       <div className="categories-wrapper">
         {categories.map((category) => {
-          const isActive = location.pathname === category.route; // 👈 Ruta actual
+          const isActive = location.pathname === category.route; // 
           return (
             <div
               key={category.id}

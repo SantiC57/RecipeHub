@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation,useParams  } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, useParams } from "react-router-dom";
 import Signup from "../components/Signup/Signup.jsx";
 import Login from "./Login/Login.jsx";
 import { useEffect } from "react";
@@ -17,9 +17,10 @@ import Postres from "./Postres/Postres.jsx";
 import Sopas from "./Sopas/Sopas.jsx";
 import Ensaladas from "./Ensaladas/Ensaladas.jsx";
 import Salsas from "./Salsas/Salsas.jsx";
+
 function DynamicTitle() {
   const location = useLocation();
-  
+
   useEffect(() => {
     const titles = {
       "/": "Recipehub",
@@ -34,18 +35,16 @@ function DynamicTitle() {
     };
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
-  
+
   return null;
 }
 
-// Componente wrapper para InteractiveRecipeGuide
 function InteractiveRecipeWrapper() {
   const { id } = useParams();
   return <InteractiveRecipeGuide recipeId={parseInt(id)} />;
 }
 
 function App() {
-  // Corrección: devolvemos el valor del localStorage
   const [currentUser, setCurrentUser] = useState(() => 
     JSON.parse(localStorage.getItem("currentUser"))
   );
@@ -53,7 +52,6 @@ function App() {
   const [users, setUsers] = useState([]);
   const [recipes, setRecipes] = useState([]);
   
-  // Corrección: añadimos los corchetes en la dependencia
   useEffect(() => {
     if(currentUser){
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
@@ -62,7 +60,6 @@ function App() {
     }
   }, [currentUser]);
   
-  // Cargar usuarios y recetas al inicio
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -86,10 +83,8 @@ function App() {
     fetchRecipes();
   }, []);
   
-  // Función para manejar el envío de usuarios
   const handleUserSubmit = async (user) => {
     try {
-        // Crear nuevo usuario
         const response = await api.post('/usuarios', user);
         setUsers((prevUsers) => [...prevUsers, response.data]);
         
@@ -100,7 +95,6 @@ function App() {
     }
   };
   
-  // Esta función ya no se usará directamente, los componentes hacen llamadas API directas
   const handleRecipeSubmit = async (recipe) => {
     try {
       const response = await api.post('/recetas', recipe);
@@ -129,7 +123,6 @@ function App() {
         <Route path="/sopas" element={<Sopas />} />
         <Route path="/ensaladas" element={<Ensaladas />} />
         <Route path="/salsas" element={<Salsas />} />
-
       </Routes>
     </Router>
   );
