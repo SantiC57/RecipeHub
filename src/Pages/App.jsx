@@ -16,6 +16,7 @@ import api from "../api/axiosConfig.js";
 import Postres from "./Postres/Postres.jsx";
 import Sopas from "./Sopas/Sopas.jsx";
 import Ensaladas from "./Ensaladas/Ensaladas.jsx";
+import Salsas from "./Salsas/Salsas.jsx";
 function DynamicTitle() {
   const location = useLocation();
   
@@ -127,6 +128,8 @@ function App() {
         <Route path="/postres" element={<Postres />} />
         <Route path="/sopas" element={<Sopas />} />
         <Route path="/ensaladas" element={<Ensaladas />} />
+        <Route path="/salsas" element={<Salsas />} />
+
       </Routes>
     </Router>
   );
