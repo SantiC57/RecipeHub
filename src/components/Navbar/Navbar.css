@@ -103,15 +103,10 @@
   transform: translateY(-1px);
 }
 
-.profile-button {
-  background-color: #4f3a2d !important;
-  color: white !important;
-}
 
 .publish-button {
   background-color: #E8B44A !important;
   color: white !important;
-  font-size: 1.2rem;
   line-height: 1;
 }
 
@@ -125,10 +120,7 @@
   transform: translateY(-1px) scale(1.05) !important;
 }
 
-.profile-button:hover {
-  background-color: #6e4a2d !important;
-  transform: translateY(-1px) !important;
-}
+
 
 .register-button:hover {
   background-color: #6e4a2d !important;

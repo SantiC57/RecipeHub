@@ -1,161 +1,157 @@
 .publication {
-    width: 800px;
-    padding: 2rem;
-    background-color: #fffdf7; /* sutil diferencia del fondo general */
-    border-radius: 1rem;
-    margin: 3rem auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 2px solid var(--color-secundario); /* sutil borde para integrarlo */
-  }
-  
-  .publication-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-texto);
-    margin-bottom: 1.5rem;
-    text-align: left;
-    border-left: 5px solid var(--color-primary); /* detalle visual */
-    padding-left: 1rem;
-  }
-  
-  .publication-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .publication-recipe {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    border: none;             /* 🔥 Elimina el borde gris predeterminado */
-    padding: 0;
-    margin: 0;
-  }
-  
-  
-  .publication-label {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-texto);
-  }
-  
-  .publication-input,
-  .publication-textarea {
-    padding: 0.85rem 1.1rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.75rem;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    font-family: inherit;
-    background-color: #fffaf3;
-    color: var(--color-texto);
-  }
-  
-  .publication-input:focus,
-  .publication-textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(232, 180, 74, 0.25);
-    background-color: #fff;
-  }
-  
-  .publication-textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  .publication-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
+width: 800px;
+padding: 2rem;
+background-color: #fffdf7;
+border-radius: 1rem;
+margin: 3rem auto;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+border: 2px solid var(--color-secundario);
+}
 
-  
-  .publication-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 0.6rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
-    font-family: inherit;
-  }
-  
-  .publication-button:hover {
-    opacity: 0.9;
-  }
-  
-  .publication-button--cancel {
-    background-color: transparent;
-    color: var(--color-destacado);
-  }
-  
-  
-  .publication-button--save {
-    background-color: var(--color-secundario);
-    color: white;
-  }
-  
-  .publication-button--save:hover {
-    background-color: #8ca268;
-  }
-  
-  @keyframes slideInXbox {
-    0% {
-      transform: translateX(-100%) translateY(0);
-      opacity: 0;
-    }
-    60% {
-      transform: translateX(10%) translateY(0);
-      opacity: 1;
-    }
-    80% {
-      transform: translateX(-3%) translateY(0);
-    }
-    100% {
-      transform: translateX(0) translateY(0);
-    }
-  }
-  
-  .xbox-achievement {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color: rgba(20, 20, 20, 0.9);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    animation: slideInXbox 0.6s ease-out;
-    z-index: 9999;
-  }
-  
-  .achievement-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .achievement-title {
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-  
-  .achievement-subtitle {
-    font-size: 0.9rem;
-    color: #ccc;
-  }
-  
-  
-.publication-navbar{
-    display: block;
-    padding: 2rem;
-    text-align: left;
-    padding-top: 6rem; /* 🟰 separa del navbar */
+.publication-title {
+font-size: 2rem;
+font-weight: 700;
+color: var(--color-texto);
+margin-bottom: 1.5rem;
+text-align: left;
+border-left: 5px solid var(--color-primary);
+padding-left: 1rem;
+}
+
+.publication-form {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+
+.publication-recipe {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+border: none;
+padding: 0;
+margin: 0;
+}
+
+.publication-label {
+font-weight: 600;
+font-size: 1rem;
+color: var(--color-texto);
+}
+
+.publication-input,
+.publication-textarea {
+padding: 0.85rem 1.1rem;
+font-size: 1rem;
+border: 1px solid #ccc;
+border-radius: 0.75rem;
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+font-family: inherit;
+background-color: #fffaf3;
+color: var(--color-texto);
+}
+
+.publication-input:focus,
+.publication-textarea:focus {
+outline: none;
+border-color: var(--color-primary);
+box-shadow: 0 0 0 3px rgba(232, 180, 74, 0.25);
+background-color: #fff;
+}
+
+.publication-textarea {
+resize: vertical;
+min-height: 100px;
+}
+
+.publication-actions {
+display: flex;
+justify-content: flex-end;
+gap: 1rem;
+margin-top: 1rem;
+}
+
+.publication-button {
+padding: 0.75rem 1.5rem;
+font-size: 1rem;
+font-weight: 600;
+border-radius: 0.6rem;
+border: none;
+cursor: pointer;
+transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+font-family: inherit;
+}
+
+.publication-button:hover {
+opacity: 0.9;
+}
+
+.publication-button--cancel {
+background-color: transparent;
+color: var(--color-destacado);
+}
+
+.publication-button--save {
+background-color: var(--color-secundario);
+color: white;
+}
+
+.publication-button--save:hover {
+background-color: #8ca268;
+}
+
+@keyframes slideInXbox {
+0% {
+transform: translateX(-100%) translateY(0);
+opacity: 0;
+}
+60% {
+transform: translateX(10%) translateY(0);
+opacity: 1;
+}
+80% {
+transform: translateX(-3%) translateY(0);
+}
+100% {
+transform: translateX(0) translateY(0);
+}
+}
+
+.xbox-achievement {
+position: fixed;
+bottom: 30px;
+left: 30px;
+display: flex;
+align-items: center;
+gap: 1rem;
+background-color: rgba(20, 20, 20, 0.9);
+color: white;
+padding: 1rem 1.5rem;
+border-radius: 10px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+animation: slideInXbox 0.6s ease-out;
+z-index: 9999;
+}
+
+.achievement-icon {
+width: 40px;
+height: 40px;
+}
+
+.achievement-title {
+font-weight: bold;
+font-size: 1.1rem;
+}
+
+.achievement-subtitle {
+font-size: 0.9rem;
+color: #ccc;
+}
+
+.publication-navbar {
+display: block;
+padding: 2rem;
+text-align: left;
+padding-top: 6rem;
 }

@@ -2,11 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import api from "../../api/axiosConfig.js";
-import { UserContext } from "../context/UserContext"; // Importa el contexto
+import { UserContext } from "../context/UserContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(UserContext); // Extrae la función login del contexto
+  const { login } = useContext(UserContext);
 
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
@@ -44,7 +44,6 @@ const Login = () => {
         password: user.password,
       });
 
-      // Usamos la función login del contexto para guardar usuario en estado global y localStorage
       login(data.user);
 
       navigate("/");
