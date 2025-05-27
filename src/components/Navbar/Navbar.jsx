@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../../Pages/context/UserContext"; // Ajusta la ruta según tu estructura
+import { UserContext } from "../../Pages/context/UserContext"; 
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
