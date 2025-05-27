@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
-import { ChefHat, Clock, Users, Star, CheckCircle, Loader2 } from 'lucide-react';
+import { ChefHat, Clock, Users, Star, CheckCircle, Loader2, X, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import RecipeMetaItem from '../RecipeMetalItem';
 import Navigation from '../Navigation';
 import './InteractiveRecipeGuide.css';
 
-const InteractiveRecipeGuide = ({ recipeId }) => {
+const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState(new Set());
   const [showCelebration, setShowCelebration] = useState(false);
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const navigate = useNavigate();
+
+  // Función para cerrar la receta y volver al inicio
+  const handleCloseRecipe = () => {
+    // Si hay una función onClose pasada como prop, úsala
+    if (onClose) {
+      onClose();
+    } else {
+      // Sino, navega a la página principal
+      navigate('/');
+    }
+  };
 
   // Función para convertir la receta del backend al formato del componente
   const transformRecipeData = (backendRecipe) => {
@@ -298,6 +312,25 @@ const InteractiveRecipeGuide = ({ recipeId }) => {
 
   return (
     <div className="recipe-container">
+      {/* Botón de cerrar receta */}
+      <button 
+        onClick={handleCloseRecipe}
+        className="close-recipe-button"
+        aria-label="Cerrar receta y volver al inicio"
+      >
+        <ArrowLeft className="close-icon" />
+        <span className="close-text">Volver al Inicio</span>
+      </button>
+
+      {/* Botón de cerrar alternativo (X) */}
+      <button 
+        onClick={handleCloseRecipe}
+        className="close-recipe-x-button"
+        aria-label="Cerrar receta"
+      >
+        <X className="x-icon" />
+      </button>
+
       {/* Celebration Animation */}
       {showCelebration && (
         <div className="celebration-overlay">
@@ -305,6 +338,12 @@ const InteractiveRecipeGuide = ({ recipeId }) => {
             <div className="celebration-emoji">🎉</div>
             <h2 className="celebration-title">¡Felicidades!</h2>
             <p className="celebration-text">¡Tu receta está lista para conquistar corazones!</p>
+            <button 
+              onClick={handleCloseRecipe}
+              className="celebration-close-btn"
+            >
+              Volver al Inicio
+            </button>
           </div>
         </div>
       )}
@@ -339,9 +378,9 @@ const InteractiveRecipeGuide = ({ recipeId }) => {
           {/* Updated Recipe Meta Items - now using standardized component */}
           <div className="recipe-meta">
             <RecipeMetaItem type="time" value={recipe.cookTime} />
-            {recipe.servings && <RecipeMetaItem type="servings\" value={recipe.servings} />}
+            {recipe.servings && <RecipeMetaItem type="servings" value={recipe.servings} />}
             <RecipeMetaItem type="difficulty" value={recipe.difficulty} />
-            {recipe.category && <RecipeMetaItem type="category\" value={recipe.category} />}
+            {recipe.category && <RecipeMetaItem type="category" value={recipe.category} />}
           </div>
         </div>
 
