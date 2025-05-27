@@ -22,6 +22,7 @@ export default function MainPage() {
   };
 
   const categories = Object.keys(categoryMap);
+;
 
   useEffect(() => {
     fetch("https://crud-production-b855.up.railway.app/api/recetas")
@@ -83,7 +84,7 @@ export default function MainPage() {
             {/* Receta destacada */}
             <div className="div2">
               {featuredRecipe ? (
-                <Link to={`/receta/${featuredRecipe.id}`} className="featured-link">
+                <Link to={`/recipes/${featuredRecipe.id}`} className="featured-link">
                   <h3 className="destacada-titulo">Receta destacada</h3>
                   <img
                     className="destacada-imagen"
@@ -115,6 +116,7 @@ export default function MainPage() {
                   className="imagen-circular"
                   src={receta.imagen || Spaghetti}
                   alt={receta.titulo}
+                  onClick={() => openRecipeGuide(receta.id)}
                 />
                 <p>{receta.titulo}</p>
               </Link>
