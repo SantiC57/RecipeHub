@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
 import api from "../../api/axiosConfig";
+import { UserContext } from "../../Pages/context/UserContext"; // ← Asegúrate de usar la ruta correcta
 
-const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
+const Signup = ({ onSubmit, selectedUser }) => {
   const navigate = useNavigate();
+  const { login } = useContext(UserContext); // ← usamos login del contexto
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isChecking, setIsChecking] = useState(false);
@@ -15,10 +17,10 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   useEffect(() => {
     if (selectedUser) {
       setUser({
-     name:     selectedUser.name     || "",
-      email:    selectedUser.email    || "",
-      password: selectedUser.password || ""
-    });
+        name: selectedUser.name || "",
+        email: selectedUser.email || "",
+        password: selectedUser.password || ""
+      });
     }
   }, [selectedUser]);
 
@@ -26,7 +28,6 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
 
-    // Limpiar el error de este campo cuando el usuario lo modifica
     if (errors[name]) {
       setErrors({ ...errors, [name]: null });
     }
@@ -34,8 +35,6 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    // Validaciones básicas
     if (!user.name.trim()) newErrors.name = "El nombre es obligatorio";
     if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
     else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
@@ -49,12 +48,10 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
   const checkUserExists = async () => {
     try {
       setIsChecking(true);
-      // Consulta al endpoint para verificar si existe el email
       const response = await api.get(`/usuarios/check-email?email=${encodeURIComponent(user.email)}`);
       return response.data.exists;
     } catch (error) {
       console.error("Error al verificar el email:", error);
-      // Si hay un error en la verificación, asumimos que es seguro continuar
       return false;
     } finally {
       setIsChecking(false);
@@ -72,14 +69,14 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
         return;
       }
 
-      // → Creamos usuario en el back y obtenemos el objeto completo
+      // Crear usuario
       const newUser = await onSubmit(user);
       console.log("Usuario registrado correctamente:", newUser);
 
-      // → Actualizamos el estado global y localStorage
-      onLogin(newUser);
+      // Login automático con el contexto global
+      login(newUser); // ← Aquí usamos el contexto para hacer login
 
-      // → Limpiamos y redirigimos
+      // Limpiar y redirigir al home
       setUser({ name: "", email: "", password: "" });
       navigate("/");
     } catch (error) {
@@ -90,6 +87,7 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
       });
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="container">
@@ -99,7 +97,7 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
         </div>
 
         <div className="inputs">
-          <div className={`input ${errors.email ? "input-wrapper-error" : ""}`}>
+          <div className={`input ${errors.name ? "input-wrapper-error" : ""}`}>
             <img src={user_icon} alt="Usuario" />
             <input
               type="text"
@@ -121,7 +119,6 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
               value={user.email}
               onChange={handleChange}
               required
-              
             />
           </div>
 
@@ -136,20 +133,17 @@ const Signup = ({ onSubmit, onLogin ,selectedUser }) => {
               required
               minLength="6"
               className={errors.password ? "input-error" : ""}
-              />
+            />
           </div>
-          {errors.email  && <div className="error-message">{errors.email}</div>}
-          {errors.general && (<div className="error-message general">{errors.general}</div>)}
-          {errors.password && <div className="error-message">{errors.password}</div>}
+
           {errors.name && <div className="error-message">{errors.name}</div>}
+          {errors.email && <div className="error-message">{errors.email}</div>}
+          {errors.password && <div className="error-message">{errors.password}</div>}
+          {errors.general && <div className="error-message general">{errors.general}</div>}
         </div>
 
         <div className="submit-container">
-          <button
-            type="submit"
-            className="submit"
-            disabled={isChecking}
-          >
+          <button type="submit" className="submit" disabled={isChecking}>
             {isChecking ? "Verificando..." : "Registrarse"}
           </button>
         </div>
