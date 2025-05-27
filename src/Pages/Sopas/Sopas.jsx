@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./mariscos.css";
 import { Navbar } from "../../components/Navbar/Navbar";
 import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
+import "./sopas.css";
 
-const Mariscos = () => {
-  const [recetasMariscos, setRecetasMariscos] = useState([]);
+const Sopas = () => {
+  const [recetasSopas, setRecetasSopas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,12 +13,12 @@ const Mariscos = () => {
       try {
         const res = await fetch("https://rf4377l3-5000.use2.devtunnels.ms/api/recetas");
         const data = await res.json();
-        const mariscos = data.filter((receta) =>
-          receta.categoria.toLowerCase() === "mariscos"
+        const sopas = data.filter((receta) =>
+          receta.categoria.toLowerCase() === "sopas"
         );
-        setRecetasMariscos(mariscos);
+        setRecetasSopas(sopas);
       } catch (error) {
-        console.error("Error al cargar las recetas de mariscos:", error);
+        console.error("Error al cargar las recetas de sopas:", error);
       }
     };
 
@@ -30,14 +30,13 @@ const Mariscos = () => {
       <Navbar />
       <h1 className="titulo">Categorías Disponibles</h1>
       <FoodCategoryBar />
-
       <div className="categoria">
-        <h2 className="categoria__titulo">Recetas de Mariscos</h2>
+        <h2 className="categoria__titulo">Recetas de Sopas</h2>
         <div className="categoria__lista">
-          {recetasMariscos.length === 0 ? (
-            <p>No hay recetas de mariscos disponibles.</p>
+          {recetasSopas.length === 0 ? (
+            <p>No hay recetas de sopas disponibles.</p>
           ) : (
-            recetasMariscos.map((receta) => (
+            recetasSopas.map((receta) => (
               <div
                 className="receta"
                 key={receta.id}
@@ -55,4 +54,4 @@ const Mariscos = () => {
   );
 };
 
-export default Mariscos;
+export default Sopas;

@@ -1,31 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./carnes.css";
-import CarneAsada from "../../assets/carne-asada.jpg"; // Ruta corregida
-import Picadillo from "../../assets/picadillo.jpg"; // Ruta corregida
-import Estofado from "../../assets/estofado.jpg"; // Ruta corregida
-import { Navbar } from "../../components/Navbar/Navbar"; // Asegúrate de que la ruta sea correcta
-
-
+import { Navbar } from "../../components/Navbar/Navbar";
+import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 
 const Carnes = () => {
+  const [recetasCarnes, setRecetasCarnes] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRecetas = async () => {
+      try {
+        const res = await fetch("https://rf4377l3-5000.use2.devtunnels.ms/api/recetas");
+        const data = await res.json();
+        const carnes = data.filter((receta) =>
+          receta.categoria.toLowerCase() === "carnes"
+        );
+        setRecetasCarnes(carnes);
+      } catch (error) {
+        console.error("Error al cargar las recetas de carnes:", error);
+      }
+    };
+
+    fetchRecetas();
+  }, []);
+
   return (
     <>
       <Navbar />
+      <h1 className="titulo">Categorías Disponibles</h1>
+      <FoodCategoryBar />
       <div className="categoria">
         <h2 className="categoria__titulo">Recetas de Carnes</h2>
         <div className="categoria__lista">
-          <div className="receta">
-            <img src={CarneAsada} alt="Carne Asada" />
-            <h3>Carne Asada</h3>
-          </div>
-          <div className="receta">
-            <img src={Picadillo} alt="Picadillo" />
-            <h3>Picadillo</h3>
-          </div>
-          <div className="receta">
-            <img src={Estofado} alt="Estofado" />
-            <h3>Estofado</h3>
-          </div>
+          {recetasCarnes.length === 0 ? (
+            <p>No hay recetas de carnes disponibles.</p>
+          ) : (
+            recetasCarnes.map((receta) => (
+              <div
+                className="receta"
+                key={receta.id}
+                onClick={() => navigate(`/receta/${receta.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <img src={receta.imagen} alt={receta.titulo} />
+                <h3>{receta.titulo}</h3>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>

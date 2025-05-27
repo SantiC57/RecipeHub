@@ -1,10 +1,13 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import api from "../../api/axiosConfig.js";
+import { UserContext } from "../context/UserContext"; // Importa el contexto
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(UserContext); // Extrae la función login del contexto
+
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -20,12 +23,11 @@ const Login = ({ onLogin }) => {
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!user.email.trim()) newErrors.email = "El correo es obligatorio";
     else if (!/\S+@\S+\.\S+/.test(user.email)) newErrors.email = "Correo electrónico inválido";
 
     if (!user.password) newErrors.password = "La contraseña es obligatoria";
-    else if (user.password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+    else if (user.password.length < 6) newErrors.password = "Debe tener al menos 6 caracteres";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -42,14 +44,14 @@ const Login = ({ onLogin }) => {
         password: user.password,
       });
 
-      localStorage.setItem("currentUser", JSON.stringify(data.user));
-      if (onLogin) onLogin(data.user);
+      // Usamos la función login del contexto para guardar usuario en estado global y localStorage
+      login(data.user);
 
       navigate("/");
     } catch (error) {
       console.error("Error al iniciar sesión", error);
 
-      let errorMsg = "Error al iniciar sesión. Por favor intenta de nuevo.";
+      let errorMsg = "Error al iniciar sesión.";
       const newErrors = {};
 
       if (error.response) {
@@ -61,7 +63,7 @@ const Login = ({ onLogin }) => {
           newErrors.email = true;
           newErrors.password = true;
         } else if (status === 404 || message?.toLowerCase().includes("no encontrado")) {
-          errorMsg = "Usuario no encontrado. Por favor verifica tu correo.";
+          errorMsg = "Usuario no encontrado.";
           newErrors.email = true;
         }
       }
