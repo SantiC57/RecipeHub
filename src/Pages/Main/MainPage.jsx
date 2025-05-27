@@ -8,7 +8,7 @@ import "./Mp.css";
 
 export default function MainPage() {
   const [recetasPublicadas, setRecetasPublicadas] = useState([]);
-  const [allCategories, setAllCategories] = useState([]); // Categorías dinámicas
+  const [allCategories, setAllCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -16,19 +16,18 @@ export default function MainPage() {
     str
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]/g, '');
-
-  const featuredRecipe = recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
 
   useEffect(() => {
     fetch("https://crud-production-b855.up.railway.app/api/recetas")
       .then((res) => res.json())
       .then((data) => {
-        setRecetasPublicadas(data);
-        // Extraer categorías únicas y "slugificadas"
+        const sortedData = data.sort((a, b) => b.id - a.id); // ordenar por ID descendente
+        setRecetasPublicadas(sortedData);
+
         const categoriesSet = new Set(
-          data.map(receta => slugify(receta.categoria))
+          sortedData.map((receta) => slugify(receta.categoria))
         );
         setAllCategories(Array.from(categoriesSet));
       })
@@ -46,10 +45,11 @@ export default function MainPage() {
     }
   };
 
-  // Filtrar categorías para mostrar sugerencias según búsqueda
   const filteredCategories = allCategories.filter(
     (cat) => cat.includes(slugify(searchTerm)) && searchTerm !== ""
   );
+
+  const featuredRecipe = recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
 
   return (
     <div className="page-wrapper">
@@ -57,7 +57,7 @@ export default function MainPage() {
 
       <div className="main-container">
         <main className="main-content">
-          <h1 className="title">Categorías Disponibles</h1>
+          <h1 className="title">Categorías Principales</h1>
           <FoodCategoryBar />
 
           <div className="parent">
@@ -71,7 +71,6 @@ export default function MainPage() {
                 autoComplete="off"
               />
 
-              {/* Mostrar sugerencias solo si hay texto y coincidencias */}
               {filteredCategories.length > 0 && (
                 <>
                   <h3>Sugerencias</h3>
@@ -88,7 +87,6 @@ export default function MainPage() {
               )}
             </div>
 
-            {/* Receta destacada */}
             <div className="div2">
               {featuredRecipe ? (
                 <Link to={`/recipes/${featuredRecipe.id}`} className="featured-link">
@@ -109,7 +107,6 @@ export default function MainPage() {
               )}
             </div>
 
-            {/* Resto de recetas */}
             {recetasPublicadas.slice(1, 7).map((receta) => (
               <Link
                 key={receta.id}
