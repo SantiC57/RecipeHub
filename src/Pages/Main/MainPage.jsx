@@ -113,7 +113,7 @@ export default function MainPage() {
             {recetasPublicadas.slice(1, 7).map((receta) => (
               <Link
                 key={receta.id}
-                to={`/receta/${receta.id}`}
+                to={`/recipes/${receta.id}`}
                 className="receta"
               >
                 <img
