@@ -1,115 +1,130 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "../../components/Card/Card.jsx";
-import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
-import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
+import { Link, useNavigate } from "react-router-dom";
+import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
+import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import "./Mp.css";
-import { Link } from "react-router-dom";
-import Spaghetti from "../../assets/spaghetti.jpg";
-import CoctelCamaron from "../../assets/coctel-camaron.jpg";
-import CarneAsada from "../../assets/carne-asada.jpg";
 
 export default function MainPage() {
   const [recetasPublicadas, setRecetasPublicadas] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
-  // Featured recipes data
-  const featuredRecipe = {
-    title: "Lasagna",
-    image: Spaghetti,
-    alt: "Receta destacada - Lasagna"
+  const featuredRecipe = recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
+
+  const categoryMap = {
+    pastas: "/pastas",
+    carnes: "/carnes",
+    mariscos: "/mariscos",
+    postres: "/postres",
+    sopas: "/sopas"
   };
 
-  // Sample recipes for the grid
-  const sampleRecipes = [
-    { id: 1, title: "Spaghetti", image: Spaghetti, alt: "Spaghetti" },
-    { id: 2, title: "Coctel Camaron", image: CoctelCamaron, alt: "Coctel Camaron" },
-    { id: 3, title: "Carne Asada", image: CarneAsada, alt: "Carne Asada" },
-    { id: 4, title: "Lasaña tradicional", image: Spaghetti, alt: "Lasaña tradicional" }
-  ];
-
-  const categories = ["Categoría 1", "Categoría 2"];
+  const categories = Object.keys(categoryMap);
 
   useEffect(() => {
-    fetch("https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas")
+    fetch("https://rf4377l3-5000.use2.devtunnels.ms/api/recetas")
       .then((res) => res.json())
       .then((data) => setRecetasPublicadas(data))
       .catch((err) => console.error("Error al cargar recetas:", err));
   }, []);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      const term = searchTerm.toLowerCase().trim();
+      if (categoryMap[term]) {
+        navigate(categoryMap[term]);
+      } else {
+        alert("Categoría no encontrada");
+      }
+    }
+  };
+
+  const filteredCategories = categories.filter((cat) =>
+    cat.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="page-wrapper">
       <Navbar />
-      
+
       <div className="main-container">
         <main className="main-content">
           <h1 className="title">Categorías Disponibles</h1>
           <FoodCategoryBar />
-          
+
           <div className="parent">
-            {/* Filter Section */}
+            {/* Buscador y botones filtrados */}
             <div className="div1">
-              <input 
-                type="text" 
-                placeholder="🔍 Buscar..." 
+              <input
+                type="text"
+                placeholder="🔍 Buscar categoría..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
-              <h3>Categorías</h3>
-              {categories.map((category, index) => (
-                <button key={index} className="category-button">
-                  {category}
-                </button>
-              ))}
+              {filteredCategories.length > 0 && (
+                <>
+                  <h3>Categorías</h3>
+                  {filteredCategories.map((category, index) => (
+                    <button
+                      key={index}
+                      className="category-button"
+                      onClick={() => navigate(categoryMap[category])}
+                    >
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </button>
+                  ))}
+                </>
+              )}
             </div>
 
-            {/* Featured Recipe */}
+            {/* Receta destacada */}
             <div className="div2">
-              <h3 className="destacada-titulo">Receta destacada</h3>
-              <img 
-                className="destacada-imagen" 
-                src={featuredRecipe.image} 
-                alt={featuredRecipe.alt} 
-              />
-              <div className="destacada-info">{featuredRecipe.title}</div>
+              {featuredRecipe ? (
+                <Link to={`/receta/${featuredRecipe.id}`} className="featured-link">
+                  <h3 className="destacada-titulo">Receta destacada</h3>
+                  <img
+                    className="destacada-imagen"
+                    src={featuredRecipe.imagen || Spaghetti}
+                    alt={featuredRecipe.titulo}
+                  />
+                  <div className="destacada-info">{featuredRecipe.titulo}</div>
+                </Link>
+              ) : (
+                <>
+                  <h3 className="destacada-titulo">Receta destacada</h3>
+                  <img
+                    className="destacada-imagen"
+                    alt="Receta destacada"
+                  />
+                  <div className="destacada-info">Sin receta destacada</div>
+                </>
+              )}
             </div>
 
-            {/* Sample Recipes Grid */}
-            {sampleRecipes.map((receta, index) => (
-              <div key={receta.id} className="receta">
-                <img 
-                  className="imagen-circular" 
-                  src={receta.image} 
-                  alt={receta.alt} 
+            {/* Resto de recetas */}
+            {recetasPublicadas.slice(1, 7).map((receta) => (
+              <Link
+                key={receta.id}
+                to={`/receta/${receta.id}`}
+                className="receta"
+              >
+                <img
+                  className="imagen-circular"
+                  src={receta.imagen || Spaghetti}
+                  alt={receta.titulo}
                 />
-                <p>{receta.title}</p>
-              </div>
-            ))}
-          </div>
-    
-          <h1 className="title">Recetas Publicadas</h1>
-          <div className="recipes-grid">
-            {recetasPublicadas.map((receta) => (
-              <Card key={receta.id} className="recipe-card">
-                <Link to={`/receta/${receta.id}`} className="recipe-link">
-                  <CardContent>
-                    <img
-                      src={receta.imagen}
-                      alt={receta.titulo}
-                      className="recipe-image"
-                    />
-                    <h2 className="recipe-title">{receta.titulo}</h2>
-                  </CardContent>
-                </Link>
-              </Card>
+                <p>{receta.titulo}</p>
+              </Link>
             ))}
           </div>
         </main>
-        
+
         <FloatingButton supportPageUrl="/support" />
       </div>
-      
+
       <Footer />
     </div>
   );

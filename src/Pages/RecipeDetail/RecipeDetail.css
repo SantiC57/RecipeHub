@@ -1,9 +1,9 @@
-/* Estilos para la página de receta individual */
+/* Estilos para la página de receta individual - Versión Simplificada */
 .recipe-page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fcf8e8; /* Fondo beige claro como en la imagen */
+  background-color: #fcf8e8;
   padding-top: 6rem;
 }
 
@@ -21,9 +21,10 @@
 }
 
 .recipe-title {
-  color: #553c0e; /* Color marrón para el título */
+  color: #553c0e;
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .recipe-meta {
@@ -31,7 +32,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.5rem;
-  background-color: #a4be7b; /* Color verde oliva como en la navbar */
+  background-color: #a4be7b;
   padding: 1rem;
   border-radius: 8px;
 }
@@ -57,42 +58,16 @@
 }
 
 .recipe-image-container {
-  position: relative;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .recipe-image {
   width: 100%;
+  max-width: 600px;
   height: 400px;
   object-fit: cover;
   border-radius: 8px;
-}
-
-.recipe-author {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: rgba(164, 190, 123, 0.9); /* Verde oliva semi-transparente */
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.recipe-description {
-  margin-bottom: 2rem;
-}
-
-.recipe-description h2 {
-  color: #553c0e;
-  border-bottom: 2px solid #a4be7b;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.recipe-description p {
-  color: #555;
-  line-height: 1.6;
 }
 
 /* Formato de dos columnas para ingredientes e instrucciones */
@@ -100,12 +75,24 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
-  margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
   .recipe-main-content {
     grid-template-columns: 1fr;
+  }
+  
+  .recipe-container {
+    padding: 1rem;
+  }
+  
+  .recipe-title {
+    font-size: 2rem;
+  }
+  
+  .recipe-meta {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
 
@@ -115,6 +102,7 @@
   border-bottom: 2px solid #a4be7b;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .ingredients-list {
@@ -127,6 +115,7 @@
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
+  color: #333;
 }
 
 .ingredients-list li::before {
@@ -134,6 +123,7 @@
   color: #a4be7b;
   font-weight: bold;
   margin-right: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .instructions-list {
@@ -143,95 +133,29 @@
 .instructions-list li {
   margin-bottom: 1rem;
   line-height: 1.6;
+  color: #333;
 }
 
-/* Consejos */
-.recipe-tips {
-  background-color: #f0f7e6; /* Verde muy claro */
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+.instructions-list li:last-child {
+  margin-bottom: 0;
 }
 
-.recipe-tips h2 {
-  color: #553c0e;
-  border-bottom: 2px solid #a4be7b;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.tips-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.tips-list li {
-  padding: 0.5rem 0;
-  display: flex;
-  align-items: center;
-}
-
-.tips-list li::before {
-  content: "💡";
-  margin-right: 0.5rem;
-}
-
-/* Información nutricional */
-.nutritional-info {
-  margin-top: 2rem;
-}
-
-.nutritional-info h2 {
-  color: #553c0e;
-  border-bottom: 2px solid #a4be7b;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.nutrition-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-}
-
-.nutrition-item {
-  background-color: #a4be7b;
-  color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
+/* Estilo para receta no encontrada */
+.recipe-not-found {
   text-align: center;
+  padding: 4rem 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.nutrition-value {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+.recipe-not-found h1 {
+  color: #553c0e;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-.nutrition-label {
-  font-size: 0.9rem;
-}
-
-/* Botones y acciones */
-.recipe-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.action-button {
-  background-color: #553c0e;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
-
-.action-button:hover {
-  background-color: #6e4d11;
+.recipe-not-found p {
+  color: #666;
+  font-size: 1.1rem;
 }

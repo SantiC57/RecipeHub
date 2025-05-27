@@ -114,7 +114,7 @@ function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
         <Route path="/profile" element={<Profile />} /> 
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/receta/:id" element={<RecipeDetail />} />
         <Route path="/postres" element={<Postres />} />
         <Route path="/sopas" element={<Sopas />} />
       </Routes>

@@ -64,7 +64,7 @@
   }
   
   .upload-button {
-    background-color: #a4be7b;
+    background-color: #E8B44A;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -76,7 +76,7 @@
   }
   
   .upload-button:hover {
-    background-color: #8da767;
+    background-color: #e9be67;
   }
   
   .form-row {
@@ -139,3 +139,17 @@
       padding: 20px;
     }
   }
+  .logout-button {
+  background-color: #E8B44A;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #e9be67;
+}
