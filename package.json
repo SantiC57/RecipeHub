@@ -1,6 +1,7 @@
 {
   "name": "recetas",
   "private": true,
+  "homepage": "https://santic57.github.io/recipehub",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
