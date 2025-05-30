@@ -4,7 +4,7 @@ import "./login.css";
 import api from "../../api/axiosConfig.js";
 import { UserContext } from "../context/UserContext";
 
-const Login = () => {
+const Login = ({onLogin}) => {
   const navigate = useNavigate();
   const { login } = useContext(UserContext);
 
@@ -43,8 +43,8 @@ const Login = () => {
         email: user.email,
         password: user.password,
       });
-
-      login(data.user);
+      localStorage.setItem("currentUser", JSON.stringify(data.user));
+      if (onLogin) onLogin(data.user);
 
       navigate("/");
     } catch (error) {
