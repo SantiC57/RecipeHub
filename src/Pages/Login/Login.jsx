@@ -1,10 +1,10 @@
 ﻿import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./login.css";
 import api from "../../api/axiosConfig.js";
 import { UserContext } from "../context/UserContext";
 
-const Login = ({onLogin}) => {
+const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(UserContext);
 
@@ -43,8 +43,7 @@ const Login = ({onLogin}) => {
         email: user.email,
         password: user.password,
       });
-      localStorage.setItem("currentUser", JSON.stringify(data.user));
-      if (onLogin) onLogin(data.user);
+      if (login) login(data.user);
 
       navigate("/");
     } catch (error) {
@@ -113,7 +112,7 @@ const Login = ({onLogin}) => {
         </button>
 
         <p className="login__register">
-          ¿No tienes cuenta? <a href="/signup">Regístrate</a>
+          ¿No tienes cuenta? <Link to="/signup">Regístrate</Link>
         </p>
       </form>
     </div>
