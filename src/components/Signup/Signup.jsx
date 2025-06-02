@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./Signup.css";
 import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
@@ -149,7 +149,7 @@ const Signup = ({ onSubmit, selectedUser }) => {
         </div>
 
         <p className="register__login">
-          ¿Ya tienes cuenta? <a href="/login">Inicia Sesión</a>
+          ¿Ya tienes cuenta? <Link to="/login">Inicia Sesión</Link>
         </p>
       </div>
     </form>

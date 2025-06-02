@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../../Pages/context/UserContext"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css";
 
 export function Navbar() {
@@ -14,10 +14,10 @@ export function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a href="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           <img src="/src/assets/Cooking Pot.ico" alt="Logo" className="navbar-logo-image" />
           RecipeHub
-        </a>
+        </Link>
 
         <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Toggle menu">
           <span className={`hamburger-line ${isMenuOpen ? "open" : ""}`}></span>
@@ -26,16 +26,16 @@ export function Navbar() {
         </button>
 
         <ul className={`navbar-menu ${isMenuOpen ? 'mobile-open' : ''}`}>
-          <li><a href="/">Inicio</a></li>
+          <li><Link to="/">Inicio</Link></li>
 
           {!user && (
-            <li><a href="/signup" className="register-button">Registrarse</a></li>
+            <li><Link to="/login" className="register-button">Iniciar Sesion</Link></li>
           )}
 
           {user && (
             <>
-              <li><a href="/profile" className="profile-button">Perfil</a></li>
-              <li><a href="/publication" className="publish-button">Publicar</a></li>
+              <li><Link to="/profile" className="profile-button">Perfil</Link></li>
+              <li><Link to="/publication" className="publish-button">Publicar</Link></li>
             </>
           )}
         </ul>

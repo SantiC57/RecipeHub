@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './FloatingButton.css'; 
 
 const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
@@ -44,12 +45,12 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
         className={`support-menu ${isMenuOpen ? 'active' : ''}`}
         ref={menuRef}
       >
-        <a href={supportPageUrl} className="support-button-floating">
+        <Link to={supportPageUrl} className="support-button-floating">
           <span className='support-link-content'>  
           Ir a Página de Soporte
           <img src="/src/assets/Technical Support.ico" className="button-icon"/>
           </span>
-        </a>
+        </Link>
       </div>
     </div>
   );
