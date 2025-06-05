@@ -39,7 +39,9 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
         ref={buttonRef}
       >
         <span>
-          Canales de Soporte
+          <span className="button-text">
+            Canales de Soporte
+            </span>
           <img className="button-icon" src={BotIcon}/>
         </span>
       </div>

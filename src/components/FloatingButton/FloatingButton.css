@@ -130,3 +130,26 @@
   transform: translateY(-3px);
   border-color: var(--color-destacado);
 }
+
+@media (max-width: 768px) {
+  .floating-button .button-text {
+    display: none; /* Oculta el texto */
+  }
+
+  .floating-button .button-icon {
+    margin-left: 0; /* Ajusta ícono centrado */
+    margin-bottom: 5px; /* Ajusta el espacio entre el ícono y el borde inferior */
+    height: 40px; /* Ajusta el tamaño del ícono */
+    width: 40px; /* Ajusta el tamaño del ícono */
+  }
+
+  .floating-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    justify-content: center;
+  }
+  
+}
+
+
