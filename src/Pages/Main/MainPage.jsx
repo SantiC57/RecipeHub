@@ -95,7 +95,11 @@ export default function MainPage() {
                     className="destacada-imagen"
                     src={featuredRecipe.imagen}
                     alt={featuredRecipe.titulo}
+                    loading="lazy"
                   />
+                  <div className="featured-overlay">
+                    <span className="featured-badge">¡Nueva!</span>
+                  </div>
                   <div className="destacada-info">{featuredRecipe.titulo}</div>
                 </Link>
               ) : (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './FloatingButton.css'; 
+import './FloatingButton.css';
+import Technical from '../../assets/Technical Support.ico'; 
+import BotIcon from '../../assets/bot.ico'; // Assuming you have a bot icon
 
 const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +40,7 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
       >
         <span>
           Canales de Soporte
-          <img className="button-icon" src='/src/assets/bot.ico'/>
+          <img className="button-icon" src={BotIcon}/>
         </span>
       </div>
       <div 
@@ -48,7 +50,7 @@ const FloatingButton = ({ supportPageUrl = '/soporte' }) => {
         <Link to={supportPageUrl} className="support-button-floating">
           <span className='support-link-content'>  
           Ir a Página de Soporte
-          <img src="/src/assets/Technical Support.ico" className="button-icon"/>
+          <img src={Technical} className="button-icon"/>
           </span>
         </Link>
       </div>

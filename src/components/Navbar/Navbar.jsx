@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../../Pages/context/UserContext"; 
 import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css";
+import Logo from "../../assets/Cooking Pot.ico"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ export function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <img src="/src/assets/Cooking Pot.ico" alt="Logo" className="navbar-logo-image" />
+          <img src={Logo} alt="Logo" className="navbar-logo-image" />
           RecipeHub
         </Link>
 
