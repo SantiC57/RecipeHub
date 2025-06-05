@@ -60,7 +60,7 @@ export default function MainPage() {
           <h1 className="title">Categorías Principales</h1>
           <FoodCategoryBar />
 
-          <div className="parent">
+          <div className="content-grid">
             <div className="div1">
               <input
                 type="text"
@@ -95,7 +95,11 @@ export default function MainPage() {
                     className="destacada-imagen"
                     src={featuredRecipe.imagen}
                     alt={featuredRecipe.titulo}
+                    loading="lazy"
                   />
+                  <div className="featured-overlay">
+                    <span className="featured-badge">¡Nueva!</span>
+                  </div>
                   <div className="destacada-info">{featuredRecipe.titulo}</div>
                 </Link>
               ) : (
@@ -106,21 +110,25 @@ export default function MainPage() {
                 </>
               )}
             </div>
-
-            {recetasPublicadas.slice(1, 7).map((receta) => (
+          </div>
+          <div className="recent-section">
+            <h2 className="recent-title">Recetas Recientes</h2>
+            <div className="recetas-grid">
+              {recetasPublicadas.slice(1, 7).map((receta) => (
               <Link
-                key={receta.id}
-                to={`/recipes/${receta.id}`}
-                className="receta"
+              key={receta.id}
+              to={`/recipes/${receta.id}`}
+              className="receta"
               >
                 <img
                   className="imagen-circular"
                   src={receta.imagen}
                   alt={receta.titulo}
-                />
+                  />
                 <p>{receta.titulo}</p>
               </Link>
-            ))}
+              ))}
+            </div>
           </div>
         </main>
 
