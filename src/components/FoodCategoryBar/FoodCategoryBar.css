@@ -303,26 +303,6 @@
   outline-offset: 4px;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .categories-bar {
-    background: linear-gradient(135deg, #2d2419 0%, #1f1a13 100%);
-    border-bottom-color: rgba(232, 180, 74, 0.2);
-  }
-
-  .category-name {
-    color: #e8d5c1;
-  }
-
-  .category-item:hover .category-name {
-    color: #E8B44A;
-  }
-
-  .category-icon.inactive {
-    background: linear-gradient(135deg, #3a3025 0%, #2d2419 100%);
-    border-color: #4a3d2a;
-  }
-}
 
 /* High contrast mode */
 @media (prefers-contrast: high) {

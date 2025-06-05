@@ -358,21 +358,7 @@
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .navbar {
-    background: linear-gradient(135deg, #2d3e1f 0%, #253319 100%);
-    border-bottom-color: #6f5d4a;
-  }
 
-  .navbar-logo {
-    color: #e8d5c1;
-  }
-
-  .navbar-menu a {
-    color: #e8d5c1;
-  }
-}
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
