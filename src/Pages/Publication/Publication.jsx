@@ -104,8 +104,9 @@ const Publication = ({ onSubmit, selectedRecipe }) => {
 
   return (
     <>
-      <div className="publication-navbar"></div>
+      <div className="publication-navbar">
       <Navbar />
+      </div>
       <section className="publication">
         <h2 className="publication-title">Publicar Nueva Receta</h2>
 

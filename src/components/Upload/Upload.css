@@ -40,3 +40,46 @@
   object-fit: contain;
   border-radius: 8px;
 }
+
+@media (max-width:480px){
+  .upload-container {
+    padding: 1rem;
+  }
+
+  .upload-text {
+    font-size: 0.9rem;
+  }
+
+  .upload-formats {
+    font-size: 0.75rem;
+  }
+}
+
+
+@media (max-width: 390px) {
+  .upload-container {
+    padding: 1rem;
+  }
+
+  .upload-text {
+    font-size: 0.9rem;
+  }
+
+  .upload-formats {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 344px) {
+  .upload-container {
+    padding: 1rem;
+  }
+
+  .upload-text {
+    font-size: 0.8rem;
+  }
+
+  .upload-formats {
+    font-size: 0.6rem;
+  }
+}
