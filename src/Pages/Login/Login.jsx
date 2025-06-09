@@ -1,6 +1,8 @@
 ﻿import React, { useState, useContext } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./login.css";
+import email_icon from "../../assets/Email.ico";
+import password_icon from "../../assets/Password.ico";
 import api from "../../api/axiosConfig.js";
 import { UserContext } from "../context/UserContext";
 
@@ -79,35 +81,41 @@ const Login = () => {
 
         <div className="login__group">
           <label htmlFor="email" className="login__label">Correo Electrónico</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={user.email}
-            placeholder="Usuario"
-            className={`login__input ${errors.email ? "login__input--error" : ""}`}
-            onChange={handleChange}
-          />
+          <div className={`login__input-wrapper ${errors.email ? "login__input-wrapper--error" : ""}`}>
+            <img src={email_icon} alt="Email" className="login__input-icon" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={user.email}
+              placeholder="Correo electrónico"
+              className="login__input"
+              onChange={handleChange}
+            />
+          </div>
+          {errors.email && typeof errors.email === "string" && <p className="login__error">{errors.email}</p>}
         </div>
 
         <div className="login__group">
           <label htmlFor="password" className="login__label">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={user.password}
-            placeholder="Contraseña"
-            className={`login__input ${errors.password ? "login__input--error" : ""}`}
-            onChange={handleChange}
-          />
+          <div className={`login__input-wrapper ${errors.password ? "login__input-wrapper--error" : ""}`}>
+            <img src={password_icon} alt="Contraseña" className="login__input-icon" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={user.password}
+              placeholder="Contraseña"
+              className="login__input"
+              onChange={handleChange}
+            />
+          </div>
+          {errors.password && typeof errors.password === "string" && <p className="login__error">{errors.password}</p>}
         </div>
 
-        {errors.email && typeof errors.email === "string" && <p className="login__error">{errors.email}</p>}
-        {errors.password && typeof errors.password === "string" && <p className="login__error">{errors.password}</p>}
-        {errors.general && <p className="login__error">{errors.general}</p>}
+        {errors.general && <p className="login__error login__error--general">{errors.general}</p>}
 
-        <button type="submit" className="login__button">
+        <button type="submit" className="login__button" disabled={isLoading}>
           {isLoading ? "Verificando..." : "Ingresar"}
         </button>
 
