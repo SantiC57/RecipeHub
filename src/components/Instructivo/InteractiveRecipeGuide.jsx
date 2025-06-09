@@ -148,7 +148,7 @@ const InteractiveRecipeGuide = ({ recipeId, onClose }) => {
 
       try {
         setLoading(true);
-        const response = await fetch(`https://crud-production-b855.up.railway.app/api/recetas/${recipeId}`);
+        const response = await fetch(`https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas/${recipeId}`);
         
         if (!response.ok) {
           throw new Error('Error al cargar la receta');

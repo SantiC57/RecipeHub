@@ -178,10 +178,14 @@ const ProfilePage = () => {
     <div className="profile-container">
 
       <h2 className="profile-title">
-        Configuración de Perfil
+        Mi Perfil 
       </h2>
+      <p className="profile-subtitle">
+        Aquí puedes actualizar tu información personal y cambiar tu contraseña. 
+      </p>
 
       <div className="form-container">
+        <h3 className="section-title">Foto de perfil</h3>
 
         <div className="profile-section">
           {formData.profileImage ? (
@@ -213,6 +217,7 @@ const ProfilePage = () => {
           </div>
         )}
 
+        <h3 className="section-title">Información Personal</h3>
         <div className="form-row">
           <div className="form-column">
             <div className="form-group">

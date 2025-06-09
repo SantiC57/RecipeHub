@@ -9,7 +9,7 @@ const Sopas = () => {
   useEffect(() => {
     const fetchRecetas = async () => {
       try {
-        const res = await fetch("https://crud-production-b855.up.railway.app/api/recetas");
+        const res = await fetch("https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas");
         const data = await res.json();
         const sopas = data.filter((receta) =>
           receta.categoria.toLowerCase() === "sopas"
