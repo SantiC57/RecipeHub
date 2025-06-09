@@ -173,11 +173,12 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="profile-container">
+    <>
       <Navbar />
+    <div className="profile-container">
 
       <h2 className="profile-title">
-        Configuración<br />de Perfil
+        Configuración de Perfil
       </h2>
 
       <div className="form-container">
@@ -233,7 +234,7 @@ const ProfilePage = () => {
                       className="edit-button"
                       disabled={loading}
                     >
-                      ✏️ Editar
+                    Editar
                     </button>
                   ) : (
                     <div className="action-buttons">
@@ -249,7 +250,7 @@ const ProfilePage = () => {
                         className="cancel-button"
                         disabled={loading}
                       >
-                        ❌ Cancelar
+                         Cancelar
                       </button>
                     </div>
                   )}
@@ -284,7 +285,7 @@ const ProfilePage = () => {
                 className="edit-button-inline"
                 disabled={loading}
               >
-                ✏️ Editar contraseña
+                 Editar contraseña
               </button>
             )}
           </h3>
@@ -343,7 +344,7 @@ const ProfilePage = () => {
                   className="cancel-button"
                   disabled={loading}
                 >
-                  ❌ Cancelar
+                   Cancelar
                 </button>
               </div>
             </div>
@@ -358,11 +359,12 @@ const ProfilePage = () => {
             className="logout-button"
             disabled={loading}
           >
-            🚪 Cerrar sesión
+             Cerrar sesión
           </button>
         </div>
       </div>
     </div>
+    </>
   );
 };
 
