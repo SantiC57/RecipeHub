@@ -20,7 +20,7 @@ export default function MainPage() {
       .replace(/[^\w-]/g, "");
 
   useEffect(() => {
-    fetch("https://crud-production-b855.up.railway.app/api/recetas")
+    fetch("https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas")
       .then((res) => res.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => b.id - a.id); // ordenar por ID descendente

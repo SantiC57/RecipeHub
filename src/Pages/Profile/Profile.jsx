@@ -173,14 +173,19 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="profile-container">
+    <>
       <Navbar />
+    <div className="profile-container">
 
       <h2 className="profile-title">
-        Configuración<br />de Perfil
+        Mi Perfil 
       </h2>
+      <p className="profile-subtitle">
+        Aquí puedes actualizar tu información personal y cambiar tu contraseña. 
+      </p>
 
       <div className="form-container">
+        <h3 className="section-title">Foto de perfil</h3>
 
         <div className="profile-section">
           {formData.profileImage ? (
@@ -212,6 +217,7 @@ const ProfilePage = () => {
           </div>
         )}
 
+        <h3 className="section-title">Información Personal</h3>
         <div className="form-row">
           <div className="form-column">
             <div className="form-group">
@@ -233,7 +239,7 @@ const ProfilePage = () => {
                       className="edit-button"
                       disabled={loading}
                     >
-                      ✏️ Editar
+                    Editar
                     </button>
                   ) : (
                     <div className="action-buttons">
@@ -249,7 +255,7 @@ const ProfilePage = () => {
                         className="cancel-button"
                         disabled={loading}
                       >
-                        ❌ Cancelar
+                         Cancelar
                       </button>
                     </div>
                   )}
@@ -284,7 +290,7 @@ const ProfilePage = () => {
                 className="edit-button-inline"
                 disabled={loading}
               >
-                ✏️ Editar contraseña
+                 Editar contraseña
               </button>
             )}
           </h3>
@@ -343,7 +349,7 @@ const ProfilePage = () => {
                   className="cancel-button"
                   disabled={loading}
                 >
-                  ❌ Cancelar
+                   Cancelar
                 </button>
               </div>
             </div>
@@ -358,11 +364,12 @@ const ProfilePage = () => {
             className="logout-button"
             disabled={loading}
           >
-            🚪 Cerrar sesión
+             Cerrar sesión
           </button>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

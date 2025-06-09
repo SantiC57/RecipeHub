@@ -1,17 +1,19 @@
-/* Estilos base */
-
+/* ===============================
+   SIGNUP STYLES - MODERN CLEAN
+   =============================== */
 
 .container {
   position: relative;
   width: 90%;
-  max-width: 500px; /* Aumenta un poco el ancho máximo */
-  background: #fff;
-  border-radius: 20px;
-  /* Sombra un poco más marcada para que luzca más robusta */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  margin: 0;
-  padding: 30px;  /* Más padding para un diseño espacioso */
-  justify-content: center;
+  max-width: 480px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(232, 180, 74, 0.1);
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border: 1px solid rgba(232, 180, 74, 0.1);
 }
 
 .inputs  input.input-error {
@@ -31,50 +33,74 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 25px;
+  gap: 12px;
+  margin-bottom: 2rem;
 }
 
 .text {
-  font-size: 32px; /* Un poco más grande */
+  font-size: 2rem;
   font-weight: 700;
-  color: var(--color-texto);
+  color: #4f3a2d;
+  margin-bottom: 8px;
 }
 
 .error-message {
-  color: #f03232;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: center;
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 6px;
+  text-align: left;
+  font-weight: 500;
 }
 
 .underline {
-  width: 80px; /* Aumenta un poco el subrayado */
-  background-color: var(--color-fondo);
-  border-radius: 9px;
-  border-style: solid;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #E8B44A, #d97706);
+  border-radius: 2px;
+  border: none;
 }
 
 .inputs {
   display: flex;
   flex-direction: column;
-  gap: 20px;  /* Más espacio entre inputs */
-  color: #eaeaea;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .input {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 450px;
-  height: 65px;      /* Altura un poco mayor */
-  border-radius: 6px;
-  background-color: #eaeaea;
-  margin: 0 auto;
+  height: 55px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.input:focus-within {
+  border-color: #E8B44A;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(232, 180, 74, 0.1);
+  transform: translateY(-1px);
+}
+
+.input.input-error,
+.input-wrapper-error {
+  border-color: #dc3545 !important;
+  background: linear-gradient(135deg, #fff5f5 0%, #fee) !important;
 }
 
 .input img {
-  margin: 0 20px;   /* Aumenta el espacio lateral del ícono */
+  margin: 0 16px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.input:focus-within img {
+  opacity: 1;
 }
 
 .input input {
@@ -82,97 +108,125 @@
   background: transparent;
   border: none;
   outline: none;
-  font-size: 18px;  /* Fuente más grande */
-  color: #333;      /* Un gris oscuro más visible */
+  font-size: 16px;
+  color: #4f3a2d;
+  font-weight: 500;
+}
+
+.input input::placeholder {
+  color: #6c757d;
+  font-weight: 400;
 }
 
 .submit-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 30px;  /* Más espacio antes de los botones */
+  margin-top: 2rem;
 }
 
 .submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;       /* Botón un poco más ancho */
-  height: 50px;       /* Botón un poco más alto */
-  background: var(--color-primary);
-  border-radius: 50px;
-  font-size: 18px;
-  color: var(--color-texto);
+  width: 100%;
+  max-width: 280px;
+  height: 50px;
+  background: linear-gradient(135deg, #E8B44A 0%, #d97706 100%);
+  border-radius: 25px;
+  font-size: 16px;
+  color: white;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 600;
   border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(232, 180, 74, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.submit:hover::before {
+  left: 100%;
+}
+
+.submit:hover {
+  background: linear-gradient(135deg, #f0c65a 0%, #e9be67 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232, 180, 74, 0.4);
+}
+
+.submit:active {
+  transform: translateY(0);
 }
 
 /* Texto de “¿Ya tienes cuenta?” */
 .register__login {
-  margin-top: 1.5rem;
-  font-size: 16px;
+  margin-top: 2rem;
+  font-size: 15px;
   text-align: center;
+  color: #6c757d;
 }
 
 .register__login a {
-  color: var(--color-primary);
+  color: #E8B44A;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-/* Ajuste para pantallas hasta 1024px (portátiles) */
-@media (max-width: 1024px) {
-  .container {
-    max-width: 450px;
-    margin: 30px auto;
-    padding: 25px;
-  }
-
-  .text {
-    font-size: 28px;
-  }
-
-  .input {
-    max-width: 400px;
-    height: 60px;
-  }
-
-  .input img {
-    margin: 0 15px;
-  }
-
-  .input input {
-    font-size: 16px;
-  }
-
-  .submit {
-    width: 150px;
-    height: 45px;
-    font-size: 16px;
-  }
+.register__login a:hover {
+  color: #d97706;
+  text-decoration: underline;
 }
 
-/* Ajuste para pantallas muy pequeñas (hasta 768px) */
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
 @media (max-width: 768px) {
   .container {
-    max-width: 380px;
-    margin: 20px auto;
-    padding: 20px;
+    max-width: 90%;
+    margin: 1.5rem auto;
+    padding: 2rem;
   }
 
   .text {
-    font-size: 24px;
+    font-size: 1.75rem;
   }
 
   .input {
-    max-width: 320px;
-    height: 55px;
+    height: 50px;
   }
 
   .input img {
-    margin: 0 12px;
+    margin: 0 14px;
+  }
+
+  .submit {
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+
+  .text {
+    font-size: 1.5rem;
+  }
+
+  .input {
+    height: 48px;
   }
 
   .input input {
@@ -180,8 +234,7 @@
   }
 
   .submit {
-    width: 140px;
-    height: 42px;
-    font-size: 15px;
+    height: 46px;
+    font-size: 14px;
   }
 }

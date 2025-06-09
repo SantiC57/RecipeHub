@@ -71,9 +71,7 @@ const ContactUs = () => {
 
     return (
         <>
-        
         <Navbar />
-        
         <div className="support-container">
             <h2 className="support-title">Soporte</h2>
             <p className="support-subtitle">
