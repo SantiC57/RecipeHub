@@ -81,7 +81,7 @@ const ContactUs = () => {
             
     
             <div className="form-group">
-                <label htmlFor="email">Correo electrónico</label>
+                <label className="special" htmlFor="email">Correo electrónico</label>
                 <input
                 type="email"
                 id="email"
@@ -94,7 +94,7 @@ const ContactUs = () => {
             </div>
     
             <div className="form-group">
-                <label htmlFor="telefono">Teléfono</label>
+                <label className="special" htmlFor="telefono">Teléfono</label>
                 <input
                 type="tel"
                 id="telefono"
@@ -107,7 +107,7 @@ const ContactUs = () => {
     
     
             <div className="form-group">
-                <label htmlFor="descripcion">Descripción</label>
+                <label className="special" htmlFor="descripcion">Descripción</label>
                 <textarea
                 id="descripcion"
                 name="descripcion"
@@ -120,7 +120,7 @@ const ContactUs = () => {
             </div>
     
             <div className="form-group file-input-container">
-                <label htmlFor="upload">Subir Archivo</label>
+                <label htmlFor="upload" className="special">Subir Archivo</label>
                 <Upload/>
             </div>
     
