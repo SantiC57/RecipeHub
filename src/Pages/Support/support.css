@@ -41,13 +41,13 @@
     width: 100%;
   }
   
+
   /* Label opcional, puedes ocultarlo si quieres estilo 100% placeholder */
-  .form-group label {
+  .form-group label.special{
     font-weight: bold;
     font-size: 0.9rem;
     margin-bottom: 0.25rem;
     color: black;
-    
   }
   
   /* Inputs y selects con estilo similar al segundo ejemplo */
@@ -73,12 +73,6 @@
     font-size: 0.95rem;
   }
   
-  /* Si quieres ocultar completamente el label (usar sólo placeholder), 
-     agrega esto:
-  .form-group label {
-    display: none;
-  }
-  */
   
   /* Ajustes al foco (focus) */
   .form-group input:focus,

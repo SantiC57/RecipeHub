@@ -79,7 +79,7 @@ const Publication = ({ onSubmit, selectedRecipe }) => {
       setRecipe({
         titulo: "",
         ingredientes: "",
-        imagen: null,
+        imagen: "",
         preparacion: "",
         tiempo: "",
         categoria: "",
