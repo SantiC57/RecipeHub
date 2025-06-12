@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { UserContext } from "../context/UserContext";
+import ViewAvatar from "../../components/ViewAvatar/ViewAvatar";
 import { storage } from "../../api/firebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import api from "../../api/axiosConfig";
@@ -48,15 +49,15 @@ const ProfilePage = () => {
       const timestamp = Date.now();
       const fileName = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
       const storageRef = ref(storage, `usuarios/avatars/${fileName}`);
-      
+
       // Subir archivo a Firebase Storage
       console.log('Subiendo imagen a Firebase...');
       const snapshot = await uploadBytes(storageRef, file);
-      
+
       // Obtener URL de descarga
       const downloadURL = await getDownloadURL(snapshot.ref);
       console.log('URL obtenida:', downloadURL);
-      
+
       return downloadURL;
     } catch (error) {
       console.error('Error al subir imagen a Firebase:', error);
@@ -109,7 +110,7 @@ const ProfilePage = () => {
       setMessage({ type: "error", text: "La imagen debe ser menor a 5MB" });
       return;
     }
-    
+
     if (!file.type.startsWith('image/')) {
       setMessage({ type: "error", text: "Por favor selecciona una imagen válida" });
       return;
@@ -129,10 +130,10 @@ const ProfilePage = () => {
       // 1. Subir imagen a Firebase Storage
       console.log('Iniciando subida de imagen...');
       const firebaseURL = await uploadToFirebase(file);
-      
+
       // 2. Actualizar avatar en la API
       await updateAvatarInAPI(firebaseURL);
-      
+
       // 3. Actualizar estado local
       setFormData(prev => ({
         ...prev,
@@ -141,15 +142,15 @@ const ProfilePage = () => {
 
       // 4. Actualizar contexto de usuario
       if (updateUser) {
-        updateUser({ 
-          ...user, 
-          avatar: firebaseURL 
+        updateUser({
+          ...user,
+          avatar: firebaseURL
         });
       }
 
-      setMessage({ 
-        type: "success", 
-        text: "Foto de perfil actualizada correctamente" 
+      setMessage({
+        type: "success",
+        text: "Foto de perfil actualizada correctamente"
       });
 
       // Limpiar preview después de éxito
@@ -159,11 +160,11 @@ const ProfilePage = () => {
 
     } catch (error) {
       console.error('Error completo al actualizar avatar:', error);
-      setMessage({ 
-        type: "error", 
-        text: error.message || "Error al actualizar la foto de perfil" 
+      setMessage({
+        type: "error",
+        text: error.message || "Error al actualizar la foto de perfil"
       });
-      
+
       // Limpiar preview en caso de error
       setPreview(null);
     } finally {
@@ -204,11 +205,11 @@ const ProfilePage = () => {
       await api.put(`/usuarios/${user.id}`, {
         name: formData.name
       });
-      
+
       if (updateUser) {
         updateUser({ ...user, name: formData.name });
       }
-      
+
       setMessage({ type: "success", text: "Nombre actualizado correctamente" });
       setEditingName(false);
     } catch (error) {
@@ -248,10 +249,10 @@ const ProfilePage = () => {
         currentPassword: formData.currentPassword,
         newPassword: formData.newPassword
       });
-      
+
       setMessage({ type: "success", text: "Contraseña actualizada correctamente" });
       setEditingPassword(false);
-      
+
       setFormData(prev => ({
         ...prev,
         currentPassword: "",
@@ -260,14 +261,14 @@ const ProfilePage = () => {
       }));
     } catch (error) {
       console.error('Error al actualizar contraseña:', error);
-      
+
       // Manejo de errores más específico basado en la respuesta del servidor
       let errorMessage = "Error al actualizar la contraseña";
-      
+
       if (error.response) {
         const status = error.response.status;
         const responseMessage = error.response.data?.message;
-        
+
         if (status === 400) {
           errorMessage = responseMessage || "Datos inválidos";
         } else if (status === 401) {
@@ -280,9 +281,9 @@ const ProfilePage = () => {
           errorMessage = responseMessage;
         }
       }
-      
-      setMessage({ 
-        type: "error", 
+
+      setMessage({
+        type: "error",
         text: errorMessage
       });
     } finally {
@@ -324,26 +325,16 @@ const ProfilePage = () => {
           <h3 className="section-title">Foto de perfil</h3>
 
           <div className="profile-section">
-            {preview ? (
-              <img
-                src={preview}
-                alt="Vista previa"
-                className="profile-image"
-                style={{ opacity: uploadingImage ? 0.7 : 1 }}
-              />
-            ) : formData.avatar ? (
-              <img
-                src={formData.avatar}
-                alt="Foto de perfil"
-                className="profile-image"
-                style={{ opacity: uploadingImage ? 0.7 : 1 }}
-              />
-            ) : (
-              <div className="profile-image-placeholder">
-                <span>📷</span>
-              </div>
-            )}
-            
+
+            <ViewAvatar
+              src={preview || formData.avatar}
+              placeholder={() => (
+                <div className="profile-image-placeholder">
+                  <span style={{ fontSize: 40 }}>📷</span>
+                </div>
+              )}
+            />
+
             <input
               type="file"
               id="avatar"
@@ -352,7 +343,7 @@ const ProfilePage = () => {
               className="image-input"
               disabled={uploadingImage}
             />
-            
+
             <label htmlFor="avatar" className="upload-button">
               {uploadingImage ? "🔄 Subiendo..." : "Cambiar foto"}
             </label>
@@ -506,12 +497,12 @@ const ProfilePage = () => {
           <div className="divider"></div>
 
           <div className="logout-section">
-            <button 
-              onClick={handleLogout} 
+            <button
+              onClick={handleLogout}
               className="logout-button"
               disabled={loading}
             >
-             Cerrar sesión
+              Cerrar sesión
             </button>
           </div>
         </div>
