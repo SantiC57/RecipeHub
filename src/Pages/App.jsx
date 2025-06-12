@@ -15,6 +15,7 @@ import InteractiveRecipeGuide from "../components/Instructivo/InteractiveRecipeG
 import api from "../api/axiosConfig.js";
 import Postres from "./Postres/Postres.jsx";
 import Sopas from "./Sopas/Sopas.jsx";
+import MyRecipes from "./Recipes/MyRecipes.jsx";
 import Ensaladas from "./Ensaladas/Ensaladas.jsx";
 import Salsas from "./Salsas/Salsas.jsx";
 
@@ -35,7 +36,8 @@ function DynamicTitle() {
       "/postres": "Recetas de postres",
       "/publication": "Publicar receta",
       "/profile": "Mi perfil",
-      "/Support": "Soporte"
+      "/Support": "Soporte",
+      "/recipes": "Mis recetas"
     };
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
@@ -127,6 +129,7 @@ function App() {
         <Route path="/sopas" element={<Sopas />} />
         <Route path="/ensaladas" element={<Ensaladas />} />
         <Route path="/salsas" element={<Salsas />} />
+        <Route path="/myrecipes/:id" element={<MyRecipes />}/> 
       </Routes>
     </Router>
   );

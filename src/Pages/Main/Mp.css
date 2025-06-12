@@ -65,7 +65,7 @@ body {
 }
 
 /* Columna derecha - Contenido destacado */
-.div2 {
+.recipe-card {
   grid-column: 2 / 3;
   background: white;
   border-radius: 16px;
@@ -326,7 +326,7 @@ body {
   }
 
   .div1,
-  .div2 {
+  .recipe-card {
     grid-column: 1;
   }
   
@@ -352,7 +352,7 @@ body {
   }
 
   .div1, 
-  .div2 {
+  .recipe-card {
     grid-column: 1;
   }
 
@@ -421,7 +421,7 @@ body {
     border-radius: 8px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 1.125rem;
     border-radius: 12px;
   }
@@ -521,7 +521,7 @@ body {
     font-size: 13px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 1rem;
   }
 
@@ -561,7 +561,7 @@ body {
     margin-bottom: 1rem;
   }
 
-  .div1, .div2 {
+  .div1, .recipe-card {
     margin: 0 0.125rem;
   }
 
@@ -585,7 +585,7 @@ body {
     font-size: 0.8rem;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 0.875rem;
   }
 
@@ -669,7 +669,7 @@ body {
     font-size: 11px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 0.75rem;
   }
 
@@ -736,7 +736,7 @@ body {
   .receta,
   .receta::before,
   .imagen-circular,
-  .div2 {
+  .recipe-card {
     transition: none;
   }
 }
@@ -747,7 +747,7 @@ body {
     border-width: 2px;
   }
 
-  .div1, .div2 {
+  .div1, .recipe-card {
     border-width: 2px;
   }
 }

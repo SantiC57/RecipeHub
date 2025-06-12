@@ -113,7 +113,7 @@ export default function MainPage() {
               )}
             </div>
 
-            <div className="div2">
+            <div className="recipe-card">
               {user && (
                 <>
                   {loadingUserRecipes ? (
@@ -121,7 +121,7 @@ export default function MainPage() {
                       <p>Cargando tus recetas...</p>
                     </div>
                   ) : latestUserRecipe ? (
-                    <Link to={`/recipes/${latestUserRecipe.id}`} className="featured-link">
+                    <Link to={`/myrecipes/${latestUserRecipe.id}`} className="featured-link">
                       <h3 className="destacada-titulo">Mis Recetas</h3>
                       <img
                         className="destacada-imagen"
