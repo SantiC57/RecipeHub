@@ -28,7 +28,7 @@ export default function MainPage() {
     fetch("https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas")
       .then((res) => res.json())
       .then((data) => {
-        const sortedData = data.sort((a, b) => b.id - a.id); // ordenar por ID descendente
+        const sortedData = data.sort((a, b) => b.id - a.id);
         setRecetasPublicadas(sortedData);
 
         const categoriesSet = new Set(
@@ -45,7 +45,6 @@ export default function MainPage() {
       fetch(`https://pfv4sj6v-5000.use2.devtunnels.ms/api/usuarios/${user.id}/recetas`)
         .then((res) => res.json())
         .then((data) => {
-          // Ordenar por fecha de creación o ID descendente para obtener la más reciente
           const sortedUserRecipes = data.sort((a, b) => b.id - a.id);
           setUserRecipes(sortedUserRecipes);
         })
@@ -56,6 +55,10 @@ export default function MainPage() {
         .finally(() => {
           setLoadingUserRecipes(false);
         });
+    } else {
+      // Limpiar recetas del usuario cuando no hay usuario logueado
+      setUserRecipes([]);
+      setLoadingUserRecipes(false);
     }
   }, [user]);
 
@@ -74,8 +77,37 @@ export default function MainPage() {
     (cat) => cat.includes(slugify(searchTerm)) && searchTerm !== ""
   );
 
+  // Obtener la receta más reciente del usuario
   const latestUserRecipe = userRecipes.length > 0 ? userRecipes[0] : null;
-  const featuredRecipe = recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
+
+  // Filtrar recetas recientes excluyendo las del usuario actual
+  const getRecentRecipes = () => {
+    let filteredRecipes = recetasPublicadas;
+
+    // Si hay usuario logueado, excluir sus recetas de la lista de recientes
+    if (user && user.id) {
+      filteredRecipes = recetasPublicadas.filter(
+        (receta) => receta.usuarioId !== user.id
+      );
+    }
+
+    // Retornar las primeras 6 recetas (o menos si no hay suficientes)
+    return filteredRecipes.slice(0, 6);
+  };
+
+  // Obtener receta destacada (primera receta que no sea del usuario actual)
+  const getFeaturedRecipe = () => {
+    if (user && user.id) {
+      // Si hay usuario, buscar la primera receta que no sea suya
+      return recetasPublicadas.find(receta => receta.usuarioId !== user.id) || null;
+    } else {
+      // Si no hay usuario, mostrar la más reciente
+      return recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
+    }
+  };
+
+  const featuredRecipe = getFeaturedRecipe();
+  const recentRecipes = getRecentRecipes();
 
   return (
     <div className="page-wrapper">
@@ -114,14 +146,15 @@ export default function MainPage() {
             </div>
 
             <div className="recipe-card">
-              {user && (
+              {user ? (
+                // Usuario logueado - mostrar "Mis Recetas"
                 <>
                   {loadingUserRecipes ? (
                     <div className="loading-state">
                       <p>Cargando tus recetas...</p>
                     </div>
                   ) : latestUserRecipe ? (
-                    <Link to={`/myrecipes/${latestUserRecipe.id}`} className="featured-link">
+                    <Link to={`/myrecipes/${user.id}`} className="featured-link">
                       <h3 className="destacada-titulo">Mis Recetas</h3>
                       <img
                         className="destacada-imagen"
@@ -145,9 +178,8 @@ export default function MainPage() {
                     </section>
                   )}
                 </>
-              )}
-
-              {!user && (
+              ) : (
+                // Usuario no logueado - mostrar receta destacada
                 <>
                   {featuredRecipe ? (
                     <Link to={`/recipes/${featuredRecipe.id}`} className="featured-link">
@@ -173,31 +205,38 @@ export default function MainPage() {
                     </div>
                   )}
                 </>
-
               )}
-
             </div>
           </div>
+
           <div className="recent-section">
-            <h2 className="recent-title">Recetas Recientes</h2>
+            <h2 className="recent-title">
+              {user ? "Otras Recetas Recientes" : "Recetas Recientes"}
+            </h2>
             <div className="recetas-grid">
-              {recetasPublicadas.slice(1, 7).map((receta) => (
-                <Link
-                  key={receta.id}
-                  to={`/recipes/${receta.id}`}
-                  className="receta"
-                >
-                  <img
-                    className="imagen-circular"
-                    src={receta.imagen}
-                    alt={receta.titulo}
-                  />
-                  <p>{receta.titulo}</p>
-                </Link>
-              ))}
+              {recentRecipes.length > 0 ? (
+                recentRecipes.slice(1,7).map((receta) => (
+                  <Link
+                    key={receta.id}
+                    to={`/recipes/${receta.id}`}
+                    className="receta"
+                  >
+                    <img
+                      className="imagen-circular"
+                      src={receta.imagen}
+                      alt={receta.titulo}
+                      loading="lazy"
+                    />
+                    <p>{receta.titulo}</p>
+                  </Link>
+                ))
+              ) : (
+                <div className="no-recipes-message">
+                  <p>No hay más recetas disponibles</p>
+                </div>
+              )}
             </div>
           </div>
-
         </main>
 
         <FloatingButton supportPageUrl="/support" />
