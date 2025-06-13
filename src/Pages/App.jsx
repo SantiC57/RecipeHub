@@ -1,4 +1,5 @@
 import { HashRouter as Router, Routes, Route, useLocation, useParams } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
 import Signup from "../components/Signup/Signup.jsx";
 import Login from "./Login/Login.jsx";
 import { useEffect } from "react";
@@ -50,21 +51,9 @@ function InteractiveRecipeWrapper() {
   return <InteractiveRecipeGuide recipeId={parseInt(id)} />;
 }
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(() => 
-    JSON.parse(localStorage.getItem("currentUser"))
-  );
- 
+function AppRoutes() {
   const [users, setUsers] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  
-  useEffect(() => {
-    if(currentUser){
-      localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem("currentUser");
-    }
-  }, [currentUser]);
   
   useEffect(() => {
     const fetchUsers = async () => {
@@ -111,27 +100,35 @@ function App() {
   };
   
   return (
-    <Router>
-      <DynamicTitle />
-      <Routes>
-        <Route path="/" element={<MainPage recipes={recipes} />} />
-        <Route path="/login" element={<Login onLogin={setCurrentUser} />} />
-        <Route path="/signup" element={<Signup onSubmit={handleUserSubmit} onLogin={setCurrentUser} />} />
-        <Route path="/pastas" element={<Pastas />} />
-        <Route path="/carnes" element={<Carnes />} />
-        <Route path="/mariscos" element={<Mariscos/>} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} currentUser={currentUser} />} />
-        <Route path="/profile" element={<Profile />} /> 
-        <Route path="/receta/:id" element={<RecipeDetail />} />
-        <Route path="/recipes/:id" element={<InteractiveRecipeWrapper />} />
-        <Route path="/postres" element={<Postres />} />
-        <Route path="/sopas" element={<Sopas />} />
-        <Route path="/ensaladas" element={<Ensaladas />} />
-        <Route path="/salsas" element={<Salsas />} />
-        <Route path="/myrecipes/:id" element={<MyRecipes />}/> 
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<MainPage recipes={recipes} />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup onSubmit={handleUserSubmit} />} />
+      <Route path="/pastas" element={<Pastas />} />
+      <Route path="/carnes" element={<Carnes />} />
+      <Route path="/mariscos" element={<Mariscos/>} />
+      <Route path="/support" element={<Support />} />
+      <Route path="/publication" element={<Publication onSubmit={handleRecipeSubmit} />} />
+      <Route path="/profile" element={<Profile />} /> 
+      <Route path="/receta/:id" element={<RecipeDetail />} />
+      <Route path="/recipes/:id" element={<InteractiveRecipeWrapper />} />
+      <Route path="/postres" element={<Postres />} />
+      <Route path="/sopas" element={<Sopas />} />
+      <Route path="/ensaladas" element={<Ensaladas />} />
+      <Route path="/salsas" element={<Salsas />} />
+      <Route path="/myrecipes/:id" element={<MyRecipes />}/> 
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <UserProvider>
+      <Router>
+        <DynamicTitle />
+        <AppRoutes />
+      </Router>
+    </UserProvider>
   );
 }
 

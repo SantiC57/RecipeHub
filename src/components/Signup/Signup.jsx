@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Signup.css";
 import user_icon from "../../assets/person.ico";
 import email_icon from "../../assets/Email.ico";
 import password_icon from "../../assets/Password.ico";
 import api from "../../api/axiosConfig";
-import { UserContext } from "../../Pages/context/UserContext"; // ← Asegúrate de usar la ruta correcta
+import { UserContext } from "../../Pages/context/UserContext";
 
 const Signup = ({ onSubmit, selectedUser }) => {
   const navigate = useNavigate();
-  const { login } = useContext(UserContext); // ← usamos login del contexto
+  const { login } = useContext(UserContext);
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isChecking, setIsChecking] = useState(false);
@@ -74,7 +74,7 @@ const Signup = ({ onSubmit, selectedUser }) => {
       console.log("Usuario registrado correctamente:", newUser);
 
       // Login automático con el contexto global
-      login(newUser); // ← Aquí usamos el contexto para hacer login
+      login(newUser);
 
       // Limpiar y redirigir al home
       setUser({ name: "", email: "", password: "" });
