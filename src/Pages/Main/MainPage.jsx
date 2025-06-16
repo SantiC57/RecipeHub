@@ -208,11 +208,38 @@ export default function MainPage() {
               )}
             </div>
           </div>
-
+          
           <div className="recent-section">
-            <h2 className="recent-title">
-              {user ? "Otras Recetas Recientes" : "Recetas Recientes"}
-            </h2>
+            {user ? (
+            <> 
+            <h2 className="recent-title"> Otras Recetas Recientes</h2>
+            <div className="recetas-grid">
+              {recentRecipes.length > 0 ? (
+                recentRecipes.slice(0,7).map((receta) => (
+                  <Link
+                    key={receta.id}
+                    to={`/recipes/${receta.id}`}
+                    className="receta"
+                  >
+                    <img
+                      className="imagen-circular"
+                      src={receta.imagen}
+                      alt={receta.titulo}
+                      loading="lazy"
+                    />
+                    <p>{receta.titulo}</p>
+                  </Link>
+                ))
+              ) : (
+                <div className="no-recipes-message">
+                  <p>No hay más recetas disponibles</p>
+                </div>
+              )}
+            </div>
+            </>
+            ) : (
+            <>
+            <h2 className="recent-title">Recetas Recientes</h2>
             <div className="recetas-grid">
               {recentRecipes.length > 0 ? (
                 recentRecipes.slice(1,7).map((receta) => (
@@ -236,6 +263,8 @@ export default function MainPage() {
                 </div>
               )}
             </div>
+            </>
+            )}
           </div>
         </main>
 
