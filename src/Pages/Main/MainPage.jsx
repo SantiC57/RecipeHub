@@ -6,6 +6,7 @@ import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import Add from "../../assets/Add.ico";
 import { UserContext } from "../../Pages/context/UserContext"; 
+import api from "../../api/axiosConfig";
 import "./Mp.css";
 
 export default function MainPage() {
@@ -14,6 +15,9 @@ export default function MainPage() {
   const [loadingUserRecipes, setLoadingUserRecipes] = useState(false);
   const [allCategories, setAllCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [hoveredRecipe, setHoveredRecipe] = useState(null);
+  const [recipeDetails, setRecipeDetails] = useState({});
+  const [loadingDetails, setLoadingDetails] = useState({});
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -56,11 +60,48 @@ export default function MainPage() {
           setLoadingUserRecipes(false);
         });
     } else {
-      // Limpiar recetas del usuario cuando no hay usuario logueado
       setUserRecipes([]);
       setLoadingUserRecipes(false);
     }
   }, [user]);
+
+  // Cargar detalles de la receta y el usuario cuando se hace hover
+  const fetchRecipeDetails = async (recipeId) => {
+    if (recipeDetails[recipeId] || loadingDetails[recipeId]) return;
+    
+    setLoadingDetails(prev => ({ ...prev, [recipeId]: true }));
+    
+    try {
+      // Obtener detalles completos de la receta
+      const recipeResponse = await api.get(`/recetas/${recipeId}`);
+      const recipeData = recipeResponse.data;
+      
+      // Obtener información del usuario que creó la receta
+      const userResponse = await api.get(`/usuarios/${recipeData.usuarioId}`);
+      const userData = userResponse.data;
+      
+      setRecipeDetails(prev => ({
+        ...prev,
+        [recipeId]: {
+          ...recipeData,
+          autor: userData
+        }
+      }));
+    } catch (error) {
+      console.error("Error al cargar detalles de la receta:", error);
+    } finally {
+      setLoadingDetails(prev => ({ ...prev, [recipeId]: false }));
+    }
+  };
+
+  const handleRecipeHover = (recipeId) => {
+    setHoveredRecipe(recipeId);
+    fetchRecipeDetails(recipeId);
+  };
+
+  const handleRecipeLeave = () => {
+    setHoveredRecipe(null);
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -77,37 +118,106 @@ export default function MainPage() {
     (cat) => cat.includes(slugify(searchTerm)) && searchTerm !== ""
   );
 
-  // Obtener la receta más reciente del usuario
   const latestUserRecipe = userRecipes.length > 0 ? userRecipes[0] : null;
 
-  // Filtrar recetas recientes excluyendo las del usuario actual
   const getRecentRecipes = () => {
     let filteredRecipes = recetasPublicadas;
 
-    // Si hay usuario logueado, excluir sus recetas de la lista de recientes
     if (user && user.id) {
       filteredRecipes = recetasPublicadas.filter(
         (receta) => receta.usuarioId !== user.id
       );
     }
 
-    // Retornar las primeras 6 recetas (o menos si no hay suficientes)
     return filteredRecipes.slice(0, 6);
   };
 
-  // Obtener receta destacada (primera receta que no sea del usuario actual)
   const getFeaturedRecipe = () => {
     if (user && user.id) {
-      // Si hay usuario, buscar la primera receta que no sea suya
       return recetasPublicadas.find(receta => receta.usuarioId !== user.id) || null;
     } else {
-      // Si no hay usuario, mostrar la más reciente
       return recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
     }
   };
 
   const featuredRecipe = getFeaturedRecipe();
   const recentRecipes = getRecentRecipes();
+
+  const RecipeTooltip = ({ recipe, details, isLoading, isFeatured = false }) => {
+    if (isLoading) {
+      return (
+        <div className={`recipe-tooltip ${isFeatured ? 'featured-tooltip' : ''}`}>
+          <div className="tooltip-loading">
+            <div className="loading-spinner"></div>
+            <span>Cargando detalles...</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (!details) return null;
+
+    const getAvatarUrl = (autor) => {
+      // Corregido: usar 'avatar' en lugar de 'fotoPerfil'
+      if (autor?.avatar) {
+        return autor.avatar;
+      }
+      // Usar avatar por defecto basado en las iniciales del nombre
+      const initials = autor?.name ? autor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'U';
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=e8b44a&color=fff&size=40&font-size=0.6`;
+    };
+
+    return (
+      <div className={`recipe-tooltip ${isFeatured ? 'featured-tooltip' : ''}`}>
+        <div className="tooltip-header">
+          <h4 className="tooltip-title">{details.titulo}</h4>
+          <span className="tooltip-category">{details.categoria}</span>
+        </div>
+        
+        <div className="tooltip-author">
+          <img 
+            src={getAvatarUrl(details.autor)} 
+            alt={details.autor?.name || 'Usuario'} 
+            className="author-avatar"
+            onError={(e) => {
+              e.target.src = `https://ui-avatars.com/api/?name=U&background=e8b44a&color=fff&size=40&font-size=0.6`;
+            }}
+          />
+          <span className="author-name">Por: {details.autor?.name || 'Usuario'}</span>
+        </div>
+
+        <div className="tooltip-times">
+          <div className="time-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+            <span>Prep: {details.tiempo || 'No especificado'}</span>
+          </div>
+          {details.coccion && (
+            <div className="time-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6.13 1L6 16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V1"/>
+                <path d="M10 18v3"/>
+                <path d="M14 18v3"/>
+                <path d="M4 18h16"/>
+              </svg>
+              <span>Cocción: {details.coccion}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="tooltip-ingredients">
+          <h5>Ingredientes principales:</h5>
+          <p>{details.ingredientes ? details.ingredientes.substring(0, 100) + '...' : 'No especificados'}</p>
+        </div>
+
+        <div className="tooltip-footer">
+          <span className="tooltip-hint">Click para ver receta completa</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="page-wrapper">
@@ -147,7 +257,6 @@ export default function MainPage() {
 
             <div className="recipe-card">
               {user ? (
-                // Usuario logueado - mostrar "Mis Recetas"
                 <>
                   {loadingUserRecipes ? (
                     <div className="loading-state">
@@ -179,22 +288,37 @@ export default function MainPage() {
                   )}
                 </>
               ) : (
-                // Usuario no logueado - mostrar receta destacada
                 <>
                   {featuredRecipe ? (
-                    <Link to={`/recipes/${featuredRecipe.id}`} className="featured-link">
-                      <h3 className="destacada-titulo">Receta Destacada</h3>
-                      <img
-                        className="destacada-imagen"
-                        src={featuredRecipe.imagen}
-                        alt={featuredRecipe.titulo}
-                        loading="lazy"
-                      />
-                      <div className="featured-overlay">
-                        <span className="featured-badge">¡Nueva!</span>
-                      </div>
-                      <div className="destacada-info">{featuredRecipe.titulo}</div>
-                    </Link>
+                    <div className="featured-recipe-wrapper">
+                      <Link 
+                        to={`/recipes/${featuredRecipe.id}`} 
+                        className="featured-link"
+                        onMouseEnter={() => handleRecipeHover(featuredRecipe.id)}
+                        onMouseLeave={handleRecipeLeave}
+                      >
+                        <h3 className="destacada-titulo">Receta Destacada</h3>
+                        <img
+                          className="destacada-imagen"
+                          src={featuredRecipe.imagen}
+                          alt={featuredRecipe.titulo}
+                          loading="lazy"
+                        />
+                        <div className="featured-overlay">
+                          <span className="featured-badge">¡Nueva!</span>
+                        </div>
+                        <div className="destacada-info">{featuredRecipe.titulo}</div>
+                      </Link>
+                      
+                      {hoveredRecipe === featuredRecipe.id && (
+                        <RecipeTooltip 
+                          recipe={featuredRecipe}
+                          details={recipeDetails[featuredRecipe.id]}
+                          isLoading={loadingDetails[featuredRecipe.id]}
+                          isFeatured={true}
+                        />
+                      )}
+                    </div>
                   ) : (
                     <div className="no-featured-recipe">
                       <h3 className="destacada-titulo">Receta destacada</h3>
@@ -211,59 +335,81 @@ export default function MainPage() {
           
           <div className="recent-section">
             {user ? (
-            <> 
-            <h2 className="recent-title"> Otras Recetas Recientes</h2>
-            <div className="recetas-grid">
-              {recentRecipes.length > 0 ? (
-                recentRecipes.slice(0,7).map((receta) => (
-                  <Link
-                    key={receta.id}
-                    to={`/recipes/${receta.id}`}
-                    className="receta"
-                  >
-                    <img
-                      className="imagen-circular"
-                      src={receta.imagen}
-                      alt={receta.titulo}
-                      loading="lazy"
-                    />
-                    <p>{receta.titulo}</p>
-                  </Link>
-                ))
-              ) : (
-                <div className="no-recipes-message">
-                  <p>No hay más recetas disponibles</p>
+              <> 
+                <h2 className="recent-title">Otras Recetas Recientes</h2>
+                <div className="recetas-grid">
+                  {recentRecipes.length > 0 ? (
+                    recentRecipes.slice(0,7).map((receta) => (
+                      <div key={receta.id} className="recipe-wrapper">
+                        <Link
+                          to={`/recipes/${receta.id}`}
+                          className="receta"
+                          onMouseEnter={() => handleRecipeHover(receta.id)}
+                          onMouseLeave={handleRecipeLeave}
+                        >
+                          <img
+                            className="imagen-circular"
+                            src={receta.imagen}
+                            alt={receta.titulo}
+                            loading="lazy"
+                          />
+                          <p>{receta.titulo}</p>
+                        </Link>
+                        
+                        {hoveredRecipe === receta.id && (
+                          <RecipeTooltip 
+                            recipe={receta}
+                            details={recipeDetails[receta.id]}
+                            isLoading={loadingDetails[receta.id]}
+                          />
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="no-recipes-message">
+                      <p>No hay más recetas disponibles</p>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            </>
+              </>
             ) : (
-            <>
-            <h2 className="recent-title">Recetas Recientes</h2>
-            <div className="recetas-grid">
-              {recentRecipes.length > 0 ? (
-                recentRecipes.slice(1,7).map((receta) => (
-                  <Link
-                    key={receta.id}
-                    to={`/recipes/${receta.id}`}
-                    className="receta"
-                  >
-                    <img
-                      className="imagen-circular"
-                      src={receta.imagen}
-                      alt={receta.titulo}
-                      loading="lazy"
-                    />
-                    <p>{receta.titulo}</p>
-                  </Link>
-                ))
-              ) : (
-                <div className="no-recipes-message">
-                  <p>No hay más recetas disponibles</p>
+              <>
+                <h2 className="recent-title">Recetas Recientes</h2>
+                <div className="recetas-grid">
+                  {recentRecipes.length > 0 ? (
+                    recentRecipes.slice(1,7).map((receta) => (
+                      <div key={receta.id} className="recipe-wrapper">
+                        <Link
+                          to={`/recipes/${receta.id}`}
+                          className="receta"
+                          onMouseEnter={() => handleRecipeHover(receta.id)}
+                          onMouseLeave={handleRecipeLeave}
+                        >
+                          <img
+                            className="imagen-circular"
+                            src={receta.imagen}
+                            alt={receta.titulo}
+                            loading="lazy"
+                          />
+                          <p>{receta.titulo}</p>
+                        </Link>
+                        
+                        {hoveredRecipe === receta.id && (
+                          <RecipeTooltip 
+                            recipe={receta}
+                            details={recipeDetails[receta.id]}
+                            isLoading={loadingDetails[receta.id]}
+                          />
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="no-recipes-message">
+                      <p>No hay más recetas disponibles</p>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            </>
+              </>
             )}
           </div>
         </main>
