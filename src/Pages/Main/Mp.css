@@ -65,7 +65,7 @@ body {
 }
 
 /* Columna derecha - Contenido destacado */
-.div2 {
+.recipe-card {
   grid-column: 2 / 3;
   background: white;
   border-radius: 16px;
@@ -74,12 +74,9 @@ body {
   border: 1px solid #e2e8f0;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  overflow: hidden;
 }
 
-.div2:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
-}
 
 /* ===============================
    GRID DE RECETAS
@@ -219,6 +216,39 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.start-cooking{
+ background: linear-gradient(135deg, #722F37, #461c21);
+ box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+ border-radius: 9px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ padding: 2rem 1rem;
+ color: white;
+}
+
+.start-cooking__title{
+   margin-bottom: 0.3rem;
+}
+
+.start-cooking__button {
+  background-color: white;
+  border-radius: 9px;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  border: none;
+  color: var(--color-destacado);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-cooking__button:hover {
+  background-color: #fafafa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
 .destacada-titulo {
   margin: 0 0 12px 0;
   font-size: 1.2rem;
@@ -296,7 +326,7 @@ body {
   }
 
   .div1,
-  .div2 {
+  .recipe-card {
     grid-column: 1;
   }
   
@@ -322,7 +352,7 @@ body {
   }
 
   .div1, 
-  .div2 {
+  .recipe-card {
     grid-column: 1;
   }
 
@@ -391,7 +421,7 @@ body {
     border-radius: 8px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 1.125rem;
     border-radius: 12px;
   }
@@ -491,7 +521,7 @@ body {
     font-size: 13px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 1rem;
   }
 
@@ -531,7 +561,7 @@ body {
     margin-bottom: 1rem;
   }
 
-  .div1, .div2 {
+  .div1, .recipe-card {
     margin: 0 0.125rem;
   }
 
@@ -555,7 +585,7 @@ body {
     font-size: 0.8rem;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 0.875rem;
   }
 
@@ -639,7 +669,7 @@ body {
     font-size: 11px;
   }
 
-  .div2 {
+  .recipe-card {
     padding: 0.75rem;
   }
 
@@ -706,7 +736,7 @@ body {
   .receta,
   .receta::before,
   .imagen-circular,
-  .div2 {
+  .recipe-card {
     transition: none;
   }
 }
@@ -717,7 +747,7 @@ body {
     border-width: 2px;
   }
 
-  .div1, .div2 {
+  .div1, .recipe-card {
     border-width: 2px;
   }
 }
