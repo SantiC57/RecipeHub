@@ -19,6 +19,7 @@ function MainPage() {
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [loadingDetails, setLoadingDetails] = useState({});
+  const [showAuthModal, setShowAuthModal] = useState(false); // Estado para el modal
   
   const { user } = useContext(UserContext);
   const { toggleLike, isLiked, addToFavoriteDetails } = useFavorites();
@@ -145,6 +146,12 @@ function MainPage() {
     event.preventDefault(); // Prevenir navegación al hacer click en el corazón
     event.stopPropagation(); // Prevenir bubbling
     
+    // Verificar si el usuario está logueado
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+    
     // Encontrar la receta y añadirla al contexto de favoritos
     const recipe = recetasPublicadas.find(r => r.id === recipeId);
     if (recipe) {
@@ -152,6 +159,18 @@ function MainPage() {
     }
     
     toggleLike(recipeId);
+  };
+
+  // Función para cerrar el modal
+  const closeAuthModal = () => {
+    setShowAuthModal(false);
+  };
+
+  // Función para manejar click en el overlay del modal
+  const handleModalOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeAuthModal();
+    }
   };
 
   const getFeaturedRecipe = () => {
@@ -167,7 +186,7 @@ function MainPage() {
 
   // Componente del corazón SVG
   const HeartIcon = ({ recipeId, className = "" }) => {
-    const liked = isLiked(recipeId);
+    const liked = user ? isLiked(recipeId) : false;
     
     return (
       <button 
@@ -188,6 +207,98 @@ function MainPage() {
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
       </button>
+    );
+  };
+
+  // Componente del Modal de Autenticación
+  const AuthModal = () => {
+    return (
+      <div className="auth-modal-overlay" onClick={handleModalOverlayClick}>
+        <div className="auth-modal">
+          <button 
+            className="auth-modal-close" 
+            onClick={closeAuthModal}
+            aria-label="Cerrar modal"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          
+          <div className="auth-modal-content">
+            <div className="auth-modal-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="#e53e3e" stroke="#e53e3e" strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            
+            <h2 className="auth-modal-title">
+              ¿Quieres tener una lista de tus recetas favoritas?
+            </h2>
+            
+            <p className="auth-modal-description">
+              Inicia sesión para guardar tus recetas favoritas y acceder a ellas en cualquier momento. 
+              ¡Crea tu colección personal de recetas deliciosas!
+            </p>
+            
+            <div className="auth-modal-features">
+              <div className="auth-feature">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8b44a" strokeWidth="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span>Guarda tus recetas favoritas</span>
+              </div>
+              
+              <div className="auth-feature">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8b44a" strokeWidth="2">
+                  <path d="M9 11H1v6h8v-6z"/>
+                  <path d="m15 11l-8 0"/>
+                  <path d="m20 4l-8 0"/>
+                  <path d="M7 4h1v3H7V4z"/>
+                  <circle cx="20" cy="11" r="2"/>
+                </svg>
+                <span>Organiza tu colección personal</span>
+              </div>
+              
+              <div className="auth-feature">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8b44a" strokeWidth="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Comparte y descubre nuevas recetas</span>
+              </div>
+            </div>
+            
+            <div className="auth-modal-actions">
+              <Link 
+                to="/login" 
+                className="auth-modal-button auth-modal-button--primary"
+                onClick={closeAuthModal}
+              >
+                Iniciar Sesión
+              </Link>
+              
+              <Link 
+                to="/signup" 
+                className="auth-modal-button auth-modal-button--secondary"
+                onClick={closeAuthModal}
+              >
+                Crear Cuenta
+              </Link>
+            </div>
+            
+            <button 
+              className="auth-modal-skip" 
+              onClick={closeAuthModal}
+            >
+              Continuar sin cuenta
+            </button>
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -475,6 +586,9 @@ function MainPage() {
       </div>
 
       <Footer />
+      
+      {/* Modal de Autenticación */}
+      {showAuthModal && <AuthModal />}
     </div>
   );
 }
