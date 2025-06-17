@@ -6,10 +6,11 @@ import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import Add from "../../assets/Add.ico";
 import { UserContext } from "../../Pages/context/UserContext"; 
+import { useFavorites } from "../context/FavoriteContext";
 import api from "../../api/axiosConfig";
 import "./Mp.css";
 
-export default function MainPage() {
+function MainPage() {
   const [recetasPublicadas, setRecetasPublicadas] = useState([]);
   const [userRecipes, setUserRecipes] = useState([]);
   const [loadingUserRecipes, setLoadingUserRecipes] = useState(false);
@@ -18,7 +19,9 @@ export default function MainPage() {
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [loadingDetails, setLoadingDetails] = useState({});
+  
   const { user } = useContext(UserContext);
+  const { toggleLike, isLiked, addToFavoriteDetails } = useFavorites();
   const navigate = useNavigate();
 
   const slugify = (str) =>
@@ -80,13 +83,18 @@ export default function MainPage() {
       const userResponse = await api.get(`/usuarios/${recipeData.usuarioId}`);
       const userData = userResponse.data;
       
+      const fullRecipeData = {
+        ...recipeData,
+        autor: userData
+      };
+      
       setRecipeDetails(prev => ({
         ...prev,
-        [recipeId]: {
-          ...recipeData,
-          autor: userData
-        }
+        [recipeId]: fullRecipeData
       }));
+      
+      // Add to favorites context for caching
+      addToFavoriteDetails(fullRecipeData);
     } catch (error) {
       console.error("Error al cargar detalles de la receta:", error);
     } finally {
@@ -132,6 +140,20 @@ export default function MainPage() {
     return filteredRecipes.slice(0, 6);
   };
 
+  // Función para manejar el toggle de likes usando el contexto global
+  const handleToggleLike = (recipeId, event) => {
+    event.preventDefault(); // Prevenir navegación al hacer click en el corazón
+    event.stopPropagation(); // Prevenir bubbling
+    
+    // Encontrar la receta y añadirla al contexto de favoritos
+    const recipe = recetasPublicadas.find(r => r.id === recipeId);
+    if (recipe) {
+      addToFavoriteDetails(recipe);
+    }
+    
+    toggleLike(recipeId);
+  };
+
   const getFeaturedRecipe = () => {
     if (user && user.id) {
       return recetasPublicadas.find(receta => receta.usuarioId !== user.id) || null;
@@ -142,6 +164,32 @@ export default function MainPage() {
 
   const featuredRecipe = getFeaturedRecipe();
   const recentRecipes = getRecentRecipes();
+
+  // Componente del corazón SVG
+  const HeartIcon = ({ recipeId, className = "" }) => {
+    const liked = isLiked(recipeId);
+    
+    return (
+      <button 
+        className={`heart-button ${className} ${liked ? 'liked' : ''}`}
+        onClick={(e) => handleToggleLike(recipeId, e)}
+        aria-label={liked ? "Quitar de favoritos" : "Agregar a favoritos"}
+      >
+        <svg 
+          width="20" 
+          height="20" 
+          viewBox="0 0 24 24" 
+          fill={liked ? "#e53e3e" : "none"} 
+          stroke={liked ? "#e53e3e" : "currentColor"} 
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+    );
+  };
 
   const RecipeTooltip = ({ recipe, details, isLoading, isFeatured = false }) => {
     if (isLoading) {
@@ -310,6 +358,9 @@ export default function MainPage() {
                         <div className="destacada-info">{featuredRecipe.titulo}</div>
                       </Link>
                       
+                      {/* Corazón para receta destacada */}
+                      <HeartIcon recipeId={featuredRecipe.id} className="featured-heart" />
+                      
                       {hoveredRecipe === featuredRecipe.id && (
                         <RecipeTooltip 
                           recipe={featuredRecipe}
@@ -356,6 +407,9 @@ export default function MainPage() {
                           <p>{receta.titulo}</p>
                         </Link>
                         
+                        {/* Corazón para recetas del grid */}
+                        <HeartIcon recipeId={receta.id} className="grid-heart" />
+                        
                         {hoveredRecipe === receta.id && (
                           <RecipeTooltip 
                             recipe={receta}
@@ -394,6 +448,9 @@ export default function MainPage() {
                           <p>{receta.titulo}</p>
                         </Link>
                         
+                        {/* Corazón para recetas del grid */}
+                        <HeartIcon recipeId={receta.id} className="grid-heart" />
+                        
                         {hoveredRecipe === receta.id && (
                           <RecipeTooltip 
                             recipe={receta}
@@ -421,3 +478,6 @@ export default function MainPage() {
     </div>
   );
 }
+
+// Solo un export default al final
+export default MainPage;

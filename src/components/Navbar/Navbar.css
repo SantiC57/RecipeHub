@@ -21,6 +21,7 @@
   max-width: 1200px;
   width: 100%;
   position: relative;
+  margin-right: 1.5rem;
 }
 
 .navbar-logo {
@@ -286,7 +287,6 @@
   .navbar-menu.mobile-open li:nth-child(4) { transition-delay: 0.4s; }
 
   .navbar-menu a {
-    width: 100%;
     padding: 1rem;
     border-radius: 12px;
     font-size: 1rem;
@@ -305,9 +305,6 @@
 
 /* Small mobile styles */
 @media (max-width: 480px) {
-  .navbar {
-    padding: 0.8rem;
-  }
 
   .navbar-logo {
     font-size: 1.3rem;
@@ -336,7 +333,7 @@
 
 /* Extra small mobile styles */
 @media (max-width: 390px) {
-  .navbar {
+ .navbar {
     padding: 0.6rem;
     margin-right: 20rem;
   }

@@ -35,6 +35,7 @@ export function Navbar() {
 
           {user && (
             <>
+              <li><Link to="/favorites" className="profile-button">Favoritos</Link></li>
               <li><Link to="/profile" className="profile-button">Perfil</Link></li>
               <li><Link to="/publication" className="publish-button">Publicar</Link></li>
             </>

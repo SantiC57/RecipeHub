@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route, useLocation, useParams } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import { FavoritesProvider } from "../Pages/context/FavoriteContext";
 import Signup from "../components/Signup/Signup.jsx";
 import Login from "./Login/Login.jsx";
 import { useEffect } from "react";
@@ -19,6 +20,7 @@ import Sopas from "./Sopas/Sopas.jsx";
 import MyRecipes from "./Recipes/MyRecipes.jsx";
 import Ensaladas from "./Ensaladas/Ensaladas.jsx";
 import Salsas from "./Salsas/Salsas.jsx";
+import Favorites from './Favorites/Favorites.jsx';
 
 function DynamicTitle() {
   const location = useLocation();
@@ -38,7 +40,8 @@ function DynamicTitle() {
       "/publication": "Publicar receta",
       "/profile": "Mi perfil",
       "/Support": "Soporte",
-      "/recipes": "Mis recetas"
+      "/recipes": "Mis recetas",
+      "/favorites": "Mis Favoritos"
     };
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
@@ -117,6 +120,7 @@ function AppRoutes() {
       <Route path="/ensaladas" element={<Ensaladas />} />
       <Route path="/salsas" element={<Salsas />} />
       <Route path="/myrecipes/:id" element={<MyRecipes />}/> 
+      <Route path="/favorites" element={<Favorites />} />
     </Routes>
   );
 }
@@ -124,10 +128,12 @@ function AppRoutes() {
 function App() {
   return (
     <UserProvider>
-      <Router>
-        <DynamicTitle />
-        <AppRoutes />
-      </Router>
+      <FavoritesProvider>
+        <Router>
+          <DynamicTitle />
+          <AppRoutes />
+        </Router>
+      </FavoritesProvider>
     </UserProvider>
   );
 }
