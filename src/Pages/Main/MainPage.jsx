@@ -1,143 +1,66 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Components
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/footer/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import SearchBar from "../../components/Search/SearchBar.jsx";
 import FoodCategoryBar from "../../components/FoodCategoryBar/FoodCategoryBar";
 import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
-import Add from "../../assets/Add.ico";
+
+// Hooks
+import { useSearch } from "../../hooks/useSearch.js";
+import { useRecipes } from "../../hooks/useRecipes.js";
+import { useRecipeDetails } from "../../hooks/useRecipeDetails.js";
+
+// Context
 import { UserContext } from "../../Pages/context/UserContext"; 
 import { useFavorites } from "../context/FavoriteContext";
-import api from "../../api/axiosConfig";
+
+// Utils
+import { slugify, getAvatarUrl } from "../../lib/utils";
+
+// Assets
+import Add from "../../assets/Add.ico";
+
+// Styles
 import "./Mp.css";
 
 function MainPage() {
-  const [recetasPublicadas, setRecetasPublicadas] = useState([]);
-  const [userRecipes, setUserRecipes] = useState([]);
-  const [loadingUserRecipes, setLoadingUserRecipes] = useState(false);
-  const [allCategories, setAllCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [hoveredRecipe, setHoveredRecipe] = useState(null);
-  const [recipeDetails, setRecipeDetails] = useState({});
-  const [loadingDetails, setLoadingDetails] = useState({});
   const [showAuthModal, setShowAuthModal] = useState(false);
   
   const { user } = useContext(UserContext);
-  const { toggleLike, isLiked, addToFavoriteDetails } = useFavorites();
+  const { toggleLike, isLiked } = useFavorites();
   const navigate = useNavigate();
 
-  const slugify = (str) =>
-    str
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "");
+  // Custom hooks
+  const {
+    recetasPublicadas,
+    allUsers,
+    allCategories,
+    loadingUserRecipes,
+    getLatestUserRecipe,
+    getFeaturedRecipe,
+    getRecentRecipes
+  } = useRecipes(user);
 
-  useEffect(() => {
-    fetch("https://pfv4sj6v-5000.use2.devtunnels.ms/api/recetas")
-      .then((res) => res.json())
-      .then((data) => {
-        const sortedData = data.sort((a, b) => b.id - a.id);
-        setRecetasPublicadas(sortedData);
+  const {
+    searchTerm,
+    searchResults,
+    isSearching,
+    handleSearch,
+    hasResults,
+    getFirstResult
+  } = useSearch(recetasPublicadas, allCategories, allUsers);
 
-        const categoriesSet = new Set(
-          sortedData.map((receta) => slugify(receta.categoria))
-        );
-        setAllCategories(Array.from(categoriesSet));
-      })
-      .catch((err) => console.error("Error al cargar recetas:", err));
-  }, []);
+  const {
+    hoveredRecipe,
+    recipeDetails,
+    loadingDetails,
+    handleRecipeHover,
+    handleRecipeLeave
+  } = useRecipeDetails();
 
-  useEffect(() => {
-    if (user && user.id) {
-      setLoadingUserRecipes(true);
-      fetch(`https://pfv4sj6v-5000.use2.devtunnels.ms/api/usuarios/${user.id}/recetas`)
-        .then((res) => res.json())
-        .then((data) => {
-          const sortedUserRecipes = data.sort((a, b) => b.id - a.id);
-          setUserRecipes(sortedUserRecipes);
-        })
-        .catch((err) => {
-          console.error("Error al cargar recetas del usuario:", err);
-          setUserRecipes([]);
-        })
-        .finally(() => {
-          setLoadingUserRecipes(false);
-        });
-    } else {
-      setUserRecipes([]);
-      setLoadingUserRecipes(false);
-    }
-  }, [user]);
-
-  // Cargar detalles de la receta y el usuario cuando se hace hover
-  const fetchRecipeDetails = async (recipeId) => {
-    if (recipeDetails[recipeId] || loadingDetails[recipeId]) return;
-    
-    setLoadingDetails(prev => ({ ...prev, [recipeId]: true }));
-    
-    try {
-      const recipeResponse = await api.get(`/recetas/${recipeId}`);
-      const recipeData = recipeResponse.data;
-      
-      const userResponse = await api.get(`/usuarios/${recipeData.usuarioId}`);
-      const userData = userResponse.data;
-      
-      const fullRecipeData = {
-        ...recipeData,
-        autor: userData
-      };
-      
-      setRecipeDetails(prev => ({
-        ...prev,
-        [recipeId]: fullRecipeData
-      }));
-      
-      // Add to favorites context for caching
-      addToFavoriteDetails(fullRecipeData);
-    } catch (error) {
-      console.error("Error al cargar detalles de la receta:", error);
-    } finally {
-      setLoadingDetails(prev => ({ ...prev, [recipeId]: false }));
-    }
-  };
-
-  const handleRecipeHover = (recipeId) => {
-    setHoveredRecipe(recipeId);
-    fetchRecipeDetails(recipeId);
-  };
-
-  const handleRecipeLeave = () => {
-    setHoveredRecipe(null);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      const term = slugify(searchTerm);
-      if (allCategories.includes(term)) {
-        navigate(`/${term}`);
-      } else {
-        alert("Categoría no encontrada");
-      }
-    }
-  };
-
-  const filteredCategories = allCategories.filter(
-    (cat) => cat.includes(slugify(searchTerm)) && searchTerm !== ""
-  );
-
-  const latestUserRecipe = userRecipes.length > 0 ? userRecipes[0] : null;
-
-  const getRecentRecipes = () => {
-    let filteredRecipes = recetasPublicadas;
-
-    if (user && user.id) {
-      filteredRecipes = recetasPublicadas.filter(
-        (receta) => receta.usuarioId !== user.id
-      );
-    }
-
-    return filteredRecipes.slice(0, 6);
-  };
 
   // Función para manejar el toggle de likes
   const handleToggleLike = async (recipeId, event) => {
@@ -168,17 +91,6 @@ function MainPage() {
       closeAuthModal();
     }
   };
-
-  const getFeaturedRecipe = () => {
-    if (user && user.id) {
-      return recetasPublicadas.find(receta => receta.usuarioId !== user.id) || null;
-    } else {
-      return recetasPublicadas.length > 0 ? recetasPublicadas[0] : null;
-    }
-  };
-
-  const featuredRecipe = getFeaturedRecipe();
-  const recentRecipes = getRecentRecipes();
 
   // Componente del corazón SVG
   const HeartIcon = ({ recipeId, className = "" }) => {
@@ -298,6 +210,7 @@ function MainPage() {
     );
   };
 
+  // Componente del Tooltip de Recetas
   const RecipeTooltip = ({ recipe, details, isLoading, isFeatured = false }) => {
     if (isLoading) {
       return (
@@ -311,14 +224,6 @@ function MainPage() {
     }
 
     if (!details) return null;
-
-    const getAvatarUrl = (autor) => {
-      if (autor?.avatar) {
-        return autor.avatar;
-      }
-      const initials = autor?.name ? autor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'U';
-      return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=e8b44a&color=fff&size=40&font-size=0.6`;
-    };
 
     return (
       <div className={`recipe-tooltip ${isFeatured ? 'featured-tooltip' : ''}`}>
@@ -382,31 +287,14 @@ function MainPage() {
           <FoodCategoryBar />
 
           <div className="content-grid">
-            <div className="div1">
-              <input
-                type="text"
-                placeholder="🔍 Buscar categoría..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleKeyDown}
-                autoComplete="off"
-              />
-
-              {filteredCategories.length > 0 && (
-                <>
-                  <h3>Sugerencias</h3>
-                  {filteredCategories.map((cat, index) => (
-                    <button
-                      key={index}
-                      className="category-button"
-                      onClick={() => navigate(`/${cat}`)}
-                    >
-                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                    </button>
-                  ))}
-                </>
-              )}
-            </div>
+            <SearchBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearch}
+              searchResults={searchResults}
+              isSearching={isSearching}
+              hasResults={hasResults}
+              getFirstResult={getFirstResult}
+            />
 
             <div className="recipe-card">
               {user ? (
@@ -415,19 +303,19 @@ function MainPage() {
                     <div className="loading-state">
                       <p>Cargando tus recetas...</p>
                     </div>
-                  ) : latestUserRecipe ? (
+                  ) : getLatestUserRecipe ? (
                     <Link to={`/myrecipes/${user.id}`} className="featured-link">
                       <h3 className="destacada-titulo">Mis Recetas</h3>
                       <img
                         className="destacada-imagen"
-                        src={latestUserRecipe.imagen}
-                        alt={latestUserRecipe.titulo}
+                        src={getLatestUserRecipe.imagen}
+                        alt={getLatestUserRecipe.titulo}
                         loading="lazy"
                       />
                       <div className="featured-overlay">
                         <span className="featured-badge">¡Tu Receta!</span>
                       </div>
-                      <div className="destacada-info">{latestUserRecipe.titulo}</div>
+                      <div className="destacada-info">{getLatestUserRecipe.titulo}</div>
                     </Link>
                   ) : (
                     <section className="start-cooking">
@@ -442,35 +330,35 @@ function MainPage() {
                 </>
               ) : (
                 <>
-                  {featuredRecipe ? (
+                  {getFeaturedRecipe ? (
                     <div className="featured-recipe-wrapper">
                       <Link 
-                        to={`/recipes/${featuredRecipe.id}`} 
+                        to={`/recipes/${getFeaturedRecipe.id}`} 
                         className="featured-link"
-                        onMouseEnter={() => handleRecipeHover(featuredRecipe.id)}
+                        onMouseEnter={() => handleRecipeHover(getFeaturedRecipe.id)}
                         onMouseLeave={handleRecipeLeave}
                       >
                         <h3 className="destacada-titulo">Receta Destacada</h3>
                         <img
                           className="destacada-imagen"
-                          src={featuredRecipe.imagen}
-                          alt={featuredRecipe.titulo}
+                          src={getFeaturedRecipe.imagen}
+                          alt={getFeaturedRecipe.titulo}
                           loading="lazy"
                         />
                         <div className="featured-overlay">
                           <span className="featured-badge">¡Nueva!</span>
                         </div>
-                        <div className="destacada-info">{featuredRecipe.titulo}</div>
+                        <div className="destacada-info">{getFeaturedRecipe.titulo}</div>
                       </Link>
                       
                       {/* Corazón para receta destacada */}
-                      <HeartIcon recipeId={featuredRecipe.id} className="featured-heart" />
+                      <HeartIcon recipeId={getFeaturedRecipe.id} className="featured-heart" />
                       
-                      {hoveredRecipe === featuredRecipe.id && (
+                      {hoveredRecipe === getFeaturedRecipe.id && (
                         <RecipeTooltip 
-                          recipe={featuredRecipe}
-                          details={recipeDetails[featuredRecipe.id]}
-                          isLoading={loadingDetails[featuredRecipe.id]}
+                          recipe={getFeaturedRecipe}
+                          details={recipeDetails[getFeaturedRecipe.id]}
+                          isLoading={loadingDetails[getFeaturedRecipe.id]}
                           isFeatured={true}
                         />
                       )}
@@ -494,8 +382,8 @@ function MainPage() {
               <> 
                 <h2 className="recent-title">Otras Recetas Recientes</h2>
                 <div className="recetas-grid">
-                  {recentRecipes.length > 0 ? (
-                    recentRecipes.slice(0,7).map((receta) => (
+                  {getRecentRecipes.length > 0 ? (
+                    getRecentRecipes.slice(0, 7).map((receta) => (
                       <div key={receta.id} className="recipe-wrapper">
                         <Link
                           to={`/recipes/${receta.id}`}
@@ -535,8 +423,8 @@ function MainPage() {
               <>
                 <h2 className="recent-title">Recetas Recientes</h2>
                 <div className="recetas-grid">
-                  {recentRecipes.length > 0 ? (
-                    recentRecipes.slice(1,7).map((receta) => (
+                  {getRecentRecipes.length > 0 ? (
+                    getRecentRecipes.slice(1, 7).map((receta) => (
                       <div key={receta.id} className="recipe-wrapper">
                         <Link
                           to={`/recipes/${receta.id}`}

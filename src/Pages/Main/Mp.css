@@ -47,7 +47,7 @@ body {
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 3rem;
   overflow: visible; /* Permitir que el tooltip se vea */
 }
@@ -83,7 +83,6 @@ body {
    GRID DE RECETAS
    =============================== */
 .recent-section {
-  padding: 0 2.7rem;
   margin-top: 2rem;
 }
 
@@ -1937,5 +1936,50 @@ body {
     border-width: 3px;
   }
 }
+
+/* ===============================
+   SEARCH FORM
+   =============================== */
+
+
+
+/* Contenedor del input de búsqueda */
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  color: #9ca3af;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.clear-search {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.clear-search:hover {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+/* Actualización del input de búsqueda */
+
 
 
