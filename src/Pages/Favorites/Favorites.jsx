@@ -3,58 +3,27 @@ import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { Footer } from '../../components/footer/Footer';
 import { useFavorites } from '../context/FavoriteContext';
-import api from '../../api/axiosConfig';
 import './Favorites.css';
 
 const Favorites = () => {
-  const { likedRecipes, removeLike, addToFavoriteDetails } = useFavorites();
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const { getFavoriteRecipes, removeLike } = useFavorites();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const favoriteRecipes = getFavoriteRecipes();
 
   useEffect(() => {
-    const fetchFavoriteRecipes = async () => {
-      if (likedRecipes.size === 0) {
-        setFavoriteRecipes([]);
-        setLoading(false);
-        return;
-      }
+    // Simular carga inicial
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
 
-      try {
-        setLoading(true);
-        const recipePromises = Array.from(likedRecipes).map(async (recipeId) => {
-          try {
-            const response = await api.get(`/recetas/${recipeId}`);
-            return response.data;
-          } catch (error) {
-            console.error(`Error fetching recipe ${recipeId}:`, error);
-            return null;
-          }
-        });
+    return () => clearTimeout(timer);
+  }, []);
 
-        const recipes = await Promise.all(recipePromises);
-        const validRecipes = recipes.filter(recipe => recipe !== null);
-        
-        setFavoriteRecipes(validRecipes);
-        
-        // Add to context details for future use
-        validRecipes.forEach(recipe => addToFavoriteDetails(recipe));
-        
-      } catch (error) {
-        console.error('Error fetching favorite recipes:', error);
-        setError('Error al cargar las recetas favoritas');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFavoriteRecipes();
-  }, [likedRecipes, addToFavoriteDetails]);
-
-  const handleRemoveFavorite = (recipeId, event) => {
+  const handleRemoveFavorite = async (recipeId, event) => {
     event.preventDefault();
     event.stopPropagation();
-    removeLike(recipeId);
+    await removeLike(recipeId);
   };
 
   if (loading) {
@@ -65,20 +34,6 @@ const Favorites = () => {
           <div className="loading-state">
             <div className="loading-spinner"></div>
             <p>Cargando tus recetas favoritas...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="page-wrapper">
-        <Navbar />
-        <div className="favorites-container">
-          <div className="error-state">
-            <p>{error}</p>
           </div>
         </div>
         <Footer />
