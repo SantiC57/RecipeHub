@@ -19,7 +19,7 @@ function MainPage() {
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [loadingDetails, setLoadingDetails] = useState({});
-  const [showAuthModal, setShowAuthModal] = useState(false); // Estado para el modal
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   const { user } = useContext(UserContext);
   const { toggleLike, isLiked, addToFavoriteDetails } = useFavorites();
@@ -76,11 +76,9 @@ function MainPage() {
     setLoadingDetails(prev => ({ ...prev, [recipeId]: true }));
     
     try {
-      // Obtener detalles completos de la receta
       const recipeResponse = await api.get(`/recetas/${recipeId}`);
       const recipeData = recipeResponse.data;
       
-      // Obtener información del usuario que creó la receta
       const userResponse = await api.get(`/usuarios/${recipeData.usuarioId}`);
       const userData = userResponse.data;
       
@@ -141,10 +139,10 @@ function MainPage() {
     return filteredRecipes.slice(0, 6);
   };
 
-  // Función para manejar el toggle de likes usando el contexto global
-  const handleToggleLike = (recipeId, event) => {
-    event.preventDefault(); // Prevenir navegación al hacer click en el corazón
-    event.stopPropagation(); // Prevenir bubbling
+  // Función para manejar el toggle de likes
+  const handleToggleLike = async (recipeId, event) => {
+    event.preventDefault();
+    event.stopPropagation();
     
     // Verificar si el usuario está logueado
     if (!user) {
@@ -152,13 +150,11 @@ function MainPage() {
       return;
     }
     
-    // Encontrar la receta y añadirla al contexto de favoritos
+    // Encontrar la receta completa para pasarla al contexto
     const recipe = recetasPublicadas.find(r => r.id === recipeId);
-    if (recipe) {
-      addToFavoriteDetails(recipe);
-    }
     
-    toggleLike(recipeId);
+    // Pasar tanto el ID como los datos completos de la receta
+    await toggleLike(recipeId, recipe);
   };
 
   // Función para cerrar el modal
@@ -317,11 +313,9 @@ function MainPage() {
     if (!details) return null;
 
     const getAvatarUrl = (autor) => {
-      // Corregido: usar 'avatar' en lugar de 'fotoPerfil'
       if (autor?.avatar) {
         return autor.avatar;
       }
-      // Usar avatar por defecto basado en las iniciales del nombre
       const initials = autor?.name ? autor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'U';
       return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=e8b44a&color=fff&size=40&font-size=0.6`;
     };
@@ -593,5 +587,4 @@ function MainPage() {
   );
 }
 
-// Solo un export default al final
 export default MainPage;

@@ -149,8 +149,8 @@ const MyRecipes = () => {
 
     return (
         <>
-            <main className="my-recipes">
             <Navbar />
+            <main className="my-recipes">
                 <header className="my-recipes__header">
                     <div className="my-recipes__header-content">
                         <div className="my-recipes__title-section">
