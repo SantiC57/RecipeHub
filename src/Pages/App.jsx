@@ -21,6 +21,7 @@ import MyRecipes from "./Recipes/MyRecipes.jsx";
 import Ensaladas from "./Ensaladas/Ensaladas.jsx";
 import Salsas from "./Salsas/Salsas.jsx";
 import Favorites from './Favorites/Favorites.jsx';
+import Profiles from './Profiles/Profiles.jsx';
 
 function DynamicTitle() {
   const location = useLocation();
@@ -41,7 +42,8 @@ function DynamicTitle() {
       "/profile": "Mi perfil",
       "/Support": "Soporte",
       "/recipes": "Mis recetas",
-      "/favorites": "Mis Favoritos"
+      "/favorites": "Mis Favoritos",
+      "/profiles": "Perfil"
     };
     document.title = titles[location.pathname] || "Recipehub";
   }, [location]);
@@ -121,6 +123,7 @@ function AppRoutes() {
       <Route path="/salsas" element={<Salsas />} />
       <Route path="/myrecipes/:id" element={<MyRecipes />}/> 
       <Route path="/favorites" element={<Favorites />} />
+      <Route path="/profiles/:userId" element={<Profiles />} />
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 .my-recipes {
-    padding: 0;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -12,6 +12,7 @@
     padding: 1rem 2rem;
     margin-top: 5rem;
     border-bottom: 1px solid #f3f4f6;
+    border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
@@ -476,9 +477,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .my-recipes__header {
-        padding: 1.5rem 1rem;
-    }
     
     .my-recipes__title {
         font-size: 2rem;
@@ -518,9 +516,6 @@
 }
 
 @media (max-width: 480px) {
-    .my-recipes__header {
-        padding: 1rem 0.5rem;
-    }
     
     .my-recipes__title {
         font-size: 1.8rem;
@@ -531,7 +526,7 @@
     }
     
     .my-recipes__search-input {
-        font-size: 0.9rem;
+        font-size: 0.76rem;
         height: 2.75rem;
     }
     
