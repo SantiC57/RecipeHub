@@ -4,11 +4,18 @@ import { getAvatarUrl } from "../../lib/utils";
 
 const SearchResults = ({ searchResults, onResultClick, hasResults }) => {
     const navigate = useNavigate();
+    
+    // Verificar que searchResults existe y tiene la estructura correcta
+    if (!searchResults) {
+        return null;
+    }
+    
     const { categorias, recetas, usuarios } = searchResults;
 
     const handleResultClick = (path) => {
+        console.log("🔄 SearchResults: Navigating to:", path);
         navigate(path);
-        onResultClick();
+        onResultClick?.(); // Usar optional chaining
     };
 
     // Si no hay resultados y se está buscando
@@ -78,30 +85,48 @@ const SearchResults = ({ searchResults, onResultClick, hasResults }) => {
                 </div>
             )}
 
-            {/* Usuarios */}
+            {/* Usuarios - ARREGLADO */}
             {usuarios && usuarios.length > 0 && (
                 <div className="result-section">
                     <h4>Usuarios</h4>
-                    {usuarios.map(user => (
-                        <button
-                            key={user.id}
-                            className="result-item user-result"
-                            onClick={() => handleResultClick(`/profile/${user.id}`)}
-                        >
-                            <img
-                                src={getAvatarUrl(user)}
-                                alt={user.name}
-                                className="result-avatar"
-                                onError={(e) => {
-                                    e.target.src = getAvatarUrl({ name: 'Usuario' });
+                    {usuarios.map(user => {
+                        console.log("🔍 SearchResults: Processing user:", user);
+                        
+                        // Detectar diferentes campos de ID que puede tener el usuario
+                        const userId = user.id || user.user_id || user.usuario_id || user.userId;
+                        const userName = user.name || user.nombre || user.username || 'Usuario';
+                        
+                        console.log("🔍 SearchResults: Extracted userId:", userId, "userName:", userName);
+                        
+                        if (!userId) {
+                            console.warn("⚠️ SearchResults: Usuario sin ID válido:", user);
+                            return null;
+                        }
+
+                        return (
+                            <button
+                                key={userId}
+                                className="result-item user-result"
+                                onClick={() => {
+                                    console.log("👤 SearchResults: Clicking user with ID:", userId);
+                                    handleResultClick(`/profiles/${userId}`);
                                 }}
-                            />
-                            <div className="result-content">
-                                <span className="result-title">{user.name}</span>
-                                <span className="result-category">Usuario</span>
-                            </div>
-                        </button>
-                    ))}
+                            >
+                                <img
+                                    src={getAvatarUrl(user)}
+                                    alt={userName}
+                                    className="result-avatar"
+                                    onError={(e) => {
+                                        e.target.src = getAvatarUrl({ name: 'Usuario' });
+                                    }}
+                                />
+                                <div className="result-content">
+                                    <span className="result-title">{userName}</span>
+                                    <span className="result-category">Usuario (ID: {userId})</span>
+                                </div>
+                            </button>
+                        );
+                    })}
                 </div>
             )}
         </div>

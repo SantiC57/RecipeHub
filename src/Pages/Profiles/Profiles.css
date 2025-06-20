@@ -1,0 +1,895 @@
+/* ===============================
+   BASE STYLES
+   =============================== */
+.profiles-main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    gap: 2rem;
+    min-height: 100vh;
+}
+
+/* ===============================
+   LOADING & ERROR STATES
+   =============================== */
+.loading-container, .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #e8b44a;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.mini-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-container h2 {
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.back-home-button {
+    background: var(--color-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.back-home-button:hover {
+    background: #d97706;
+}
+
+/* ===============================
+   BACK BUTTON
+   =============================== */
+.profiles-back__link {
+    text-decoration: none;
+    width: fit-content;
+}
+
+.profiles-back__button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    background: #303030;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 180, 74, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.profiles-back__button:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.profiles-back__button:hover {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 8px 24px rgba(232, 180, 74, 0.3);
+}
+
+.profiles-back__button .close-icon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.profiles-back__button:hover .close-icon {
+    transform: translateX(-2px);
+}
+
+/* ===============================
+   HEADER SECTION - SPOTIFY STYLE
+   =============================== */
+.profiles-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    background: linear-gradient(to bottom, var(--color-primary), #000000 100%);
+    padding: 0;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(114, 47, 55, 0.3);
+}
+
+.profiles-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(232, 180, 74, 0.1) 0%,
+        transparent 50%,
+        rgba(114, 47, 55, 0.2) 100%
+    );
+    pointer-events: none;
+}
+
+.profiles-header__info {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 3rem 2rem 2rem 2rem;
+    flex-wrap: wrap;
+}
+
+/* ===============================
+   PROFILE IMAGE & FOLLOW SECTION
+   =============================== */
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.profile-header__image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.profile-header__image:hover {
+    transform: scale(1.05);
+}
+
+.Follow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.follow-button {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    border: 2px solid white;
+    border-radius: 0.7rem;
+    padding: 12px 32px;
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.follow-button:hover {
+    background: transparent;
+    color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.follow-button.following {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.follow-button.following:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: white;
+}
+
+.follow-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===============================
+   USER DETAILS SECTION
+   =============================== */
+.user-details {
+    flex: 1;
+    min-width: 300px;
+    color: white;
+}
+
+.profile-header__title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0 0 0.5rem 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.1;
+}
+
+.profile-header__location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.profile-header__description {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+}
+
+.profile-header__stats {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.profile-header__stats li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.profile-header__stats strong {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    line-height: 1;
+}
+
+.profile-header__stats span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.25rem;
+}
+
+.user-tags {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0 0 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.user-tag {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.user-tag:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* ===============================
+   TABS SECTION
+   =============================== */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.tab-active {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 0.7rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(232, 180, 74, 0.3);
+}
+
+.tab-active:hover {
+    background: #d97706;
+    box-shadow: 0 6px 16px rgba(232, 180, 74, 0.4);
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 32px;
+    color: black;
+    font-weight: 600;
+    border-radius: 0.7rem;
+    border: 2px solid transparent;
+    background: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab:hover {
+    background: #d97706;
+    color: white;
+}
+
+/* ===============================
+   RECIPES GRID
+   =============================== */
+.profiles-recipes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.recipe-wrapper {
+    position: relative;
+    overflow: visible;
+}
+
+.recipe-card {
+    display: block;
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.15);
+    border-color: var(--color-primary);
+}
+
+.recipe-image-container {
+    position: relative;
+    width: 500px;
+    height: 200px;
+    overflow: hidden;
+    margin: -1rem 0 1rem -1rem;
+}
+
+.recipe-image {
+    width: 600px;
+    height: 250px;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+}
+
+.recipe-card:hover .recipe-image {
+    transform: scale(1.05);
+}
+
+.recipe-category-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-primary);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-content {
+    padding: 1.5rem;
+}
+
+.recipe-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.3;
+}
+
+.recipe-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.recipe-time svg {
+    color: var(--color-primary);
+}
+
+.recipe-description {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.recipe-heart {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.recipe-heart:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+   RECIPE PLACEHOLDER
+   =============================== */
+.recipe-placeholder {
+    grid-column: 1 / -1;
+    background: white;
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #9ca3af;
+    transition: all 0.3s ease;
+}
+
+.recipe-placeholder:hover {
+    border-color: var(--color-primary);
+    background: rgba(232, 180, 74, 0.05);
+}
+
+.recipe-placeholder h3 {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: #6b7280;
+}
+
+.recipe-placeholder p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* ===============================
+   ABOUT SECTION
+   =============================== */
+.profiles-about {
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+}
+
+.about-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.about-card h2 {
+    margin: 0 0 1.5rem 0;
+    color: var(--color-texto);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.about-content p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 2rem 0;
+    font-size: 1.1rem;
+}
+
+.about-details {
+    display: grid;
+    gap: 2rem;
+}
+
+.detail-item h4 {
+    margin: 0 0 0.75rem 0;
+    color: var(--color-texto);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.detail-item p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.specialties-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.specialty-tag {
+    background: var(--color-fondo);
+    color: var(--color-primary);
+    padding: 0.375rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid rgba(232, 180, 74, 0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--color-fondo);
+    border-radius: 12px;
+    border: 1px solid rgba(232, 180, 74, 0.2);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+@media (max-width: 1024px) {
+    .profiles-main {
+        padding: 1.5rem 0.5rem;
+        gap: 1.5rem;
+    }
+
+    .profiles-header__info {
+        gap: 1.5rem;
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .profile-header__image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-header__title {
+        font-size: 2.5rem;
+    }
+
+    .profiles-recipes {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .profiles-main {
+        padding: 1rem 0.25rem;
+    }
+
+    .profiles-header__info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 2rem 1rem 1.5rem 1rem;
+    }
+
+    .profile-image-section {
+        order: -1;
+        margin-bottom: 1rem;
+    }
+
+    .profile-header__image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .user-details {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .profile-header__title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .profile-header__location {
+        justify-content: center;
+    }
+
+    .profile-header__stats {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .user-tags {
+        justify-content: center;
+    }
+
+    .tabs {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .profiles-recipes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .stat-item {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profiles-main {
+        padding: 0.75rem 0.125rem;
+        gap: 1rem;
+    }
+
+    .profiles-header {
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+    }
+
+    .profiles-header__info {
+        padding: 1.5rem 0.75rem 1rem 0.75rem;
+        gap: 1rem;
+    }
+
+    .profile-image-section {
+        gap: 0.75rem;
+    }
+
+    .profile-header__image {
+        width: 100px;
+        height: 100px;
+        border-width: 4px;
+    }
+
+    .follow-button {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        min-width: 120px;
+    }
+
+    .profile-header__title {
+        font-size: 1.75rem;
+    }
+
+    .profile-header__location {
+        font-size: 1rem;
+    }
+
+    .profile-header__description {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-header__stats {
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-header__stats strong {
+        font-size: 1.25rem;
+    }
+
+    .profile-header__stats span {
+        font-size: 0.75rem;
+    }
+
+    .user-tags {
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .user-tag {
+        padding: 4px 12px;
+        font-size: 0.75rem;
+    }
+
+    .tab, .tab-active {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        gap: 0.375rem;
+    }
+
+    .tabs {
+        gap: 0.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profiles-recipes {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .about-card {
+        padding: 1.5rem;
+    }
+
+    .about-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .stat-item {
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .stat-number {
+        font-size: 1.25rem;
+    }
+}
+
+/* ===============================
+   ACCESSIBILITY & PERFORMANCE
+   =============================== */
+@media (prefers-reduced-motion: reduce) {
+    .profiles-header,
+    .recipe-card,
+    .profile-header__image,
+    .follow-button,
+    .tab,
+    .tab-active,
+    .profiles-back__button,
+    .recipe-image {
+        transition: none;
+    }
+
+    .loading-spinner,
+    .mini-spinner {
+        animation: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .profiles-header {
+        border: 3px solid var(--color-texto);
+    }
+
+    .user-tag {
+        border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .follow-button {
+        border-width: 3px;
+    }
+
+    .recipe-card {
+        border-width: 2px;
+    }
+}
+
+@media (pointer: coarse) {
+    .follow-button,
+    .tab,
+    .tab-active,
+    .profiles-back__button {
+        min-height: 44px;
+        padding: 12px 24px;
+    }
+
+    .recipe-heart {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+
